@@ -1,26 +1,4 @@
-
-.minMenu {
-  text-align-last: left;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  width: 45px;
-}
-
-.maxMenu {
-  text-align-last: left;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  width: 130px;
-}
-
-.workspace {
-  margin-left: 20px;
-  // color: var(--primary);
-  min-height: 700px;
-}
-
+// Toolbar
 .toolbartext {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 14px;
@@ -31,5 +9,43 @@
   position: absolute;
   right: 0px;
 }
+
+// Menü
+.minMenu {
+  text-align-last: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 65px;
+}
+
+.maxMenu {
+  text-align-last: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 130px;
+}
+
+.minMenuButton {
+  width: 65px;
+}
+
+.maxMenuButton {
+  width: 130px;
+}
+
+/*
+.active {
+  background-color: var(--accent);
+}
+*/
+//Arbeitsbereich nur zum Test
+.workspace {
+  margin-left: 20px;
+  // color: var(--primary);
+  min-height: 700px;
+}
+
 
 

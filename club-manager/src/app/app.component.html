@@ -32,7 +32,7 @@
     </button>-->
     <button mat-button routerLink="/logout">
       <mat-icon>logout</mat-icon>
-      Logout
+      <span *ngIf="isExpanded">Logout</span>
     </button>
     <span class="toolbartext">
       V 0.1
@@ -45,32 +45,32 @@
 
 <mat-sidenav-container>
   <mat-sidenav class="{{menuSize}}" #sidenav="matSidenav" mode="side" opened role="navigation">
-    <button mat-button routerLink="dashboard" routerLinkActive="active" class="menu-button">
+    <button mat-button routerLink="dashboard" routerLinkActive="active" class="{{menuButton}}">
       <mat-icon>home</mat-icon>
       <span *ngIf="isExpanded">Übersicht</span>
   </button>
-  <button mat-button routerLink="members" routerLinkActive="active" class="menu-button">
+  <button mat-button routerLink="members" routerLinkActive="active" class="{{menuButton}}">
       <mat-icon>person</mat-icon>
       <span *ngIf="isExpanded">Mitglieder</span>
   </button>
-  <button mat-button routerLink="groups" routerLinkActive="active" class="menu-button">
+  <button mat-button routerLink="groups" routerLinkActive="active" class="{{menuButton}}">
     <mat-icon>people</mat-icon>
     <span *ngIf="isExpanded">Gruppen</span>
   </button>
-  <button mat-button routerLink="activities" routerLinkActive="active" class="menu-button">
+  <button mat-button routerLink="activities" routerLinkActive="active" class="{{menuButton}}">
     <mat-icon>mood</mat-icon>
     <span *ngIf="isExpanded">Aktivitäten</span>
   </button>
-  <button mat-button routerLink="work" routerLSinkActive="active" class="menu-button">
+  <button mat-button routerLink="work" routerLinkActive="active" class="{{menuButton}}">
     <mat-icon>work</mat-icon>
     <span *ngIf="isExpanded">Arbeitsplan</span>
   </button>
   <mat-divider></mat-divider>
-  <button mat-button routerLink="reports" routerLinkActive="active" class="menu-button">
+  <button mat-button routerLink="reports" routerLinkActive="active" class="{{menuButton}}">
     <mat-icon>description</mat-icon>
     <span *ngIf="isExpanded">Reports</span>
   </button>
-    <button mat-button routerLink="statistic" routerLinkActive="active" class="menu-button">
+    <button mat-button routerLink="statistic" routerLinkActive="active" class="{{menuButton}}">
       <mat-icon>show_chart</mat-icon>
       <span *ngIf="isExpanded">Statistik</span>
   </button>
