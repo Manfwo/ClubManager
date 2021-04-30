@@ -7,6 +7,14 @@
         close
     </mat-icon>
   </button>
+  <button mat-icon-button (click)="toggleMenu()">
+    <mat-icon *ngIf="isExpanded">
+        keyboard_backspace
+    </mat-icon>
+    <mat-icon *ngIf="!isExpanded">
+        trending_flat
+    </mat-icon>
+  </button>
 
   <span>
     <button mat-button routerLink="/">{{title}}</button>
@@ -36,37 +44,37 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav="matSidenav" mode="side" opened role="navigation">
+  <mat-sidenav class="{{menuSize}}" #sidenav="matSidenav" mode="side" opened role="navigation">
     <button mat-button routerLink="dashboard" routerLinkActive="active" class="menu-button">
       <mat-icon>home</mat-icon>
-      <span>Übersicht</span>
+      <span *ngIf="isExpanded">Übersicht</span>
   </button>
   <button mat-button routerLink="members" routerLinkActive="active" class="menu-button">
       <mat-icon>person</mat-icon>
-      <span>Mitglieder</span>
+      <span *ngIf="isExpanded">Mitglieder</span>
   </button>
   <button mat-button routerLink="groups" routerLinkActive="active" class="menu-button">
     <mat-icon>people</mat-icon>
-    <span>Gruppen</span>
+    <span *ngIf="isExpanded">Gruppen</span>
   </button>
   <button mat-button routerLink="activities" routerLinkActive="active" class="menu-button">
     <mat-icon>mood</mat-icon>
-    <span>Aktivitäten</span>
+    <span *ngIf="isExpanded">Aktivitäten</span>
   </button>
   <button mat-button routerLink="work" routerLSinkActive="active" class="menu-button">
     <mat-icon>work</mat-icon>
-    <span>Arbeitsplan</span>
+    <span *ngIf="isExpanded">Arbeitsplan</span>
   </button>
   <mat-divider></mat-divider>
   <button mat-button routerLink="reports" routerLinkActive="active" class="menu-button">
     <mat-icon>description</mat-icon>
-    <span>Reports</span>
+    <span *ngIf="isExpanded">Reports</span>
   </button>
     <button mat-button routerLink="statistic" routerLinkActive="active" class="menu-button">
       <mat-icon>show_chart</mat-icon>
-      <span>Statistik</span>
+      <span *ngIf="isExpanded">Statistik</span>
   </button>
   </mat-sidenav>
 
-  <mat-sidenav-content><div class="workspace"><router-outlet></router-outlet></div></mat-sidenav-content>
+  <mat-sidenav-content ><div class="workspace"><router-outlet></router-outlet></div></mat-sidenav-content>
 </mat-sidenav-container>
