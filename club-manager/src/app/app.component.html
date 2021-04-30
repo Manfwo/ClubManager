@@ -1,0 +1,72 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+        menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+        close
+    </mat-icon>
+  </button>
+
+  <span>
+    <button mat-button routerLink="/">{{title}}</button>
+  </span>
+
+  <div class="right">
+    <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
+      <mat-icon>power_settings_new</mat-icon>
+      Login
+    </button>
+    <!--
+    <button mat-button *ngIf="isAuthenticated" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>-->
+    <button mat-button routerLink="/logout">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+    <span class="toolbartext">
+      V 0.1
+    </span>
+    <button mat-button routerLink="settings">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" mode="side" opened role="navigation">
+    <button mat-button routerLink="dashboard" routerLinkActive="active" class="menu-button">
+      <mat-icon>home</mat-icon>
+      <span>Übersicht</span>
+  </button>
+  <button mat-button routerLink="members" routerLinkActive="active" class="menu-button">
+      <mat-icon>person</mat-icon>
+      <span>Mitglieder</span>
+  </button>
+  <button mat-button routerLink="groups" routerLinkActive="active" class="menu-button">
+    <mat-icon>people</mat-icon>
+    <span>Gruppen</span>
+  </button>
+  <button mat-button routerLink="activities" routerLinkActive="active" class="menu-button">
+    <mat-icon>mood</mat-icon>
+    <span>Aktivitäten</span>
+  </button>
+  <button mat-button routerLink="work" routerLSinkActive="active" class="menu-button">
+    <mat-icon>work</mat-icon>
+    <span>Arbeitsplan</span>
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-button routerLink="reports" routerLinkActive="active" class="menu-button">
+    <mat-icon>description</mat-icon>
+    <span>Reports</span>
+  </button>
+    <button mat-button routerLink="statistic" routerLinkActive="active" class="menu-button">
+      <mat-icon>show_chart</mat-icon>
+      <span>Statistik</span>
+  </button>
+  </mat-sidenav>
+
+  <mat-sidenav-content><div class="workspace"><router-outlet></router-outlet></div></mat-sidenav-content>
+</mat-sidenav-container>
