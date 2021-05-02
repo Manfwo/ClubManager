@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="sidenav.toggle()">
-    <mat-icon *ngIf="!sidenav.opened">
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon *ngIf="!isShowing">
         menu
     </mat-icon>
-    <mat-icon *ngIf="sidenav.opened">
+    <mat-icon *ngIf="isShowing">
         close
     </mat-icon>
   </button>
@@ -44,7 +44,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav class="{{menuSize}}" #sidenav="matSidenav" mode="side" opened role="navigation">
+  <mat-sidenav class="{{menuSize}}" #sidenav="matSidenav" mode="side" [opened]="isShowing" role="navigation">
     <button mat-button routerLink="dashboard" routerLinkActive="active" class="{{menuButton}}">
       <mat-icon>home</mat-icon>
       <span *ngIf="isExpanded">Übersicht</span>
