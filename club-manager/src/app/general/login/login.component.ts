@@ -1,0 +1,59 @@
+import { CommonValues } from './../../_shared/common';
+import { JwtResponse } from './../jwt-response';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserStoreService } from '../../_shared/user-store.service';
+import { TokenStorageService } from '../../_shared/token-storage.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { User } from '../../_shared/user';
+
+
+@Component({
+  selector: 'cl-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
+
+  constructor(
+    public fb: FormBuilder,
+    private userService: UserStoreService,
+    private tokenStore: TokenStorageService,
+    private router: Router) { }
+
+  loginForm: FormGroup;
+  hide = true;
+
+  ngOnInit(): void {
+    console.log('Login-Dialog');
+    this.reactiveForm();
+  }
+
+  /* Reactive form */
+  reactiveForm(): void  {
+    this.loginForm = this.fb.group({
+      Username: ['', [Validators.required]],
+      Password: ['', [Validators.required, Validators.minLength(8)]]
+    });
+  }
+
+  submitForm(): void {
+    const formValue = this.loginForm.value;
+    const newUser: User = {...formValue };
+    this.userService.login(newUser).subscribe( v => {
+      console.log(v.accessToken);
+      this.tokenStore.saveToken(v.accessToken);
+      CommonValues.isAuthenticated = true;
+      if (v.accessToken === undefined) {
+        this.tokenStore.signOut();
+        // CommonValues.isAuthenticated = false;
+      }
+      else {
+        console.log('GOTO DASHBOARD');
+        this.router.navigate(['dashboard']);
+      }
+    });
+  }
+
+}
