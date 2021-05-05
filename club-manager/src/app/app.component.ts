@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonValues } from './_shared/common';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Inject} from '@angular/core';
 import { DOCUMENT} from '@angular/common';
 import { ThemeSwitchComponent } from './general/theme-switch/theme-switch.component';
 import { LocalStorageService } from './_shared/local-storage.service';
+import { TokenStorageService } from './_shared/token-storage.service';
 
 @Component({
   selector: 'cl-root',
@@ -10,21 +12,24 @@ import { LocalStorageService } from './_shared/local-storage.service';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
 
-  constructor(@Inject(DOCUMENT) private document: Document, private localStorageService: LocalStorageService) {
+  constructor(
+    @Inject(DOCUMENT)
+    private document: Document,
+    private localStorageService: LocalStorageService,
+    private tokenStore: TokenStorageService ) {
   }
   public title = 'Club-Manager';
-  public isAuthenticated = true;
   public isShowing = true;
-  public isExpanded = false;
   public menuButton = 'minMenuButton';
   public menuSize = 'minMenu';
+  public isExpanded = false;
+  public isAuthenticated = false;
 
   ngOnInit(): void {
     // Theme setzen
     const switchTheme = new ThemeSwitchComponent(this.document, this.localStorageService);
-    console.log('setting', this.localStorageService.get('theme'));
     if (this.localStorageService.get('theme') === 'light') {
       switchTheme.selectLightTheme();
     }
@@ -35,6 +40,20 @@ export class AppComponent implements OnInit {
     this.setMenu(this.localStorageService.get('expandMenu'));
     // Open/Close Menü
     this.isShowing = this.localStorageService.get('showMenu');
+  }
+
+  ngDoCheck(): void {
+    if (this.isAuthenticated === false) {
+      this.isAuthenticated = CommonValues.isAuthenticated;
+      console.log('DoCheck - Authentication:', this.isAuthenticated);
+    }
+  }
+
+  // Logout
+  public logout(): void  {
+    this.tokenStore.signOut();
+    this.isAuthenticated  = false;
+    CommonValues.isAuthenticated = false;
   }
 
   // Menü anzeigen

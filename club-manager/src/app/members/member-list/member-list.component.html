@@ -1,1 +1,22 @@
-<h2>Mitgliederliste</h2>
+<div class="ui middle aligned selection divided list">
+
+  <ng-container *ngIf="members$ | async as members; else loading">
+    <cl-member-list-item class="item"
+      *ngFor="let m of members"
+      [member]="m"></cl-member-list-item>
+      <!-- [routerLink]="m.Id"></cl-member-list-item> -->
+
+    <p *ngIf="!members.length">
+      Es wurden noch keine Mitglieder angelegt.
+    </p>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="ui active dimmer">
+      <div class="ui large text loader">
+        Daten werden geladen...
+      </div>
+    </div>
+  </ng-template>
+
+</div>

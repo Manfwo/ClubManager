@@ -21,18 +21,13 @@
   </span>
 
   <div class="right">
-    <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
+    <button mat-button routerLink="login" routerLinkActive="active" *ngIf="!isAuthenticated">
       <mat-icon>power_settings_new</mat-icon>
       Login
     </button>
-    <!--
     <button mat-button *ngIf="isAuthenticated" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       Logout
-    </button>-->
-    <button mat-button routerLink="/logout">
-      <mat-icon>logout</mat-icon>
-      <span *ngIf="isExpanded">Logout</span>
     </button>
     <span class="toolbartext">
       V 0.1

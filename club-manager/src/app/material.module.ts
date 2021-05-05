@@ -13,6 +13,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -24,7 +25,10 @@ imports: [
           MatMenuModule,
           MatDividerModule,
           MatProgressSpinnerModule,
-          MatButtonToggleModule
+          MatButtonToggleModule,
+          MatCardModule,
+          MatInputModule,
+          MatFormFieldModule
         ],
 
 exports: [
@@ -35,7 +39,10 @@ exports: [
           MatMenuModule,
           MatDividerModule,
           MatProgressSpinnerModule,
-          MatButtonToggleModule
+          MatButtonToggleModule,
+          MatCardModule,
+          MatInputModule,
+          MatFormFieldModule
         ],
 
 })

@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { AuthGuard } from '../general/auth/auth.guard';
 import { WorkListComponent } from './work-list/work-list.component';
-// import { MemberDetailsComponent } from './member-details/member-details.component';
 
 const routes: Routes = [
  {
     path: '',
-    component: WorkListComponent
+    component: WorkListComponent, canActivate : [AuthGuard]
   } /*,
   {
     path: ':id',

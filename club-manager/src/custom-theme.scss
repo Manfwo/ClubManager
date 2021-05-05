@@ -14,7 +14,6 @@
   $custom-theme-primary: mat-palette($primary, Main, Light, Dark);
   $custom-theme-accent: mat-palette($mat-orange, A200, A100, A400);
   $custom-theme-warn: mat-palette($mat-red);
-  $primary: mat-color($custom-theme-primary);
 
   $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
   @include angular-material-theme($custom-theme);

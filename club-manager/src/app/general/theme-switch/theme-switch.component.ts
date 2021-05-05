@@ -1,5 +1,5 @@
-import {Component, Inject} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { LocalStorageService } from '../../_shared/local-storage.service';
 
 @Component({

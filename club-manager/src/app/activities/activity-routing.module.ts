@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { AuthGuard } from '../general/auth/auth.guard';
 import { ActivityListComponent } from './activity-list/activity-list.component';
-// import { MemberDetailsComponent } from './member-details/member-details.component';
 
 const routes: Routes = [
  {
     path: '',
-    component: ActivityListComponent
+    component: ActivityListComponent, canActivate : [AuthGuard]
   } /*,
   {
     path: ':id',
