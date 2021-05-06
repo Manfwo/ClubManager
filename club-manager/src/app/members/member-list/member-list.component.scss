@@ -1,0 +1,16 @@
+// Toolbar
+.mat-toolbar {
+  min-height: 40px !important;
+  height: 40px !important;
+}
+
+.toolbartext {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.right {
+  position: absolute;
+  right: 0px;
+}

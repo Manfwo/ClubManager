@@ -1,10 +1,22 @@
-<div class="ui middle aligned selection divided list">
+<mat-toolbar color="accent">
+  <span>
+    Mitglieder
+  </span>
 
-  <ng-container *ngIf="members$ | async as members; else loading">
-    <cl-member-list-item class="item"
+  <div class="right">
+    <button mat-button routerLink="settings">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<!--
+<ng-container *ngIf="members$ | async as members; else loading">
+
+  <cl-member-list-item class="item"
       *ngFor="let m of members"
       [member]="m"></cl-member-list-item>
-      <!-- [routerLink]="m.Id"></cl-member-list-item> -->
+ [routerLink]="m.Id"></cl-member-list-item>
 
     <p *ngIf="!members.length">
       Es wurden noch keine Mitglieder angelegt.
@@ -12,11 +24,39 @@
   </ng-container>
 
   <ng-template #loading>
-    <div class="ui active dimmer">
-      <div class="ui large text loader">
-        Daten werden geladen...
-      </div>
-    </div>
+    <mat-progress-spinner></mat-progress-spinner>
   </ng-template>
+-->
 
-</div>
+<mat-table class="member-table" [dataSource]="members$">
+
+  <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>Nr</mat-header-cell>
+      <mat-cell *matCellDef="let member">{{member.Id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="familyname">
+      <mat-header-cell *matHeaderCellDef>Nachname</mat-header-cell>
+      <mat-cell class="description-cell" *matCellDef="let member">{{member.Familyname}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="firstname">
+      <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
+      <mat-cell class="duration-cell" *matCellDef="let member">{{member.Firstname}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="street">
+    <mat-header-cell *matHeaderCellDef>Straße</mat-header-cell>
+    <mat-cell class="duration-cell" *matCellDef="let member">{{member.Street}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="city">
+    <mat-header-cell *matHeaderCellDef>Ort</mat-header-cell>
+    <mat-cell class="duration-cell" *matCellDef="let member">{{member.City}}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
+

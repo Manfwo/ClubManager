@@ -12,7 +12,7 @@
      Dark: #000
     ));
   $custom-theme-primary: mat-palette($primary, Main, Light, Dark);
-  $custom-theme-accent: mat-palette($mat-orange, A200, A100, A400);
+  $custom-theme-accent: mat-palette($mat-grey, A200, A100, A400);
   $custom-theme-warn: mat-palette($mat-red);
 
   $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
@@ -45,7 +45,7 @@
   ));
  $accent:
  (
- Main: #ff9100,
+ Main: #c48f4a,
  Light: #ffc246,
  Dark: #c56200,
  contrast: (

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { MyMaterialModule  } from './material.module';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +15,6 @@ import { ReportListComponent } from './reports/report-list/report-list.component
 import { StatisticComponent } from './statistic/statistic/statistic.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './general/auth/auth.guard';
-
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Member } from '../../_shared/member';
+import { Member } from '../member';
 
 @Component({
   selector: 'cl-member-list-item',

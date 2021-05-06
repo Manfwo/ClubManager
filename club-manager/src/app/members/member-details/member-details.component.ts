@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Member } from '../../_shared/member';
-import { MemberStoreService } from '../../_shared/member-store.service';
+import { Member } from '../member';
+import { MemberStoreService } from '../member-store.service';
 
 @Component({
   selector: 'cl-member-details',

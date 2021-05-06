@@ -28,7 +28,8 @@ imports: [
           MatButtonToggleModule,
           MatCardModule,
           MatInputModule,
-          MatFormFieldModule
+          MatFormFieldModule,
+          MatTableModule
         ],
 
 exports: [
@@ -42,7 +43,8 @@ exports: [
           MatButtonToggleModule,
           MatCardModule,
           MatInputModule,
-          MatFormFieldModule
+          MatFormFieldModule,
+          MatTableModule
         ],
 
 })
