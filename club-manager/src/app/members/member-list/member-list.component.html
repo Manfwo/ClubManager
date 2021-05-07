@@ -21,7 +21,7 @@
   <mat-spinner value="100" mode="determinate" diameter="40"></mat-spinner>
 </div>
 
-<mat-table class="member-table" [dataSource]="members$" matSort matSortActive="familyname" matSortDirection="asc" matSortDisableClear>
+<mat-table class="member-table" [dataSource]="members$" matSort (matSortChange)="sortData($event)">
 
   <ng-container matColumnDef="familyname">
       <mat-header-cell mat-sort-header *matHeaderCellDef>Nachname</mat-header-cell>
@@ -39,7 +39,7 @@
   </ng-container>
 
   <ng-container matColumnDef="zip">
-    <mat-header-cell *matHeaderCellDef>PLZ</mat-header-cell>
+    <mat-header-cell mat-sort-header *matHeaderCellDef>PLZ</mat-header-cell>
     <mat-cell *matCellDef="let member">{{member.Zipcode}}</mat-cell>
 </ng-container>
 

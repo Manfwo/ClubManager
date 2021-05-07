@@ -4,7 +4,7 @@ import { Component, ViewChild, OnInit, AfterViewInit, ElementRef, } from '@angul
 import { Observable, fromEvent, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { Member } from '../member';
 import { MemberStoreService } from '../member-store.service';
 
@@ -66,6 +66,38 @@ export class MemberListComponent implements OnInit, AfterViewInit {
         tap(() => this.loadMemberPage())
     )
     .subscribe();
+  }
+
+  sortData(sort: Sort): void {
+    if (!sort.active || sort.direction === '') {
+      this.sortField = 'me_family_name';
+      return;
+    }
+    console.log('sortDATA');
+    switch (sort.active) {
+      case 'familyname': {
+        this.sortField = 'me_family_name';
+        break;
+      }
+      case 'firstname': {
+        this.sortField = 'me_first_name';
+        break;
+      }
+      case 'street': {
+        this.sortField = 'me_street';
+        break;
+      }
+      case 'zip': {
+        this.sortField = 'me_zip';
+        break;
+      }
+      case 'city': {
+        this.sortField = 'me_city';
+        break;
+      }
+      default: this.sortField = 'me_family_name';
+    }
+    this.loadMemberPage();
   }
 
   loadMemberPage(): any {
