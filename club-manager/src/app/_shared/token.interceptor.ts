@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
+import { CommonValues } from './common';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -9,6 +10,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private tokenStore: TokenStorageService ) {
     this.authToken = tokenStore.getToken();
+    if (this.authToken !== undefined) {
+      CommonValues.isAuthenticated = true;
+    }
   }
 
   intercept(

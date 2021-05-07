@@ -1,7 +1,12 @@
 <mat-toolbar color="accent">
-  <span>
-    Mitglieder
-  </span>
+  <span>Mitglieder</span>
+
+  <div class="search">
+    <mat-icon class="search-icon">search</mat-icon>Filter:
+    <mat-form-field class="search-input">
+    <input  matInput placeholder="nach Vor- und Nachnamen ..." #input>
+  </mat-form-field>
+  </div>
 
   <div class="right">
     <button mat-button routerLink="settings">
@@ -10,48 +15,36 @@
   </div>
 </mat-toolbar>
 
-<!--
-<ng-container *ngIf="members$ | async as members; else loading">
 
-  <cl-member-list-item class="item"
-      *ngFor="let m of members"
-      [member]="m"></cl-member-list-item>
- [routerLink]="m.Id"></cl-member-list-item>
+<div class="spinner-text" *ngIf="loading async">Daten werden geladen</div>
+<div class="spinner-container" *ngIf="loading async">
+  <mat-spinner value="100" mode="determinate" diameter="40"></mat-spinner>
+</div>
 
-    <p *ngIf="!members.length">
-      Es wurden noch keine Mitglieder angelegt.
-    </p>
-  </ng-container>
-
-  <ng-template #loading>
-    <mat-progress-spinner></mat-progress-spinner>
-  </ng-template>
--->
-
-<mat-table class="member-table" [dataSource]="members$">
-
-  <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>Nr</mat-header-cell>
-      <mat-cell *matCellDef="let member">{{member.Id}}</mat-cell>
-  </ng-container>
+<mat-table class="member-table" [dataSource]="members$" matSort matSortActive="familyname" matSortDirection="asc" matSortDisableClear>
 
   <ng-container matColumnDef="familyname">
-      <mat-header-cell *matHeaderCellDef>Nachname</mat-header-cell>
+      <mat-header-cell mat-sort-header *matHeaderCellDef>Nachname</mat-header-cell>
       <mat-cell class="description-cell" *matCellDef="let member">{{member.Familyname}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="firstname">
-      <mat-header-cell *matHeaderCellDef>Vorname</mat-header-cell>
+      <mat-header-cell mat-sort-header *matHeaderCellDef>Vorname</mat-header-cell>
       <mat-cell class="duration-cell" *matCellDef="let member">{{member.Firstname}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="street">
-    <mat-header-cell *matHeaderCellDef>Straße</mat-header-cell>
+    <mat-header-cell mat-sort-header *matHeaderCellDef>Straße</mat-header-cell>
     <mat-cell class="duration-cell" *matCellDef="let member">{{member.Street}}</mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="zip">
+    <mat-header-cell *matHeaderCellDef>PLZ</mat-header-cell>
+    <mat-cell *matCellDef="let member">{{member.Zipcode}}</mat-cell>
+</ng-container>
+
   <ng-container matColumnDef="city">
-    <mat-header-cell *matHeaderCellDef>Ort</mat-header-cell>
+    <mat-header-cell mat-sort-header *matHeaderCellDef>Ort</mat-header-cell>
     <mat-cell class="duration-cell" *matCellDef="let member">{{member.City}}</mat-cell>
   </ng-container>
 
@@ -59,4 +52,7 @@
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
 </mat-table>
+
+<mat-paginator [length]="memberCount" [pageSize]="50" [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
 
