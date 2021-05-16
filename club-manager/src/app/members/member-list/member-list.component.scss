@@ -1,17 +1,13 @@
 // Toolbar
-.mat-toolbar {
+.toolbar-sub {
+  position: fixed;
+  margin-top: -41px;
   min-height: 40px !important;
   height: 40px !important;
 }
 
-.toolbartext {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.right {
-  position: absolute;
+.toolbar-right {
+  position: fixed;
   right: 0px;
 }
 
@@ -43,13 +39,27 @@
   font-size: 12pt;
 }
 
+.search-icon1 {
+  margin-left: 20px;
+}
+
 .search-input {
   margin-left: 5px;
   font-size:8pt;
-  // background-color: white;
 }
 
-.mat-header-row {
+.member-table {
+  margin-top: 105px;
+  height: 700px;         // fix table header
+  max-width: 100%;
+  overflow: auto;
+}
+
+.header-row {
   min-height: 35px;
   height: 35px;
+}
+
+.cell-width {
+  width: 310px;
 }

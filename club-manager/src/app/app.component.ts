@@ -37,9 +37,9 @@ export class AppComponent implements OnInit, DoCheck {
       switchTheme.selectDarkTheme();
     }
     // Icon oder Icon-Text Menü
-    this.setMenu(this.localStorageService.get('expandMenu'));
+    this.setMenu(this.localStorageService.get('menuExpand'));
     // Open/Close Menü
-    this.isShowing = this.localStorageService.get('showMenu');
+    this.isShowing = this.localStorageService.get('menuShow');
   }
 
   ngDoCheck(): void {
@@ -59,14 +59,14 @@ export class AppComponent implements OnInit, DoCheck {
   // Menü anzeigen
   public toggleSidenav(): void  {
     this.isShowing = !this.isShowing;
-    this.localStorageService.set('showMenu', this.isShowing);
+    this.localStorageService.set('menuShow', this.isShowing);
   }
 
   // Icon oder Icon Text Menü
   public toggleMenu(): void {
     this.isShowing = false;
     this.isExpanded = !this.isExpanded;
-    this.localStorageService.set('expandMenu', this.isExpanded);
+    this.localStorageService.set('menuExpand', this.isExpanded);
     this.setMenu(this.isExpanded);
     this.isShowing = true;
   }

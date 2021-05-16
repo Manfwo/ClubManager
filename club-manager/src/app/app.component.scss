@@ -1,4 +1,11 @@
 // Toolbar
+.toolbar {
+  position: fixed;
+  top: 0%;
+  width: 100%;
+  z-index: 100;
+}
+
 .toolbartext {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 14px;
@@ -20,8 +27,9 @@
 }
 
 .maxMenu {
+  position: fixed;
   text-align-last: left;
-  margin: 0px;
+  margin-top: 65px;
   padding: 0px;
   border: 0px;
   width: 130px;
@@ -33,19 +41,21 @@
 
 .maxMenuButton {
   width: 130px;
+  height: 40px;
 }
 
-/*
-.active {
-  background-color: var(--accent);
+.menuText {
+  margin-left: 10px;
 }
-*/
+
+.active {
+  color: var(--primary);
+}
+
 //Arbeitsbereich nur zum Test
 .workspace {
-  // margin-left: 20px;
-  // color: var(--primary);
-  min-height: 700px;
+  margin-top: 70px;
+  min-height: 400px;
 }
-
 
 
