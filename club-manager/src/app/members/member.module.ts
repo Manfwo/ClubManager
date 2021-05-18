@@ -8,7 +8,7 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
 @NgModule({
   declarations: [
     MemberListComponent,
-    MemberDetailsComponent
+    MemberDetailsComponent,
   ],
   imports: [
     CommonModule,

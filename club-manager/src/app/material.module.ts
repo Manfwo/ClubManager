@@ -43,6 +43,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 
+import { AngularSplitModule } from 'angular-split';
+
 @NgModule({
 imports: [
       A11yModule,
@@ -89,6 +91,7 @@ imports: [
       OverlayModule,
       PortalModule,
       ScrollingModule,
+      AngularSplitModule
   ],
 
 exports: [
@@ -136,6 +139,7 @@ exports: [
       OverlayModule,
       PortalModule,
       ScrollingModule,
+      AngularSplitModule
   ],
 
 })

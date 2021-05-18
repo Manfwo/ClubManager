@@ -1,25 +1,32 @@
-import { LocalStorageService } from './../../_shared/local-storage.service';
-import { ResultValue } from './../../_shared/result-value';
-import { tap } from 'rxjs/operators';
-import { Component, ViewChild, OnInit, AfterViewInit, ElementRef, } from '@angular/core';
-import { Observable, fromEvent, merge } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Component, ViewChild, ViewChildren, QueryList, OnInit, AfterViewInit, OnChanges, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { CdkDragStart, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatTable } from '@angular/material/table';
+import { SplitComponent, SplitAreaDirective } from 'angular-split';
+
+import { tap } from 'rxjs/operators';
+import { Observable, fromEvent, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
+import { LocalStorageService } from './../../_shared/local-storage.service';
+import { ResultValue } from './../../_shared/result-value';
+import { CustomPaginator } from './../../_shared/custom-paginator';
 import { Member } from '../member';
 import { MemberStoreService } from '../member-store.service';
-
 @Component({
   selector: 'cl-member-list',
   templateUrl: './member-list.component.html',
   styleUrls: ['./member-list.component.scss']
 })
-export class MemberListComponent implements OnInit, AfterViewInit {
+export class MemberListComponent implements OnInit, AfterViewInit, OnChanges {
 
   members$: Observable<Member[]>;
   count$: Observable<ResultValue>;
   displayedColumns = ['Familyname', 'Firstname', 'Street', 'Zipcode', 'City'];
-  displayedColumnNames = new Array()
+  displayedColumnNames = new Array();
   memberCount = 0;
   pageCount = 0;
   loading = true;
@@ -56,15 +63,18 @@ export class MemberListComponent implements OnInit, AfterViewInit {
       this.pageCount = result.length;
       this.loading = false;
     });
-
-    this.paginator.pageSize = this.localStore.get('memberPageSize');
   }
 
   ngAfterViewInit(): void {
-    this.input.nativeElement.value = this.localStore.get('memberFilter');
-    this.sortActive = this.localStore.get('memberSortField');
-    this.sort.direction = this.localStore.get('memberSortDirection');
-    this.paginator.pageSize = this.localStore.get('memberPageSize');
+    // wegen ExpressionChangedAfterItHasBeenCheckedError
+    setTimeout(() => {
+
+      this.input.nativeElement.value = this.localStore.get('memberFilter');
+      this.sortActive = this.localStore.get('memberSortField');
+      this.sort.direction = this.localStore.get('memberSortDirection');
+      this.paginator.pageSize = this.localStore.get('memberPageSize');
+      });
+
     // server-side search
     fromEvent(this.input.nativeElement, 'keyup')
     .pipe(
@@ -86,6 +96,13 @@ export class MemberListComponent implements OnInit, AfterViewInit {
         tap(() => this.loadMemberPage())
     )
     .subscribe();
+  }
+
+  ngOnChanges(): void {
+    this.input.nativeElement.value = this.localStore.get('memberFilter');
+    this.sortActive = this.localStore.get('memberSortField');
+    this.sort.direction = this.localStore.get('memberSortDirection');
+    this.paginator.pageSize = this.localStore.get('memberPageSize');
   }
 
   sortData(sort: Sort): void {

@@ -9,23 +9,29 @@ export class TokenInterceptor implements HttpInterceptor {
   private authToken = '';
 
   constructor(private tokenStore: TokenStorageService ) {
+    // console.log('INTERCEPT_CONSTRUCTOR', this.authToken);
     this.authToken = tokenStore.getToken();
     if (this.authToken !== undefined) {
       CommonValues.isAuthenticated = true;
     }
   }
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    const newRequest = request.clone({
-       setHeaders: {
-        Authorization: `Bearer ${this.authToken}`,
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+  intercept( request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+      this.authToken = this.tokenStore.getToken();
+      if (this.authToken !== undefined) {
+        CommonValues.isAuthenticated = true;
       }
-    });
-    return next.handle(newRequest);
+      else {
+        CommonValues.isAuthenticated = false;
+      }
+      // console.log('INTERCEPT', this.authToken);
+
+      const newRequest = request.clone({setHeaders: {
+          Authorization: `Bearer ${this.authToken}`,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      });
+      return next.handle(newRequest);
   }
 }
