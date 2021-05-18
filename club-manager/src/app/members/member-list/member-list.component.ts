@@ -23,6 +23,13 @@ import { MemberStoreService } from '../member-store.service';
 })
 export class MemberListComponent implements OnInit, AfterViewInit, OnChanges {
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input') input: ElementRef;
+  @ViewChild(SplitComponent) splitEl: SplitComponent;
+  @ViewChildren(SplitAreaDirective) areasEl: QueryList<SplitAreaDirective>;
+
+
   members$: Observable<Member[]>;
   count$: Observable<ResultValue>;
   displayedColumns = ['Familyname', 'Firstname', 'Street', 'Zipcode', 'City'];
@@ -32,10 +39,6 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnChanges {
   loading = true;
   sortField = 'me_family_name';
   sortActive = '';
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('input') input: ElementRef;
 
   constructor(private mb: MemberStoreService, private localStore: LocalStorageService) { }
 
@@ -66,6 +69,11 @@ export class MemberListComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
+    console.log('AFTERVIEWINIT: ', this.areasEl);
+    this.areasEl.last.visible = false;
+    // this.areasEl.last.collapse(0, 'left');
+    // this.areasEl.first.collapse(101);
+
     // wegen ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
 
