@@ -1,0 +1,45 @@
+.table {
+  margin-top: 35px;
+  height: 700px;         // fix table header
+  max-width: 100%;
+  overflow: auto;
+}
+
+.header-row {
+  min-height: 35px;
+  height: 35px;
+  font-family: 'Arial Black', Helvetica, sans-serif;
+  // font-style: italic;
+}
+
+.table-row {
+  min-height: 40px;
+  height: 40px;
+}
+
+.cell-width {
+  width: 310px;
+}
+
+/* Animate items as they're being sorted. */
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  // color: var(--primary);
+}
+
+// Progressbar
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.spinner-text {
+  position: absolute;
+  text-align: center;
+  top: 35%;
+  left: 44%;
+}
