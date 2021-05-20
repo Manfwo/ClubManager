@@ -1,7 +1,7 @@
 // Toolbar
 .toolbar-sub {
   position: fixed;
-  margin-top: -5px;
+  margin-top: -6px;
   min-height: 40px !important;
   height: 40px !important;
 }
@@ -29,4 +29,14 @@
 .search-input {
   margin-left: 5px;
   font-size:8pt;
+}
+
+.split-base {
+  background-color: rgb(175, 108, 19);
+}
+
+.table-base {
+  position: fixed;
+  margin-top: 35px;
+  height: 700px  !important;;
 }
