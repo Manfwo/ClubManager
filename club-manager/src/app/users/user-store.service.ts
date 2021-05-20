@@ -70,20 +70,20 @@ export class UserStoreService {
   }
 
   login(user: User): Observable<JwtResponse> {
-    console.log('LOGIN user', user);
-    console.log('LOGIN api', this.api);
+    console.log('UserStoreService.Login.user', user);
+    console.log('UserStoreService.Login.api', this.api);
     return this.http.post<JwtResponse>(`${this.api}/user/login`, user).pipe(
       tap((res: JwtResponse ) => {
 
         if (res) {
-          console.log('LOGIN access_token', res.accessToken);
+          console.log('UserStoreService.Login.accessToken', res.accessToken);
         }
       })
     );
   }
 
   private errorHandler(error: HttpErrorResponse): Observable<any> {
-    console.error('Es ist ein Fehler aufgetreten!');
+    console.error('UserStoreService.ErrorHandler: Es ist ein Fehler aufgetreten!');
     return throwError(error);
   }
 }

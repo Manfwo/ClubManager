@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     if (this.isAuthenticated === false) {
       this.isAuthenticated = CommonValues.isAuthenticated;
-      console.log('DoCheck - Authentication:', this.isAuthenticated);
+      console.log('AppComponent.DoCheck.isAuthenticated:', this.isAuthenticated);
     }
   }
 

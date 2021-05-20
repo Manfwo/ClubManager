@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   hide = true;
 
   ngOnInit(): void {
-    console.log('Login-Dialog');
+    console.log('LoginComponent.OnInit');
     this.reactiveForm();
   }
 
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     const formValue = this.loginForm.value;
     const newUser: User = {...formValue };
     this.userService.login(newUser).subscribe( v => {
-      console.log(v.accessToken);
+      console.log('LoginComponent.SubmitForm.accessToken:', v.accessToken);
       this.tokenStore.saveToken(v.accessToken);
       CommonValues.isAuthenticated = true;
       if (v.accessToken === undefined) {
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
         // CommonValues.isAuthenticated = false;
       }
       else {
-        console.log('GOTO DASHBOARD');
+        console.log('LoginComponent.SubmitForm: GOTO DASHBOARD');
         this.router.navigate(['dashboard']);
       }
     });
