@@ -42,6 +42,9 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
   sortActive = '';
   sortDirection = 'ASC';
 
+  // Spaltenreihenfolge
+  bodyElement: HTMLElement = document.body;
+
   // Tabellen Daten
   displayedColumns: any[] = [];
   displayedColumnNames: string[] = [];
@@ -122,12 +125,30 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
     this.loadMemberPage();
   }
 
+  // *** Spaltenreihenfolge per Drag & Drop ändern
+  dragStarted(event: CdkDragStart): void  {
+    console.log('MemberTable.DragStarted.event', event );
+    // this.bodyElement.classList.add('inheritCursors');
+    this.bodyElement.style.cursor = 'move';
+  }
+
+  dropListDropped(event: CdkDragDrop<any[]>): void  {
+    console.log('MemberTable.DropListDropped', event);
+    if (event) {
+      moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
+      moveItemInArray(this.displayedColumnNames, event.previousIndex, event.currentIndex);
+      // this.bodyElement.classList.remove('inheritCursors');
+      this.bodyElement.style.cursor = 'unset';
+      this.loadMemberPage();
+    }
+  }
+
   // *** Daten ermitteln
   private loadMemberPage(): any {
     this.countMemberPage();
     this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.paginator.pageIndex, this.paginator.pageSize);
     // save Settings
-    console.log('TableComponet.LoadMemberPage.sortDirection', this.sortDirection);
+    console.log('MemberTable.LoadMemberPage.sortDirection', this.sortDirection);
     this.localStore.set('memberSortField', this.sortActive);
     this.localStore.set('memberSortFieldDb', this.sortField);
     this.localStore.set('memberSortDirection', this.sortDirection);
