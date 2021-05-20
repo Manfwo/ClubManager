@@ -62,6 +62,10 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
     this.initTableColumns();
 
     this.loading = true;
+    this.count$ = this.mb.getCount('');
+    this.count$.subscribe( result => {
+      this.pageTotalCount = result[0].resCount;
+    });
     this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, 0, this.pageCount);
     this.members$.subscribe( result => {
       this.pageCount = result.length;
@@ -109,6 +113,7 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
       return;
     }
     this.sortActive = sort.active;
+    this.sortDirection = sort.direction;
     this.displayedColumns.forEach(item => {
       if (sort.active === item.field) {
         this.sortField = item.db;
@@ -122,9 +127,10 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
     this.countMemberPage();
     this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.paginator.pageIndex, this.paginator.pageSize);
     // save Settings
+    console.log('TableComponet.LoadMemberPage.sortDirection', this.sortDirection);
     this.localStore.set('memberSortField', this.sortActive);
     this.localStore.set('memberSortFieldDb', this.sortField);
-    this.localStore.set('memberSortDirection', this.sort.direction);
+    this.localStore.set('memberSortDirection', this.sortDirection);
     this.localStore.set('memberPageSize', this.paginator.pageSize);
   }
 
