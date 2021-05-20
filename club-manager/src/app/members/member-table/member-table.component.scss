@@ -1,4 +1,4 @@
-.table {
+.table-container {
   max-width: 100%;
 }
 
@@ -14,10 +14,6 @@
   height: 40px;
 }
 
-.cell {
-  width: 310px;
-}
-
 /* Animate items as they're being sorted. */
 .cdk-drop-list-dragging .cdk-drag {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
@@ -28,7 +24,6 @@
   color: var(--primary);
   display: flex;
   border: white;
-
 }
 
 // Progressbar
@@ -46,4 +41,21 @@
   text-align: center;
   top: 35%;
   left: 44%;
+}
+
+// Spaltenbreiten
+.mat-column-Familyname {
+  width : 320px;
+}
+.mat-column-Firstname {
+  width : 320px;
+}
+.mat-column-Street {
+  width : 320px;
+}
+.mat-column-Zipcode {
+  width : 100px;
+}
+.mat-column-City {
+  width : 300px;
 }

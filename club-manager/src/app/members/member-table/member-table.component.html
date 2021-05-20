@@ -1,8 +1,8 @@
-<table  mat-table class="table" [dataSource]="members$" matSort (matSortChange)="sortData($event)"
+<table  mat-table class="table-container" [dataSource]="members$" matSort (matSortChange)="sortData($event)"
   cdkDropList cdkDropListLockAxis="x" cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropListDropped($event)">
 
-  <ng-container [matColumnDef]="column.field" *ngFor="let column of displayedColumns" >
-    <th class="cell" mat-header-cell mat-sort-header *matHeaderCellDef
+  <ng-container [matColumnDef]="column.field" *ngFor="let column of displayedColumns; let i = index" >
+    <th mat-header-cell mat-sort-header *matHeaderCellDef
         cdkDrag (cdkDragStarted)="dragStarted($event)" [cdkDragData]="{name: column.field}">
         {{column.name}}
     </th>

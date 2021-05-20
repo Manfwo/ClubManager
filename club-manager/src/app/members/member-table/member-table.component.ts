@@ -1,13 +1,14 @@
-import { Component, Input, ViewChild, SimpleChanges,
-  ViewChildren, OnInit, AfterViewInit, OnChanges, HostListener, Renderer2 } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { SimpleChanges, OnChanges } from '@angular/core';
+import { Renderer2} from '@angular/core';
 import { CdkDragStart, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { MatTable } from '@angular/material/table';
 
-import { Observable, fromEvent, merge } from 'rxjs';
+
+import { Observable, merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { LocalStorageService } from './../../_shared/local-storage.service';
@@ -94,7 +95,6 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
         tap(() => this.loadMemberPage())
     )
     .subscribe();
-    // this.setTableResize(this.matTableRef.nativeElement.clientWidth);
   }
 
     // *** Suche
@@ -165,11 +165,11 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
   // *** Init Tabellenkopf
   private initTableColumns(): void {
     this.displayedColumns = [
-      {field: 'Familyname', name: 'Nachname', width: 200, db: 'me_family_name' },
-      {field: 'Firstname', name: 'Vorname', width: 200, db: 'me_first_name' },
-      {field: 'Street', name: 'Straße', width: 200, db: 'me_street' },
-      {field: 'Zipcode', name: 'PLZ', width: 200, db: 'me_zip' },
-      {field: 'City', name: 'Ort', width: 200, db: 'me_city' }
+      {field: 'Familyname', name: 'Nachname', width: '200px', db: 'me_family_name' },
+      {field: 'Firstname', name: 'Vorname', width: '200px', db: 'me_first_name' },
+      {field: 'Street', name: 'Straße', width: '300px', db: 'me_street' },
+      {field: 'Zipcode', name: 'PLZ', width: '100px', db: 'me_zip' },
+      {field: 'City', name: 'Ort', width: '200px', db: 'me_city' }
     ];
     this.setDisplayedColumns();
   }
