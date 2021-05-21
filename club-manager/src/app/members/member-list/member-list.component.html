@@ -9,11 +9,18 @@
   </div>
 
   <div class="toolbar-right">
-    <button mat-button routerLink="settings">
+    <button mat-button [matMenuTriggerFor]="menu">
       <mat-icon>more_horiz</mat-icon>
     </button>
   </div>
 </mat-toolbar>
+
+<!-- Menü -->
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [routerLink]="['/members', { outlets: {primary: null, sidebar: 'columns' }}]" routerLinkActive="active">Spalten ändern...</button>
+  <button mat-menu-item routerLink="/memvdashboard" routerLinkActive="active">Gruppe zuweisen...</button>
+</mat-menu>
+
 
 <!-- Workspace -->
 <as-split direction="horizontal" class="split-base">
@@ -22,7 +29,7 @@
     </cl-member-table>
   </as-split-area>
   <as-split-area [size]="25">
-    RIGHT
+    <router-outlet name="sidebar"></router-outlet>
   </as-split-area>
 </as-split>
 

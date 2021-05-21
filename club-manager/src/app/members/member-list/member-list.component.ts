@@ -28,7 +28,7 @@ export class MemberListComponent implements AfterViewInit {
     setTimeout(() => {
       this.search = this.localStore.get('memberFilter');
       this.input.nativeElement.value = this.search;
-      this.areasEl.last.visible = false;
+      // this.areasEl.last.visible = true;
     });
 
     // Spliter
