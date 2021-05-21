@@ -1,3 +1,5 @@
+@import '_shared/variables.sass';
+
 // Toolbar
 .toolbar {
   position: fixed;
@@ -52,10 +54,10 @@
   color: var(--primary);
 }
 
-//Arbeitsbereich nur zum Test
+//Arbeitsbereich
 .workspace {
   margin-top: 70px;
-  min-height: 400px;
+  height: $base-workspace;
 }
 
 

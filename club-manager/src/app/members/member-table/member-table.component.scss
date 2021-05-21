@@ -1,6 +1,8 @@
+@import '../../_shared/variables.sass';
+
 .table-container {
   max-width: 100%;
-  height: auto;
+  height: $base-workspace;
 }
 
 .header-row {
@@ -44,7 +46,6 @@
   left: 44%;
 }
 
-
 // Spaltenbreiten
 .mat-column-Familyname {
   padding-left: 20px;
@@ -65,4 +66,3 @@
 .mat-column-City {
   width : 300px;
 }
-

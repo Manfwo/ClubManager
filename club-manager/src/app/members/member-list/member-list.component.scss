@@ -1,3 +1,5 @@
+@import '../../_shared/variables.sass';
+
 // Toolbar
 .toolbar-sub {
   position: fixed;
@@ -33,10 +35,11 @@
 
 .split-base {
   background-color: rgb(175, 108, 19);
+  height:  $base-workspace;
 }
 
 .table-base {
-  position: fixed;
+  // position: fixed;
   margin-top: 35px;
-  height: 700px  !important;;
+  height: $base-workspace;  // !important;
 }
