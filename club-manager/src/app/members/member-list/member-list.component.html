@@ -24,9 +24,11 @@
 
 <!-- Workspace -->
 <as-split direction="horizontal" class="split-base">
-  <as-split-area  class="table-base">
+  <as-split-area  [size]="75" class="table-base">
+    <ng-container>
    <cl-member-table  [filter]="search" >
     </cl-member-table>
+  </ng-container>
   </as-split-area >
   <as-split-area [size]="25" class="table-base">
     RECHTS <!-- <router-outlet name="sidebar"></router-outlet> -->

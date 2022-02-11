@@ -1,3 +1,8 @@
+<ng-container class="pag-base">
+  <mat-paginator  [length]="pageTotalCount" [pageSize]="pageCount" [pageSizeOptions]="[5, 10, 25, 50, 100]">
+  </mat-paginator>
+</ng-container>
+
 <table  mat-table class="table-container" [dataSource]="members$" matSort (matSortChange)="sortData($event)"
   cdkDropList cdkDropListLockAxis="x" cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropListDropped($event)">
 
@@ -14,8 +19,6 @@
 
 </table>
 
-<mat-paginator [length]="pageTotalCount" [pageSize]="pageCount" [pageSizeOptions]="[5, 10, 25, 50, 100]">
-</mat-paginator>
 
 <div class="spinner-text" *ngIf="loading async">Daten werden geladen</div>
 <div class="spinner-container" *ngIf="loading async">
