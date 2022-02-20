@@ -10,6 +10,7 @@ export class MemberColumnsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('Init ColumnComponent');
   }
 
 }

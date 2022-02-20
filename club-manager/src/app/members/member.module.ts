@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyMaterialModule  } from '../material.module';
-import { MembersRoutingModule } from './member-routing.module';
-import { MemberListComponent } from './member-list/member-list.component';
+import { MemberViewComponent } from './member-view/member-view.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
 import { MemberTableComponent } from './member-table/member-table.component';
+import { MemberColumnsComponent } from './member-columns/member-columns.component';
 
 @NgModule({
   declarations: [
-    MemberListComponent,
+    MemberViewComponent,
     MemberDetailsComponent,
-    MemberTableComponent
+    MemberTableComponent,
+    MemberColumnsComponent,
   ],
   imports: [
     CommonModule,
     MyMaterialModule,
-    MembersRoutingModule
   ],
   providers: [
     MemberTableComponent,

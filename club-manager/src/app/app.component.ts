@@ -1,11 +1,12 @@
-import { CommonValues } from './_shared/common';
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild, ViewChildren, QueryList} from '@angular/core';
 import { Inject} from '@angular/core';
 import { DOCUMENT} from '@angular/common';
 import { ThemeSwitchComponent } from './general/theme-switch/theme-switch.component';
 import { LocalStorageService } from './_shared/local-storage.service';
 import { TokenStorageService } from './_shared/token-storage.service';
-
+import { SplitComponent, SplitAreaDirective } from 'angular-split';
+import { Router } from '@angular/router';
+import { CommonValues } from './_shared/common';
 @Component({
   selector: 'cl-root',
   templateUrl: './app.component.html',
@@ -14,18 +15,25 @@ import { TokenStorageService } from './_shared/token-storage.service';
 
 export class AppComponent implements OnInit, DoCheck {
 
+  @ViewChild(SplitComponent) splitEl: SplitComponent;
+  @ViewChildren(SplitAreaDirective) areasEl: QueryList<SplitAreaDirective>;
+
   constructor(
+
+    private router: Router,
     @Inject(DOCUMENT)
     private document: Document,
     private localStorageService: LocalStorageService,
     private tokenStore: TokenStorageService ) {
-  }
+    }
+
   public title = 'Club-Manager';
   public isShowing = true;
   public menuButton = 'minMenuButton';
   public menuSize = 'minMenu';
   public isExpanded = false;
   public isAuthenticated = false;
+  public area = 0;
 
   ngOnInit(): void {
     // Theme setzen
@@ -81,5 +89,41 @@ export class AppComponent implements OnInit, DoCheck {
       this.menuSize = 'minMenu';
       this.menuButton = 'minMenuButton';
     }
+  }
+
+  firstNav(path:string) {
+
+    // Area für Kopfzeile festlegen'
+    switch (path) {
+     case "dashboard": {
+       this.area = 0;
+       break;
+      }
+      case "members": {
+        this.area = 1;
+        break;
+      }
+      case "groups": {
+        this.area = 2;
+        break;
+      }
+      case "activities": {
+        this.area = 3;
+        break;
+      }
+      case "works": {
+        this.area = 4;
+        break;
+      }
+      case "reports": {
+        this.area = 5;
+        break;
+      }
+      case "statistic": {
+        this.area = 6;
+        break;
+      }
+    }
+    this.router.navigate([path]);
   }
 }

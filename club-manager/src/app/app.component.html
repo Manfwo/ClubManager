@@ -1,3 +1,4 @@
+<!-- Toolbar -->
 <mat-toolbar class="toolbar" color="primary">
   <button mat-icon-button (click)="toggleSidenav()">
     <mat-icon *ngIf="!isShowing">
@@ -38,38 +39,96 @@
   </div>
 </mat-toolbar>
 
+<!-- Menu (links) -->
 <mat-sidenav-container>
   <mat-sidenav class="{{menuSize}}" #sidenav="matSidenav" mode="side" [opened]="isShowing" role="navigation">
-    <button mat-button routerLink="dashboard" routerLinkActive="active" class="{{menuButton}}">
+    <button mat-button (click)="firstNav('dashboard')" class="{{menuButton}}">
       <mat-icon>home</mat-icon>
       <span class="menuText" *ngIf="isExpanded">Übersicht</span>
-  </button>
-  <button mat-button routerLink="members" routerLinkActive="active" class="{{menuButton}}">
-      <mat-icon>person</mat-icon>
-      <span class="menuText" *ngIf="isExpanded">Mitglieder</span>
-  </button>
-  <button mat-button routerLink="groups" routerLinkActive="active" class="{{menuButton}}">
-    <mat-icon>people</mat-icon>
-    <span class="menuText" *ngIf="isExpanded">Gruppen</span>
-  </button>
-  <button mat-button routerLink="activities" routerLinkActive="active" class="{{menuButton}}">
-    <mat-icon>mood</mat-icon>
-    <span class="menuText" *ngIf="isExpanded">Aktivitäten</span>
-  </button>
-  <button mat-button routerLink="work" routerLinkActive="active" class="{{menuButton}}">
-    <mat-icon>work</mat-icon>
-    <span class="menuText" *ngIf="isExpanded">Arbeitsplan</span>
-  </button>
-  <mat-divider></mat-divider>
-  <button mat-button routerLink="reports" routerLinkActive="active" class="{{menuButton}}">
-    <mat-icon>description</mat-icon>
-    <span  class="menuText" *ngIf="isExpanded">Reports</span>
-  </button>
-    <button mat-button routerLink="statistic" routerLinkActive="active" class="{{menuButton}}">
-      <mat-icon>show_chart</mat-icon>
-      <span class="menuText" *ngIf="isExpanded">Statistik</span>
-  </button>
+    </button>
+    <button mat-button (click)="firstNav('members')" class="{{menuButton}}">
+        <mat-icon>person</mat-icon>
+        <span class="menuText" *ngIf="isExpanded">Mitglieder</span>
+    </button>
+    <button mat-button (click)="firstNav('groups')" class="{{menuButton}}">
+      <mat-icon>people</mat-icon>
+      <span class="menuText" *ngIf="isExpanded">Gruppen</span>
+    </button>
+    <button mat-button (click)="firstNav('activities')" class="{{menuButton}}">
+      <mat-icon>mood</mat-icon>
+      <span class="menuText" *ngIf="isExpanded">Aktivitäten</span>
+    </button>
+    <button mat-button (click)="firstNav('works')" class="{{menuButton}}">
+      <mat-icon>work</mat-icon>
+      <span class="menuText" *ngIf="isExpanded">Arbeitsplan</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-button (click)="firstNav('reports')" class="{{menuButton}}">
+      <mat-icon>description</mat-icon>
+      <span  class="menuText" *ngIf="isExpanded">Reports</span>
+    </button>
+    <button mat-button (click)="firstNav('statistic')" class="{{menuButton}}">
+        <mat-icon>show_chart</mat-icon>
+        <span class="menuText" *ngIf="isExpanded">Statistik</span>
+    </button>
   </mat-sidenav>
 
-  <mat-sidenav-content class="workspace"><router-outlet></router-outlet></mat-sidenav-content>
+ <!-- Bereich Kopfzeile ausgeben -->
+<ng-container class="header" [ngSwitch]="area">
+    <span *ngSwitchCase="0">
+      <div class="header">
+        <cl-dashboard-header></cl-dashboard-header>
+      </div>
+    </span>
+  <span *ngSwitchCase="1">
+    <div class="header">
+      <cl-member-header></cl-member-header>
+    </div>
+  </span>
+  <span *ngSwitchCase="2">
+    <div class="header">
+      <cl-group-header></cl-group-header>
+    </div>
+  </span>
+  <span *ngSwitchCase="3">
+    <div class="header">
+      <cl-activity-header></cl-activity-header>
+    </div>
+  </span>
+  <span *ngSwitchCase="4">
+    <div class="header">
+      <cl-work-header></cl-work-header>
+    </div>
+  </span>
+  <span *ngSwitchCase="5">
+    <div class="header">
+      <cl-report-header></cl-report-header>
+    </div>
+  </span>
+  <span *ngSwitchCase="6">
+    <div class="header">
+      <cl-statistic-header></cl-statistic-header>
+    </div>
+  </span>
+</ng-container>
+
+<!-- Arbeitsbereich -->
+<ng-container>
+  <as-split direction="horizontal" class="split-base">
+    <as-split-area  [size]="75" class="workspace">
+      <router-outlet></router-outlet>
+    </as-split-area >
+    <as-split-area [size]="25" class="workspace_sec">
+      <router-outlet name="sidebar"></router-outlet>
+    </as-split-area>
+  </as-split>
+</ng-container>
 </mat-sidenav-container>
+
+<!-- Fußzeile -->
+<ng-container >
+  <div class="footer">
+
+  </div>
+</ng-container>
+

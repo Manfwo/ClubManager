@@ -1,3 +1,4 @@
+import { MemberModule } from './members/member.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MyMaterialModule  } from './material.module';
@@ -15,6 +16,13 @@ import { ReportListComponent } from './reports/report-list/report-list.component
 import { StatisticComponent } from './statistic/statistic/statistic.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './general/auth/auth.guard';
+import { MemberHeaderComponent} from './members/member-header/member-header.component';
+import { StatisticHeaderComponent} from './statistic/statistic-header/statistic-header.component';
+import { DashboardHeaderComponent } from './dashboard/dashboard-header/dashboard-header.component';
+import { GroupHeaderComponent } from './groups/group-header/group-header.component';
+import { ReportHeaderComponent } from './reports/report-header/report-header.component';
+import { WorkHeaderComponent } from './works/work-header/work-header.component';
+import { ActivityHeaderComponent } from './activity/activity-header/activity-header.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +33,14 @@ import { AuthGuard } from './general/auth/auth.guard';
     PageNotFoundComponent,
     ReportListComponent,
     StatisticComponent,
-    LoginComponent
+    LoginComponent,
+    MemberHeaderComponent,
+   StatisticHeaderComponent,
+   DashboardHeaderComponent,
+   GroupHeaderComponent,
+   ReportHeaderComponent,
+   WorkHeaderComponent,
+   ActivityHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +48,8 @@ import { AuthGuard } from './general/auth/auth.guard';
     BrowserAnimationsModule,
     HttpClientModule,
     MyMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MemberModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, AuthGuard ],
   bootstrap: [AppComponent]

@@ -1,0 +1,17 @@
+<mat-toolbar color="accent">
+  <span>Arbeitsplan</span>
+  <!-- <mat-icon class="search-icon1">person_add_alt_1</mat-icon> -->
+
+  <div class="toolbar-right">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <!--
+  <button mat-menu-item (click)="secondaryNav('mem-columns')">Spalten ändern...</button>
+  <button mat-menu-item (click)="secondaryNav('mem-groups')">Gruppen zuweisen...</button>
+  -->
+</mat-menu>
