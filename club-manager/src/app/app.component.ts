@@ -7,6 +7,7 @@ import { TokenStorageService } from './_shared/token-storage.service';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { Router } from '@angular/router';
 import { CommonValues } from './_shared/common';
+
 @Component({
   selector: 'cl-root',
   templateUrl: './app.component.html',
@@ -34,6 +35,8 @@ export class AppComponent implements OnInit, DoCheck {
   public isExpanded = false;
   public isAuthenticated = false;
   public area = 0;
+  public sidebarIsVisible = false;
+
 
   ngOnInit(): void {
     // Theme setzen
@@ -78,6 +81,11 @@ export class AppComponent implements OnInit, DoCheck {
     this.setMenu(this.isExpanded);
     this.isShowing = true;
     window.location.reload()
+  }
+
+  // Sidebar aus-/einblenden
+  public hideSidebar($event: boolean) {
+    this.sidebarIsVisible = $event;
   }
 
   setMenu( expand: boolean): void {

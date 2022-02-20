@@ -82,17 +82,17 @@
     </span>
   <span *ngSwitchCase="1">
     <div class="header">
-      <cl-member-header></cl-member-header>
+      <cl-member-header (hideSidebarEvent)="hideSidebar($event)"></cl-member-header>
     </div>
   </span>
   <span *ngSwitchCase="2">
     <div class="header">
-      <cl-group-header></cl-group-header>
+      <cl-group-header (hideSidebarEvent)="hideSidebar($event)"></cl-group-header>
     </div>
   </span>
   <span *ngSwitchCase="3">
     <div class="header">
-      <cl-activity-header></cl-activity-header>
+      <cl-activity-header (hideSidebarEvent)="hideSidebar($event)"></cl-activity-header>
     </div>
   </span>
   <span *ngSwitchCase="4">
@@ -118,7 +118,7 @@
     <as-split-area  [size]="75" class="workspace">
       <router-outlet></router-outlet>
     </as-split-area >
-    <as-split-area [size]="25" class="workspace_sec">
+    <as-split-area [size]="25" class="workspace_sec" [visible]="sidebarIsVisible">
       <router-outlet name="sidebar"></router-outlet>
     </as-split-area>
   </as-split>

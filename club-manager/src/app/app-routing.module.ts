@@ -21,11 +21,13 @@ const routes: Routes = [
 {  path: 'dashboard',  component: DashboardComponent, canActivate : [AuthGuard]},
 {  path: 'settings',  component: SettingsComponent },
 
+// Close Sidebar
+{ path: 'close' },
+
 // Member Bereich
 { path: 'members', component: MemberViewComponent, canActivate : [AuthGuard] },
 { path: 'mem-columns', outlet: 'sidebar', component: MemberColumnsComponent },
 { path: 'mem-groups', outlet: 'sidebar', component: MemberGroupsComponent },
-
 {
   path: 'groups',
   loadChildren: () => import('./groups/group.module').then(g => g.GroupModule)

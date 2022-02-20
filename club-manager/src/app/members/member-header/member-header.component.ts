@@ -1,4 +1,4 @@
-import { AfterViewInit, Component,  ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component,  ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
@@ -14,6 +14,7 @@ import { LocalStorageService } from '../../_shared/local-storage.service';
 export class MemberHeaderComponent implements AfterViewInit {
 
   @ViewChild('input') input: ElementRef;
+  @Output() hideSidebarEvent = new EventEmitter();
 
   // Suchbegriff -> filter für Tabelle
   public search = '';
@@ -42,7 +43,15 @@ export class MemberHeaderComponent implements AfterViewInit {
     .subscribe();
   }
 
+  // 3 Punkte Menü rechts
   secondaryNav(path:string) {
+    // Sidebar aktivieren
+    if (path == "close")
+      this.hideSidebarEvent.emit(false);
+    else
+      this.hideSidebarEvent.emit(true);
+
+    // Menüpunkt verarbeiten
     this.router.navigate([{ outlets: {
       sidebar: [path]
     }}]);

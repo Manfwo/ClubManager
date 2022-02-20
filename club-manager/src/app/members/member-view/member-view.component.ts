@@ -1,5 +1,4 @@
-import { Component,  } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 
 @Component({
   selector: 'cl-member-view',
@@ -10,9 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class MemberViewComponent  {
 
   public search = '';
-  constructor(private router : Router, private route: ActivatedRoute ) {
+
+  constructor() {
 
    }
-
 
 }

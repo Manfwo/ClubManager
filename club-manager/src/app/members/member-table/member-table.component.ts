@@ -25,6 +25,7 @@ import { MemberStoreService } from '../member-store.service';
     { provide: MatPaginatorIntl, useValue: CustomPaginator('Mitglieder pro Seite') }
   ]
 })
+
 export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
 
   loading = true;           // Kennungn für Spinner
@@ -56,7 +57,7 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
 
   ngOnInit(): void {
     // lade Einstellungen
-    this.filter = this.localStore.get('memberFilter');
+    this.filter = ''; //this.localStore.get('memberFilter');
     this.sortDirection = this.localStore.get('memberSortDirection');
     this.sortField = this.localStore.get('memberSortFieldDb'),
     this.pageCount = this.localStore.get('memberPageSize');

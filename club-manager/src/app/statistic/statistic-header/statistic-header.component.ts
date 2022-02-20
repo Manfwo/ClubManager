@@ -1,51 +1,22 @@
-import { AfterViewInit, Component,  ElementRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { LocalStorageService } from '../../_shared/local-storage.service';
-
 
 @Component({
   selector: 'cl-statistic-header',
   templateUrl: './statistic-header.component.html',
   styleUrls: ['./statistic-header.component.scss']
 })
-export class StatisticHeaderComponent implements AfterViewInit {
+export class StatisticHeaderComponent implements AfterContentInit {
 
-  @ViewChild('input') input: ElementRef;
-
-  // Suchbegriff -> filter für Tabelle
-  public search = '';
+  @Output() hideSidebarEvent = new EventEmitter();
 
   constructor( private localStore: LocalStorageService, private router: Router) {
+
    }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.search = this.localStore.get('memberFilter');
-      this.input.nativeElement.value = this.search;
-      // this.areasEl.last.visible = true;
-    });
+  ngAfterContentInit(): void {
 
-    // server-side search
-    fromEvent(this.input.nativeElement, 'keyup')
-    .pipe(
-        debounceTime(150),
-        distinctUntilChanged(),
-        tap(() => {
-           this.search = this.input.nativeElement.value;
-           // console.log('FILTERCHANGED', this.search);
-           this.localStore.set('memberFilter', this.input.nativeElement.value);
-        })
-    )
-    .subscribe();
-  }
-
-  secondaryNav(path:string) {
-    this.router.navigate([{ outlets: {
-      sidebar: [path]
-    }}]);
   }
 
 }
