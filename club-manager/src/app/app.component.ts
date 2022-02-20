@@ -77,6 +77,7 @@ export class AppComponent implements OnInit, DoCheck {
     this.localStorageService.set('menuExpand', this.isExpanded);
     this.setMenu(this.isExpanded);
     this.isShowing = true;
+    window.location.reload()
   }
 
   setMenu( expand: boolean): void {

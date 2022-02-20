@@ -23,6 +23,7 @@
 // Menü
 .minMenu {
   text-align-last: left;
+  top: 60px;
   margin: 0px;
   padding: 0px;
   border: 0px;
@@ -30,11 +31,10 @@
 }
 
 .maxMenu {
-  position: fixed;
+  //position: fixed;
   text-align-last: left;
-  margin-top: 65px;
+  top: 60px;
   padding: 0px;
-  border: 0px;
   width: 130px;
 }
 
@@ -65,12 +65,11 @@
   height: 50px;
   width: 100%;
   min-height: 50px !important;
-  //background-color: rgb(148, 43, 52);
 }
 
-//Arbeitsbereich
+//Arbeitsbereich (TOP = toolbar + header)
 .split-base {
-  margin-top: 105px;
+  margin-top: 110px;
   height:  $base-workspace;
 }
 
