@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { LocalStorageService } from '../../_shared/local-storage.service';
-
+import { MemberSearchService } from './../member-search.service';
 
 @Component({
   selector: 'cl-member-header',
@@ -14,19 +14,22 @@ import { LocalStorageService } from '../../_shared/local-storage.service';
 export class MemberHeaderComponent implements AfterViewInit {
 
   @ViewChild('input') input: ElementRef;
-  @Output() hideSidebarEvent = new EventEmitter();
+  @Output() hideSidebarEvent = new EventEmitter<boolean>();
+  @Output() searchEvent = new EventEmitter<string>();
 
   // Suchbegriff -> filter für Tabelle
   public search = '';
 
-  constructor( private localStore: LocalStorageService, private router: Router) {
+  constructor(
+    private localStore: LocalStorageService,
+    private router: Router,
+    private ms: MemberSearchService) {
    }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.search = this.localStore.get('memberFilter');
       this.input.nativeElement.value = this.search;
-      // this.areasEl.last.visible = true;
     });
 
     // server-side search
@@ -36,8 +39,8 @@ export class MemberHeaderComponent implements AfterViewInit {
         distinctUntilChanged(),
         tap(() => {
            this.search = this.input.nativeElement.value;
-           // console.log('FILTERCHANGED', this.search);
-           this.localStore.set('memberFilter', this.input.nativeElement.value);
+           this.localStore.set('memberFilter', this.search);
+           this.ms.nextMessage(this.search);
         })
     )
     .subscribe();
@@ -56,5 +59,4 @@ export class MemberHeaderComponent implements AfterViewInit {
       sidebar: [path]
     }}]);
   }
-
 }

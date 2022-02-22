@@ -3,13 +3,14 @@
 .table-container {
   max-width: 100%;
   height: $base-workspace;
+
 }
 
 .header-row {
   min-height: 35px;
   height: 35px;
   font-family: 'Arial Black', Helvetica, sans-serif;
-  // font-style: italic;
+  z-index: 50;
 }
 
 .table-row {

@@ -13,6 +13,7 @@ import { PageParameter } from '../_shared/page-parameter';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MemberStoreService {
   private api = environment.api;
 

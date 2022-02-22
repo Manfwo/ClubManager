@@ -1,6 +1,4 @@
-import { Component, Input, ViewChild, OnInit, AfterViewInit } from '@angular/core';
-import { SimpleChanges, OnChanges } from '@angular/core';
-import { Renderer2} from '@angular/core';
+import { Component, Input, ViewChild, OnInit, AfterViewInit, DoCheck, } from '@angular/core';
 import { CdkDragStart, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,6 +14,7 @@ import { ResultValue } from './../../_shared/result-value';
 import { CustomPaginator } from './../../_shared/custom-paginator';
 import { Member } from '../member';
 import { MemberStoreService } from '../member-store.service';
+import { MemberSearchService } from '../member-search.service';
 
 @Component({
   selector: 'cl-member-table',
@@ -26,7 +25,7 @@ import { MemberStoreService } from '../member-store.service';
   ]
 })
 
-export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
+export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   loading = true;           // Kennungn für Spinner
 
@@ -52,12 +51,18 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
   displayedColumnNames: string[] = [];
   members$: Observable<Member[]>;
   count$: Observable<ResultValue>;
+  searchText: string;
+  searchTextOld: string;
 
-  constructor(private mb: MemberStoreService, private localStore: LocalStorageService,  private renderer: Renderer2) {}
+
+  constructor(private mb: MemberStoreService, private localStore: LocalStorageService, private ms: MemberSearchService) {}
 
   ngOnInit(): void {
-    // lade Einstellungen
-    this.filter = ''; //this.localStore.get('memberFilter');
+    // Suchtext from Header
+    this.ms.sharedMessage.subscribe(message => this.searchText = message)
+
+    // gespeicherte Einstellungen speichern
+    this.filter = "" //this.localStore.get('memberFilter');
     this.sortDirection = this.localStore.get('memberSortDirection');
     this.sortField = this.localStore.get('memberSortFieldDb'),
     this.pageCount = this.localStore.get('memberPageSize');
@@ -98,14 +103,14 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
     .subscribe();
   }
 
-    // *** Suche
-  ngOnChanges(changes: SimpleChanges): void {
+  // *** Suche
+  ngDoCheck(): void {
     if (this.loading === false) {
-      if (changes.filter) {
-        if (this.filter !== undefined) {
-          console.log('MemberTable.OnChanges.filter:', this.filter);
-          this.loadMemberPage();
-        }
+      if (this.searchTextOld != this.searchText) {
+        console.log('SearchText:', this.searchText);
+        this.searchTextOld = this.searchText;
+        this.filter = this.searchText;
+        this.loadMemberPage();
       }
     }
   }
@@ -154,6 +159,7 @@ export class MemberTableComponent implements OnInit, OnChanges, AfterViewInit{
     this.localStore.set('memberSortFieldDb', this.sortField);
     this.localStore.set('memberSortDirection', this.sortDirection);
     this.localStore.set('memberPageSize', this.paginator.pageSize);
+    this.localStore.set('memberFilter', this.filter);
   }
 
   private countMemberPage(): any {

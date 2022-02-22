@@ -7,6 +7,7 @@ import { TokenStorageService } from './_shared/token-storage.service';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { Router } from '@angular/router';
 import { CommonValues } from './_shared/common';
+import { MemberSearchService } from './members/member-search.service';
 
 @Component({
   selector: 'cl-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit, DoCheck {
     private router: Router,
     @Inject(DOCUMENT)
     private document: Document,
+    private ms: MemberSearchService,
     private localStorageService: LocalStorageService,
     private tokenStore: TokenStorageService ) {
     }
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit, DoCheck {
   public isAuthenticated = false;
   public area = 0;
   public sidebarIsVisible = false;
+  public searchText: string;
 
 
   ngOnInit(): void {
@@ -51,6 +54,8 @@ export class AppComponent implements OnInit, DoCheck {
     this.setMenu(this.localStorageService.get('menuExpand'));
     // Open/Close Menü
     this.isShowing = this.localStorageService.get('menuShow');
+    // Searchfilter empfangen
+    this.ms.sharedMessage.subscribe(message => this.searchText = message)
   }
 
   ngDoCheck(): void {
