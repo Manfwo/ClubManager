@@ -29,7 +29,18 @@ export class FieldStoreService {
     );
   }
 
-  updateVisible(id: number, state: number): Observable<any> {
+  getTableVisibleFields(table: string): Observable<Field[]> {
+    return this.http.get<FieldRaw[]>(`${this.api}/field/tablevisible/${table}`)
+    .pipe(
+      retry(3),
+      map(fieldRaw =>
+        fieldRaw.map(m => FieldFactory.fromRaw(m)),
+      ),
+      catchError(this.errorHandler)
+    );
+  }
+
+  updateVisible(id: number, state: boolean): Observable<any> {
     let field: Field;
     field.Visible = state;
 

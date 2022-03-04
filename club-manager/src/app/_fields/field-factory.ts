@@ -5,7 +5,8 @@ export class FieldFactory {
 
   static fromRaw(f: FieldRaw): Field{
     return {
-      ...f
+      ...f,
+      Visible: f.Visible ? true : false
     };
   }
 }

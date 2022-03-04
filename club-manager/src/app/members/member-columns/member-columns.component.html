@@ -1,7 +1,7 @@
 <p class="sidebar-base">Spalten auswählen</p>
 <!-- <form [formGroup]="techForm" (ngSubmit)="onFormSubmit()"> -->
-  <mat-selection-list formControlName="selectedColumn">
-    <mat-list-option *ngFor="let col of fieldList" [value]="col">
+  <mat-selection-list formControlName="selectedColumn" color="primary">
+    <mat-list-option *ngFor="let col of fieldList" [value]="col" [selected]="col.Visible">
       {{col.Label}}
     </mat-list-option>
   </mat-selection-list>

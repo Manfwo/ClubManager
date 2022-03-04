@@ -5,5 +5,5 @@ export interface Field {
   Label: string;
   Name: string;
   Width: number;
-  Visible: number;
+  Visible: boolean;
 }

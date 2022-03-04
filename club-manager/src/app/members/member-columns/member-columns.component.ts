@@ -10,7 +10,7 @@ import { Field } from '../../_fields/field';
 })
 export class MemberColumnsComponent implements OnInit {
 
-  fieldList: Field[];
+  fieldList: Field[]=[];
 
   constructor(private sf: FieldStoreService, private formBuilder: FormBuilder) {
   }
@@ -27,6 +27,7 @@ export class MemberColumnsComponent implements OnInit {
     // read member fields
     this.sf.getTableFields('members')
     .subscribe(fields => this.fieldList = fields);
+    console.log('fieldList.Length', this.fieldList.length);
   }
 }
 
