@@ -75,12 +75,12 @@
 }
 
 .workspace {
-  background-color: rgb(187, 184, 36);
+  background-color: rgb(173, 173, 145);
   height: $base-workspace;
 }
 
 .workspace_sec {
-  background-color: rgb(0, 255, 34);
+  background-color: rgb(255, 255, 255);
   height: $base-workspace;
 }
 
@@ -91,5 +91,5 @@
   width: 100%;
   min-height: 30px !important;
   background-color: var(--accent);
-  z-index: 100;
+  z-index: 80;
 }

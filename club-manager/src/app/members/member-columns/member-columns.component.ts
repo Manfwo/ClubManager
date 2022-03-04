@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { FieldStoreService } from '../../_fields/field-store.service';
+import { Field } from '../../_fields/field';
 
 @Component({
   selector: 'cl-member-columns',
@@ -7,10 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberColumnsComponent implements OnInit {
 
-  constructor() { }
+  fieldList: Field[];
 
-  ngOnInit(): void {
-    console.log('Init ColumnComponent');
+  constructor(private sf: FieldStoreService, private formBuilder: FormBuilder) {
   }
 
+  techForm = this.formBuilder.group({
+    selectedTech: ''
+  });
+
+  onFormSubmit() {
+    console.log(this.techForm.get('selectedTech').value);
+  }
+
+  ngOnInit(): void {
+    // read member fields
+    this.sf.getTableFields('members')
+    .subscribe(fields => this.fieldList = fields);
+  }
 }
+
