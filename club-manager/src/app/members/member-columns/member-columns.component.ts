@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FieldStoreService } from '../../_fields/field-store.service';
 import { Field } from '../../_fields/field';
 
@@ -8,26 +8,26 @@ import { Field } from '../../_fields/field';
   templateUrl: './member-columns.component.html',
   styleUrls: ['./member-columns.component.scss']
 })
-export class MemberColumnsComponent implements OnInit {
+export class MemberColumnsComponent {
 
   fieldList: Field[]=[];
+  myForm: FormGroup;
 
-  constructor(private sf: FieldStoreService, private formBuilder: FormBuilder) {
-  }
+  constructor(private sf: FieldStoreService, private fb: FormBuilder) {
 
-  techForm = this.formBuilder.group({
-    selectedTech: ''
-  });
-
-  onFormSubmit() {
-    console.log(this.techForm.get('selectedTech').value);
-  }
-
-  ngOnInit(): void {
     // read member fields
     this.sf.getTableFields('members')
     .subscribe(fields => this.fieldList = fields);
     console.log('fieldList.Length', this.fieldList.length);
+
+
+    this.myForm = fb.group({
+        selectedFields: ''
+     });
+  }
+
+  onFormSubmit() {
+    console.log('ReturnValues', this.myForm.get('selectedFields').value);
   }
 }
 

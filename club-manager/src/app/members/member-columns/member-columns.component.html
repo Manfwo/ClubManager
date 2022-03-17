@@ -1,9 +1,13 @@
 <p class="sidebar-base">Spalten auswählen</p>
-<!-- <form [formGroup]="techForm" (ngSubmit)="onFormSubmit()"> -->
-  <mat-selection-list formControlName="selectedColumn" color="primary">
-    <mat-list-option *ngFor="let col of fieldList" [value]="col" [selected]="col.Visible">
-      {{col.Label}}
-    </mat-list-option>
+<form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+
+  <mat-selection-list color="primary" formControlName="selectedFields" >
+    <mat-list-option  *ngFor="let col of fieldList"
+        [selected]="col.Visible"
+        [value]="col.Label">
+        {{col.Label}}
+      </mat-list-option>
   </mat-selection-list>
-  <button mat-raised-button color="warn" class="apply-button">Übernehmen</button>
-<!-- </form>  -->
+
+  <button mat-raised-button type="submit"  color="warn" class="apply-button">Übernehmen</button>
+</form>

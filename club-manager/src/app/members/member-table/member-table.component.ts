@@ -1,20 +1,18 @@
 import { Component, Input, ViewChild, OnInit, AfterViewInit, DoCheck, } from '@angular/core';
 import { CdkDragStart, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-
-
 import { Observable, merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
 import { LocalStorageService } from './../../_shared/local-storage.service';
 import { ResultValue } from './../../_shared/result-value';
 import { CustomPaginator } from './../../_shared/custom-paginator';
 import { Member } from '../member';
 import { MemberStoreService } from '../member-store.service';
 import { MemberSearchService } from '../member-search.service';
+import { FieldStoreService } from '../../_fields/field-store.service';
+import { Field } from '../../_fields/field';
 
 @Component({
   selector: 'cl-member-table',
@@ -53,9 +51,13 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   count$: Observable<ResultValue>;
   searchText: string;
   searchTextOld: string;
+  fields$: Observable<Field[]>;
 
-
-  constructor(private mb: MemberStoreService, private localStore: LocalStorageService, private ms: MemberSearchService) {}
+  constructor(
+    private mb: MemberStoreService,
+    private localStore: LocalStorageService,
+    private ms: MemberSearchService,
+    private sf:FieldStoreService) {}
 
   ngOnInit(): void {
     // Suchtext from Header
@@ -171,20 +173,19 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   // *** Init Tabellenkopf
   private initTableColumns(): void {
-    this.displayedColumns = [
-      {field: 'Familyname', name: 'Nachname', width: '200px', db: 'me_family_name' },
-      {field: 'Firstname', name: 'Vorname', width: '200px', db: 'me_first_name' },
-      {field: 'Street', name: 'Straße', width: '300px', db: 'me_street' },
-      {field: 'Zipcode', name: 'PLZ', width: '100px', db: 'me_zip' },
-      {field: 'City', name: 'Ort', width: '200px', db: 'me_city' }
-    ];
-    this.setDisplayedColumns();
+    // sichtbare Spalten lesen
+    this.fields$ =  this.sf.getTableVisibleFields('members');
+
+    // In arrays konvertieren
+    this.fields$.subscribe( result => {
+      let pageCount = result.length;
+      console.log('fields.Lenth', pageCount);
+      result.forEach(( col, index) => {
+        this.displayedColumnNames[index] = col.Name;
+        console.log('field', col.Label, col.Width);
+        this.displayedColumns[index] = col;
+      });
+    });
   }
 
-  setDisplayedColumns(): void {
-    this.displayedColumns.forEach(( column, index) => {
-      this.displayedColumnNames[index] = column.field;
-    });
-    console.log('MemberTable.SetDisplayColumns.Lenth', this.displayedColumnNames.length);
-  }
 }
