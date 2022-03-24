@@ -11,6 +11,7 @@ import { CustomPaginator } from './../../_shared/custom-paginator';
 import { Member } from '../member';
 import { MemberStoreService } from '../member-store.service';
 import { MemberSearchService } from '../member-search.service';
+import { MemberColumnService } from '../member-column.service';
 import { FieldStoreService } from '../../_fields/field-store.service';
 import { Field } from '../../_fields/field';
 
@@ -52,16 +53,22 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   searchText: string;
   searchTextOld: string;
   fields$: Observable<Field[]>;
+  fieldsSelectedOld: Field[] = [];
+  fieldsSelected: Field[] = [];
 
   constructor(
     private mb: MemberStoreService,
     private localStore: LocalStorageService,
     private ms: MemberSearchService,
+    private mc: MemberColumnService,
     private sf:FieldStoreService) {}
 
   ngOnInit(): void {
     // Suchtext from Header
     this.ms.sharedMessage.subscribe(message => this.searchText = message)
+
+    // Spalten von Spaltenauswahl
+    this.mc.sharedMessage.subscribe(list => this.fieldsSelected = list)
 
     // gespeicherte Einstellungen speichern
     this.filter = "" //this.localStore.get('memberFilter');
@@ -108,12 +115,32 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   // *** Suche
   ngDoCheck(): void {
     if (this.loading === false) {
+      let change = false;
+      // Änderung des Suchtextes
       if (this.searchTextOld != this.searchText) {
-        console.log('SearchText:', this.searchText);
         this.searchTextOld = this.searchText;
         this.filter = this.searchText;
-        this.loadMemberPage();
+        //console.log('SearchText:', this.searchText);
+        change = true;
       }
+
+      // Spalten Änderung
+      if ((this.fieldsSelected !== null) && (this.fieldsSelected.length > 0)
+          && (this.fieldsSelected !== this.fieldsSelectedOld)) {
+        this.fieldsSelectedOld = this.fieldsSelected;
+        this.displayedColumnNames = [];
+        this.displayedColumns = [];
+        this.fieldsSelected.forEach(( col, index) => {
+          this.displayedColumnNames[index] = col.Name;
+          //console.log('newfield', col.Label, col.Width);
+          this.displayedColumns[index] = col;
+          change = true;
+        })
+      }
+
+      // Seite neu laden
+      if (change == true)
+        this.loadMemberPage();
     }
   }
 

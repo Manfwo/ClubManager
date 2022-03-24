@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { TokenStorageService } from './token-storage.service';
 import { CommonValues } from './common';
 
@@ -9,7 +10,7 @@ export class TokenInterceptor implements HttpInterceptor {
   private authToken = '';
 
   constructor(private tokenStore: TokenStorageService ) {
-    // console.log('INTERCEPT_CONSTRUCTOR', this.authToken);
+    //console.log('INTERCEPT_CONSTRUCTOR', this.authToken);
     this.authToken = tokenStore.getToken();
     if (this.authToken !== undefined) {
       CommonValues.isAuthenticated = true;
@@ -24,7 +25,7 @@ export class TokenInterceptor implements HttpInterceptor {
       else {
         CommonValues.isAuthenticated = false;
       }
-      // console.log('INTERCEPT', this.authToken);
+      //console.log('INTERCEPT', this.authToken);
 
       const newRequest = request.clone({setHeaders: {
           Authorization: `Bearer ${this.authToken}`,
@@ -32,6 +33,11 @@ export class TokenInterceptor implements HttpInterceptor {
           'Access-Control-Allow-Origin': '*',
         }
       });
-      return next.handle(newRequest);
+      return next.handle(newRequest).pipe(
+        tap(
+          event => console.log('response success:', event),
+          error => console.log('response error', error)
+        )
+      );
   }
 }

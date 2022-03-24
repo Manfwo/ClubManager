@@ -1,4 +1,4 @@
-export interface Member {
+export class Member {
   Id: number;
   PartnerId: number;
   WParentId: number;

@@ -1,4 +1,4 @@
-export interface FieldRaw {
+export class FieldRaw {
   Id: number;
   Table: string;
   Column: string;

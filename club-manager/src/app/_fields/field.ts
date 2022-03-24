@@ -1,4 +1,4 @@
-export interface Field {
+export class Field {
   Id: number;
   Table: string;
   Column: string;

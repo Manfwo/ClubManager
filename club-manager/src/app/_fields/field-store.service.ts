@@ -40,21 +40,49 @@ export class FieldStoreService {
     );
   }
 
-  updateVisible(id: number, state: boolean): Observable<any> {
-    let field: Field;
+  updateVisible(id: number, state: number): Observable<any> {
+    let field = new FieldRaw;
+    field.Id = id;
     field.Visible = state;
+    console.log("UpdateVisible",id, state);
 
-    return this.http.put(
-      `${this.api}/field/visible/${id}`,
-      field,
-      { responseType: 'text' }
+    return this.http.put(`${this.api}/field/visible/`+id,field, { responseType: 'text' }
     ).pipe(
+      retry(3),
       catchError(this.errorHandler)
     );
+  }
+
+  resetVisible( table: string) {
+    let errorMessage = "";
+    try {
+     this.http.put(
+        `${this.api}/field/tablevreset/${table}`,
+        { responseType: 'text' }
+      ).pipe(
+       // catchError(this.handleError)
+      );
+
+      } catch (error) {
+        console.log("ERROR: ",error);
+      }
   }
 
   private errorHandler(error: HttpErrorResponse): Observable<any> {
     console.error('FieldStoreService.ErrorHandler: Es ist ein Fehler mit der SystemField Daten aufgetreten!');
     return throwError(error);
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Unknown error!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side errors
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
 }

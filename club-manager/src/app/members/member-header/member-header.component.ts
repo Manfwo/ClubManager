@@ -59,4 +59,9 @@ export class MemberHeaderComponent implements AfterViewInit {
       sidebar: [path]
     }}]);
   }
+
+  // Add Member Button
+  headerNav(path:string) {
+    this.router.navigate( [path]);
+  }
 }
