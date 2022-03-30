@@ -14,10 +14,10 @@ export class Member {
   City: string;
   Phone: string;
   Mail: string;
-  Birthday: Date;
+  Birthday: string;
   Birthname: string;
-  Entryday: Date;
-  Active: number;
+  Entryday:string;
+  Active: string;
   ActiveYears: number;
   ActivePoints: number;
   Bronze: string;
@@ -34,6 +34,6 @@ export class Member {
   ResignReason: string;
   Resign: number;
   ExternalId: string;
-  Flag: number;
+  Flag: string;
   Age: number;
 }
