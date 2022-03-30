@@ -33,8 +33,7 @@ export class FieldStoreService {
     return this.http.get<FieldRaw[]>(`${this.api}/field/tablevisible/${table}`)
     .pipe(
       retry(3),
-      map(fieldRaw =>
-        fieldRaw.map(m => FieldFactory.fromRaw(m)),
+      map(fieldRaw => fieldRaw.map(m => FieldFactory.fromRaw(m)),
       ),
       catchError(this.errorHandler)
     );
@@ -46,26 +45,20 @@ export class FieldStoreService {
     field.Visible = state;
     console.log("UpdateVisible",id, state);
 
-    return this.http.put(`${this.api}/field/visible/`+id,field, { responseType: 'text' }
+    return this.http.put(`${this.api}/field/visible/`+id,field, { responseType: 'json' }
     ).pipe(
       retry(3),
       catchError(this.errorHandler)
     );
   }
 
-  resetVisible( table: string) {
-    let errorMessage = "";
-    try {
-     this.http.put(
+  resetVisible( table: string): Observable<any> {
+     return this.http.put(
         `${this.api}/field/tablevreset/${table}`,
-        { responseType: 'text' }
+        { responseType: 'json' }
       ).pipe(
-       // catchError(this.handleError)
+        catchError(this.handleError)
       );
-
-      } catch (error) {
-        console.log("ERROR: ",error);
-      }
   }
 
   private errorHandler(error: HttpErrorResponse): Observable<any> {

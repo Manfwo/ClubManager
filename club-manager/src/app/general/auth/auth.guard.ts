@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     let status = false;
     const token = this.tokenStore.getToken();
     if (token !== null) {
-      console.log('AuthGuard.IsLoggedIn.status: true');
+      //console.log('AuthGuard.IsLoggedIn.status: true');
       status = true;
     }
     else {

@@ -11,6 +11,9 @@
         cdkDrag (cdkDragStarted)="dragStarted($event)" [cdkDragData]="{name: col.Name}">
         {{col.Label}}
     </th>
+    <button mat-icon-button>
+      <mat-icon> More Vert</mat-icon>
+    </button>
     <td mat-cell [class]="col.Width" *matCellDef="let member">{{member[col.Name]}}</td>
   </ng-container>
 

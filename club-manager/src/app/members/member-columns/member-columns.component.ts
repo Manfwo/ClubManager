@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FieldStoreService } from '../../_fields/field-store.service';
 import { Field } from '../../_fields/field';
 import { MemberColumnService } from './../member-column.service';
+import { SidebarService } from './../../app-sidebar.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cl-member-columns',
@@ -11,17 +14,26 @@ import { MemberColumnService } from './../member-column.service';
 })
 export class MemberColumnsComponent {
 
-  fieldList: Field[]=[];
-  resultList: Field[]=[];
-  myForm: FormGroup;
+  @Output() sidebarEventOff = new EventEmitter();
 
-  constructor(private sf: FieldStoreService, private fb: FormBuilder, private mc: MemberColumnService) {
+  public myForm: FormGroup;
+  public  fieldList: Field[]=[];
+
+  private resultList: Field[]=[];
+  private result$: Observable<string>;
+
+  constructor(
+    private router: Router,
+    private sf: FieldStoreService,
+    private fb: FormBuilder,
+    private mc: MemberColumnService,
+    private sb: SidebarService) {
 
     // Lese member fields
     this.sf.getTableFields('members')
     .subscribe(fields => this.fieldList = fields);
     //console.log('fieldList.Length', this.fieldList.length);
-
+    this.sb.nextMessage(true);
     // Erzeuge FormGroup
     this.myForm = fb.group({
         selectedFields: ''
@@ -33,21 +45,27 @@ export class MemberColumnsComponent {
     results = this.myForm.get('selectedFields').value;
 
     if (results.length != 0) {
-      //console.log("CHANGES");
       this.resultList = [];
-      this.sf.resetVisible('members');
+      this.result$  = this.sf.resetVisible('members');
+      this.result$.subscribe( message  => console.log(message));
       results.forEach(name => {
         for (let element of this.fieldList) {
           if (element.Column == name) {
-            //console.log("FOUND:",name);
             this.resultList.push(element);
-            this.sf.updateVisible(element.Id,1);
+            this.result$  = this.sf.updateVisible(element.Id,1);
+            this.result$.subscribe( message  => console.log(message));
             break;
           }
         };
       });
       this.mc.nextMessage(this.resultList);
     }
-    //console.log("resultList.length:",this.resultList.length);
+  }
+
+  onClose() {
+    // Sidebar schliessen
+    this.sb.nextMessage(false);
+     // Menüpunkt close aufrufen
+    this.router.navigate([{ outlets: {sidebar: ['close']}}]);
   }
 }

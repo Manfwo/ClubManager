@@ -75,8 +75,8 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     this.sortDirection = this.localStore.get('memberSortDirection');
     this.sortField = this.localStore.get('memberSortFieldDb'),
     this.pageCount = this.localStore.get('memberPageSize');
-    console.log('MemberTable.OnInit.filter:', this.filter);
-    console.log('MemberTable.OnInit.sortDirection:', this.sortDirection);
+    //console.log('MemberTable.OnInit.filter:', this.filter);
+    //console.log('MemberTable.OnInit.sortDirection:', this.sortDirection);
 
     this.initTableColumns();
 
@@ -162,7 +162,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   // *** Spaltenreihenfolge per Drag & Drop ändern
   dragStarted(event: CdkDragStart): void  {
-    console.log('MemberTable.DragStarted.event', event );
+    //console.log('MemberTable.DragStarted.event', event );
     // this.bodyElement.classList.add('inheritCursors');
     this.bodyElement.style.cursor = 'move';
   }
@@ -183,7 +183,6 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     this.countMemberPage();
     this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.paginator.pageIndex, this.paginator.pageSize);
     // save Settings
-    console.log('MemberTable.LoadMemberPage.sortDirection', this.sortDirection);
     this.localStore.set('memberSortField', this.sortActive);
     this.localStore.set('memberSortFieldDb', this.sortField);
     this.localStore.set('memberSortDirection', this.sortDirection);
@@ -206,10 +205,10 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     // In arrays konvertieren
     this.fields$.subscribe( result => {
       let pageCount = result.length;
-      console.log('fields.Lenth', pageCount);
+      //console.log('fields.Lenth', pageCount);
       result.forEach(( col, index) => {
         this.displayedColumnNames[index] = col.Name;
-        console.log('field', col.Label, col.Width);
+        //console.log('field', col.Label, col.Width);
         this.displayedColumns[index] = col;
       });
     });

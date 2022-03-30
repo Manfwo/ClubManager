@@ -18,6 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept( request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+      console.log('INTERCEPT',request.url);
       this.authToken = this.tokenStore.getToken();
       if (this.authToken !== undefined) {
         CommonValues.isAuthenticated = true;

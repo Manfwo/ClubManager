@@ -66,7 +66,7 @@ export class MemberStoreService {
     );
   }
 
-  create(member: Member): Observable<any> {
+  create(member: Member): Observable<any> {;
     return this.http.post(
       `${this.api}/member`,
       member,

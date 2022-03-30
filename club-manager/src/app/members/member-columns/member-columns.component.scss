@@ -5,15 +5,22 @@
   font-weight: bold;
 }
 
-.apply-button {
-  align-items: center;
-}
-
 .mat-list-option {
   height: 30px !important;
   line-height: 30px !important;
   }
 
-.mat-pseudo-checkbox:after {
-    color: #b11f1f !important;
+.mat-toolbar {
+  height: 40px;
+}
+
+.close-button {
+  position: absolute;
+  right: 0px;
+}
+
+.apply-button {
+  position: absolute;
+  margin-top: 10px;
+  right: 10px;
 }

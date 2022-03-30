@@ -16,13 +16,14 @@ import { ReportListComponent } from './reports/report-list/report-list.component
 import { StatisticComponent } from './statistic/statistic/statistic.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './general/auth/auth.guard';
-import { MemberHeaderComponent} from './members/member-header/member-header.component';
+import { MemberHeaderComponent } from './members/member-header/member-header.component';
 import { StatisticHeaderComponent} from './statistic/statistic-header/statistic-header.component';
 import { DashboardHeaderComponent } from './dashboard/dashboard-header/dashboard-header.component';
 import { GroupHeaderComponent } from './groups/group-header/group-header.component';
 import { ReportHeaderComponent } from './reports/report-header/report-header.component';
 import { WorkHeaderComponent } from './works/work-header/work-header.component';
 import { ActivityHeaderComponent } from './activity/activity-header/activity-header.component';
+import { SidebarEmptyComponent } from './general/sidebar-empty/sidebar-empty.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +36,13 @@ import { ActivityHeaderComponent } from './activity/activity-header/activity-hea
     StatisticComponent,
     LoginComponent,
     MemberHeaderComponent,
-   StatisticHeaderComponent,
-   DashboardHeaderComponent,
-   GroupHeaderComponent,
-   ReportHeaderComponent,
-   WorkHeaderComponent,
-   ActivityHeaderComponent
+    StatisticHeaderComponent,
+    DashboardHeaderComponent,
+    GroupHeaderComponent,
+    ReportHeaderComponent,
+    WorkHeaderComponent,
+    ActivityHeaderComponent,
+    SidebarEmptyComponent
   ],
   imports: [
     BrowserModule,

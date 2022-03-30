@@ -51,13 +51,14 @@ export class MemberHeaderComponent implements AfterViewInit {
     // Sidebar aktivieren
     if (path == "close")
       this.hideSidebarEvent.emit(false);
-    else
+    else {
       this.hideSidebarEvent.emit(true);
+    }
+      // Menüpunkt verarbeiten
+      this.router.navigate([{ outlets: {
+        sidebar: [path]
+      }}]);
 
-    // Menüpunkt verarbeiten
-    this.router.navigate([{ outlets: {
-      sidebar: [path]
-    }}]);
   }
 
   // Add Member Button

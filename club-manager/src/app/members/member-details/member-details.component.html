@@ -1,46 +1,81 @@
-<div *ngIf="member; else loading">
-  <h1>{{ member.Familyname }}, {{ member.Firstname }}</h1>
-  <h3 *ngIf="member.Firstname">{{ member.Firstname }}</h3>
-  <div class="ui divider"></div>
-  <div class="ui grid">
+<form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
 
-    <div class="four wide column">
-      <h4>
-        Straße
-      </h4>
-      {{ member.Street }}
-    </div>
-    <div class="four wide column">
-      <h4>
-        Eintrittskdatun
-      </h4>
-      {{ member.Entryday | date:'longDate' }}
-    </div>
-    <div class="four wide column">
-      <h4>
-        Rating
-      </h4>
-    </div>
-  </div>
-  <h4>
-    Beschreibung
-  </h4>
-  <p>{{ member.Street }}</p>
-  <button class="ui tiny red labeled icon button"
-          (click)="removeMember()">
-    <i class="remove icon"></i>
-    <ng-container>
-      Mitglied löschen
-    </ng-container>
-  </button>
-  <a class="ui tiny yellow labeled icon button"></a>
-   <!---[routerLink]="['../../admin/edit', member.Id]"> -->
-    <i class="write icon"></i>
-    <ng-container>
-      Mitglied bearbeiten
-    </ng-container>
-</div>
+ <!--<fieldset formAGroupName ="base"> -->
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Anrede</mat-label>
+        <input matInput formControlName="gender">
+        <mat-error *ngIf="myForm.get('gender').hasError('required')">
+          Anrede erforderlich
+        </mat-error>
+      </mat-form-field>
 
-<ng-template #loading>
-  <div class="ui active centered inline loader"></div>
-</ng-template>
+      <mat-form-field class="full-width">
+        <mat-label>Titel</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Vorname</mat-label>
+        <input matInput formControlName="firstname">
+        <mat-error *ngIf="myForm.get('firstname').hasError('required')">
+          Vorname ist erforderlich!
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Nachname</mat-label>
+        <input matInput formControlName="familyname">
+        <mat-error *ngIf="myForm.get('familyname').hasError('required')">
+          Nachname ist erforderlich!
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Straße</mat-label>
+        <input matInput formControlName="street">
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>PLZ</mat-label>
+        <input matInput formControlName="zipcode">
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Ort</mat-label>
+        <input matInput formControlName="city">
+      </mat-form-field>
+    </p>
+ <!--</fieldset>-->
+<!--
+  <fieldset formAGroupName ="honour">
+
+    <mat-form-field class="full-width">
+      <mat-label>Bronze</mat-label>
+      <input matInput formControlName="bronze">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Silber</mat-label>
+      <input matInput formControlName="silver">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Gold</mat-label>
+      <input matInput formControlName="gold">
+    </mat-form-field>
+
+  </fieldset>
+    -->
+  <button mat-raised-button type="submit" color="warn" class="apply-button">Übernehmen</button>
+</form>
