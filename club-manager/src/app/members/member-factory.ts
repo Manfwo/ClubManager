@@ -4,7 +4,6 @@ import { MemberRaw } from './member-raw';
 export class MemberFactory {
 
   static fromRaw(m: MemberRaw): Member {
-    const options = { year: "numeric", month: "numeric", day: "numeric" };
     let member = new Member();
     member.Id = m.Id;
     member.WParentId = m.WParentId;
@@ -19,7 +18,7 @@ export class MemberFactory {
     member.Zipcode = m.Zipcode ;
     member.City = m.City;
     member.Phone = m.Phone;
-    member.Mail = m.Mail;
+    member.Mail = m.Mail.toLowerCase();
     member.Birthname = m.Birthname;
     member.ActiveYears = m.ActiveYears;
     member.ActivePoints =m.ActivePoints;
@@ -29,6 +28,8 @@ export class MemberFactory {
     member.Active4x11 = m.Active4x11;
     member.Active5x11 = m.Active5x11 ;
     member.Active6x11 = m.Active6x11;
+    member.Active7x11 = m.Active7x11;
+    member.Active8x11 = m.Active8x11;
     member.GoldLion = m.GoldLion;
     member.GoldLionNumber = m.GoldLionNumber;
     member.TributeMember = m.TributeMember;
@@ -46,6 +47,11 @@ export class MemberFactory {
     else
       member.Gender = 'Frau'
 
+    if (m.AddressInvalid == 0)
+      member.AddressInvalid = 'nein'
+    else
+      member.AddressInvalid = 'ja'
+
     if (m.Active == 0)
       member.Active = 'nein'
     else
@@ -62,6 +68,7 @@ export class MemberFactory {
     return member;
   }
 
+  // Datum konvertieren mit führenden Nullen
   static getDateToString (d: Date): string {
     let da = new Date(d);
 

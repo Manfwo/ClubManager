@@ -4,6 +4,7 @@ export class FieldRaw {
   Column: string;
   Label: string;
   Name: string;
-  Width: number;
+  Width: string;
   Visible: number;
+  Order: number;
 }

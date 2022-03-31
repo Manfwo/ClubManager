@@ -182,6 +182,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   private loadMemberPage(): any {
     this.countMemberPage();
     this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.paginator.pageIndex, this.paginator.pageSize);
+
     // save Settings
     this.localStore.set('memberSortField', this.sortActive);
     this.localStore.set('memberSortFieldDb', this.sortField);

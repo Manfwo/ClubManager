@@ -52,7 +52,7 @@ export class MemberColumnsComponent {
         for (let element of this.fieldList) {
           if (element.Column == name) {
             this.resultList.push(element);
-            this.result$  = this.sf.updateVisible(element.Id,1);
+            this.result$  = this.sf.updateVisible(element,1);
             this.result$.subscribe( message  => console.log(message));
             break;
           }

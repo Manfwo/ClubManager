@@ -12,6 +12,7 @@ export interface MemberRaw {
   Street: string;
   Zipcode: string;
   City: string;
+  AddressInvalid: number;
   Phone: string;
   Mail: string;
   Birthday: Date;
@@ -26,8 +27,11 @@ export interface MemberRaw {
   Active4x11: string;
   Active5x11: string;
   Active6x11: string;
+  Active7x11: string;
+  Active8x11: string;
   GoldLion: string;
   GoldLionNumber: string;
+  GoldLionNBrilliant: string;
   TributeMember: string;
   Comment: string;
   ResignDate: Date;

@@ -12,6 +12,7 @@ export class Member {
   Street: string;
   Zipcode: string;
   City: string;
+  AddressInvalid: string;
   Phone: string;
   Mail: string;
   Birthday: string;
@@ -26,8 +27,11 @@ export class Member {
   Active4x11: string;
   Active5x11: string;
   Active6x11: string;
+  Active7x11: string;
+  Active8x11: string;
   GoldLion: string;
   GoldLionNumber: string;
+  GoldLionBrilliant: string;
   TributeMember: string;
   Comment: string;
   ResignDate: Date;

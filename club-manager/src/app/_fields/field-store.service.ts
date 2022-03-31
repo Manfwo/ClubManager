@@ -19,7 +19,7 @@ export class FieldStoreService {
   constructor(private http: HttpClient) {}
 
   getTableFields(table: string): Observable<Field[]> {
-    return this.http.get<FieldRaw[]>(`${this.api}/field/table/${table}`)
+    return this.http.get<FieldRaw[]>(`${this.api}/field/tableuser/${table}`)
     .pipe(
       retry(3),
       map(fieldRaw =>
@@ -30,7 +30,7 @@ export class FieldStoreService {
   }
 
   getTableVisibleFields(table: string): Observable<Field[]> {
-    return this.http.get<FieldRaw[]>(`${this.api}/field/tablevisible/${table}`)
+    return this.http.get<FieldRaw[]>(`${this.api}/field/tablevisibleuser/${table}`)
     .pipe(
       retry(3),
       map(fieldRaw => fieldRaw.map(m => FieldFactory.fromRaw(m)),
@@ -39,13 +39,11 @@ export class FieldStoreService {
     );
   }
 
-  updateVisible(id: number, state: number): Observable<any> {
-    let field = new FieldRaw;
-    field.Id = id;
+  updateVisible( f: Field, state: number): Observable<any> {
+    let field = FieldFactory.ToRaw(f);
     field.Visible = state;
-    console.log("UpdateVisible",id, state);
 
-    return this.http.put(`${this.api}/field/visible/`+id,field, { responseType: 'json' }
+    return this.http.put(`${this.api}/field/updatecreate/0`,field, { responseType: 'json' }
     ).pipe(
       retry(3),
       catchError(this.errorHandler)

@@ -4,6 +4,7 @@ export class Field {
   Column: string;
   Label: string;
   Name: string;
-  Width: number;
+  Width: string;
   Visible: boolean;
+  Order: number;
 }
