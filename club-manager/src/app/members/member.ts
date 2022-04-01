@@ -20,6 +20,7 @@ export class Member {
   Entryday:string;
   Active: string;
   ActiveYears: number;
+  BrokenYears: string;
   ActivePoints: number;
   Bronze: string;
   Silver: string;

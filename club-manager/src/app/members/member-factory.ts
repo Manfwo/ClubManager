@@ -57,6 +57,11 @@ export class MemberFactory {
     else
       member.Active = 'ja'
 
+      if (m.BrokenYears == 0)
+      member.BrokenYears = 'nein'
+    else
+      member.BrokenYears = 'ja'
+
     member.Birthday = this.getDateToString(m.Birthday);
     member.Entryday = this.getDateToString(m.Entryday);
 

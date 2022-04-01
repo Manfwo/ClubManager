@@ -20,6 +20,7 @@ export interface MemberRaw {
   Entryday: Date;
   Active: number;
   ActiveYears: number;
+  BrokenYears: number;
   ActivePoints: number;
   Bronze: string;
   Silver: string;
