@@ -178,6 +178,10 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     }
   }
 
+  editMember($event:Member) {
+    console.log("EDI_MEMBER",$event);
+  }
+
   // *** Daten ermitteln
   private loadMemberPage(): any {
     this.countMemberPage();
@@ -206,13 +210,11 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     // In arrays konvertieren
     this.fields$.subscribe( result => {
       let pageCount = result.length;
-      //console.log('fields.Lenth', pageCount);
-      result.forEach(( col, index) => {
+
+      result.forEach(( col: Field, index: number) => {
         this.displayedColumnNames[index] = col.Name;
-        //console.log('field', col.Label, col.Width);
         this.displayedColumns[index] = col;
       });
     });
   }
-
 }

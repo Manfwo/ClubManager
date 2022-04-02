@@ -29,20 +29,17 @@ export class MemberDetailsComponent implements OnInit {
       //
         gender: new FormControl(''),
         title: new FormControl(''),
-        firstname: new FormControl('a'),
+        firstname: new FormControl(''),
         familyname: new FormControl(''),
         street: new FormControl(''),
         zipcode: new FormControl('',Validators.min(5)),
         city: new FormControl(''),
         //email: new FormControl('',Validators.email)
-      });
-      /*
-      honour: new FormGroup({
+
         bronze: new FormControl(''),
         silver: new FormControl(''),
         gold: new FormControl('')
-      }),*/
-   // });
+      });
 
 /*
     const params = this.route.snapshot.paramMap;

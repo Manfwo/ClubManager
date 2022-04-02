@@ -1,26 +1,37 @@
-<ng-container class="pag-base">
-  <mat-paginator  [length]="pageTotalCount" [pageSize]="pageCount" [pageSizeOptions]="[5, 10, 25, 50, 100]">
-  </mat-paginator>
-</ng-container>
-
 <table mat-table class="table-container" [dataSource]="members$" matSort (matSortChange)="sortData($event)"
   cdkDropList cdkDropListLockAxis="x" cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropListDropped($event)">
 
+  <ng-container matColumnDef="action">
+    <tr><th mat-header-cell *matHeaderCellDef> Action </th></tr>
+    <tr>
+      <td mat-cell *matCellDef="let row" style="width:20%">
+        <button mat-icon-button color="primary" (click)="editMember(row)" title="Edit Contact"><mat-icon>edit</mat-icon></button>
+      </td>
+    <tr>
+  </ng-container>
+
+  <!-- Header -->
   <ng-container [matColumnDef]="col.Name" *ngFor="let col of displayedColumns; let i = index" >
     <th mat-header-cell mat-sort-header *matHeaderCellDef
         cdkDrag (cdkDragStarted)="dragStarted($event)" [cdkDragData]="{name: col.Name}">
         {{col.Label}}
     </th>
-    <button mat-icon-button>
-      <mat-icon> More Vert</mat-icon>
-    </button>
-    <td mat-cell [class]="col.Width" *matCellDef="let member">{{member[col.Name]}}</td>
+    <td mat-cell [class]="col.Width" *matCellDef="let member">{{member[col.Name]}}
+      <div *ngIf="i==0"><button mat-icon-button color="primary" (click)="editMember(col)" title="Edit Contact"><mat-icon>edit</mat-icon></button></div>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumnNames; sticky:true" class="header-row"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row"></tr>
-
+<!--
+  <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row" (click)="editMember(row)"></tr>
+-->
 </table>
+
+<div class="pag-base">
+  <mat-paginator fixed [length]="pageTotalCount" [pageSize]="pageCount" [pageSizeOptions]="[5, 10, 25, 50, 100]">
+  </mat-paginator>
+</div>
 
 
 <div class="spinner-text" *ngIf="loading async">Daten werden geladen</div>

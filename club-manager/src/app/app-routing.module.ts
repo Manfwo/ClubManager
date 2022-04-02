@@ -35,7 +35,7 @@ const routes: Routes = [
 },
 {
   path: 'activities',
-  loadChildren: () => import('./activities/activity.module').then(a => a.ActivityModule)
+  loadChildren: () => import('./activity/activity.module').then(a => a.ActivityModule)
 },
 {
   path: 'works',

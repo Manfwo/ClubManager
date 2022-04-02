@@ -57,18 +57,18 @@ export class MemberFactory {
     else
       member.Active = 'ja'
 
-      if (m.BrokenYears == 0)
+    if (m.BrokenYears == 0)
       member.BrokenYears = 'nein'
     else
       member.BrokenYears = 'ja'
 
+    if (m.Flag == 0)
+      member.Flag = 'nein'
+    else
+      member.Flag = 'ja'
+
     member.Birthday = this.getDateToString(m.Birthday);
     member.Entryday = this.getDateToString(m.Entryday);
-
-    if (m.Flag == 0)
-    member.Flag = 'nein'
-  else
-    member.Flag = 'ja'
 
     return member;
   }

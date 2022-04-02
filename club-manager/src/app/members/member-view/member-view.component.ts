@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'cl-member-view',
@@ -11,7 +11,6 @@ export class MemberViewComponent  {
   public search = '';
 
   constructor() {
-
    }
 
 }

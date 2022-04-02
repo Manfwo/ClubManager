@@ -5,6 +5,7 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { LocalStorageService } from '../../_shared/local-storage.service';
 import { MemberSearchService } from './../member-search.service';
+import { HeaderService } from './../../app-header.service';
 
 @Component({
   selector: 'cl-member-header',
@@ -23,6 +24,7 @@ export class MemberHeaderComponent implements AfterViewInit {
   constructor(
     private localStore: LocalStorageService,
     private router: Router,
+    private hs: HeaderService,
     private ms: MemberSearchService) {
    }
 
@@ -63,6 +65,7 @@ export class MemberHeaderComponent implements AfterViewInit {
 
   // Add Member Button
   headerNav(path:string) {
+    this.hs.nextMessage(11);
     this.router.navigate( [path]);
   }
 }

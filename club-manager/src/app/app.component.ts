@@ -9,6 +9,7 @@ import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { Router } from '@angular/router';
 import { CommonValues } from './_shared/common';
 import { SidebarService } from './app-sidebar.service';
+import { HeaderService } from './app-header.service';
 
 @Component({
   selector: 'cl-root',
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit, DoCheck {
     private document: Document,
     private localStorageService: LocalStorageService,
     private tokenStore: TokenStorageService,
+    private hs: HeaderService,
     private sb: SidebarService) {
     }
 
@@ -57,6 +59,8 @@ export class AppComponent implements OnInit, DoCheck {
     this.isShowing = this.localStorageService.get('menuShow');
     // Close-Button Sidebar empfangen
     this.sb.sharedState.subscribe(value => {console.log('NEXT',value); this.sidebarIsVisible= value});
+     // Header ändern
+    this.hs.sharedheaderId.subscribe(value => {this.area= value});
   }
 
   ngDoCheck(): void {
