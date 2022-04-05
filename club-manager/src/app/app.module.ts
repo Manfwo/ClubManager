@@ -1,5 +1,6 @@
 import { MemberModule } from './members/member.module';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
+import { MAT_DATE_LOCALE} from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MyMaterialModule  } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -59,7 +60,8 @@ import { SidebarEmptyComponent } from './general/sidebar-empty/sidebar-empty.com
     ReactiveFormsModule,
     MemberModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, AuthGuard ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
+              { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, AuthGuard ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

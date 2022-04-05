@@ -17,15 +17,12 @@
         {{col.Label}}
     </th>
     <td mat-cell [class]="col.Width" *matCellDef="let member">{{member[col.Name]}}
-      <div *ngIf="i==0"><button mat-icon-button color="primary" (click)="editMember(col)" title="Edit Contact"><mat-icon>edit</mat-icon></button></div>
+      <!-- <div *ngIf="i==0"><button mat-icon-button color="primary" (click)="editMember(col)" title="Edit Contact"><mat-icon>edit</mat-icon></button></div> -->
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumnNames; sticky:true" class="header-row"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row"></tr>
-<!--
   <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row" (click)="editMember(row)"></tr>
--->
 </table>
 
 <div class="pag-base">

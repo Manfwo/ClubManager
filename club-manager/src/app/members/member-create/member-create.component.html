@@ -1,2 +1,255 @@
-<cl-member-details (submitMember)="createMember($event)"></cl-member-details>
 
+<form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+
+  <mat-tab-group>
+
+    <mat-tab label="Stammdaten">
+      <div class="form-area">
+      <p>
+        <mat-form-field class="field-short">
+          <mat-label>Anrede</mat-label>
+          <select matNativeControl required formControlName="gender">
+            <option value="w">Frau</option>
+            <option value="m">Herr</option>
+          </select>
+          <mat-error *ngIf="myForm.get('gender').hasError('required')">
+            Anrede erforderlich
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>Titel</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Vorname</mat-label>
+          <input matInput formControlName="firstname">
+          <mat-error *ngIf="myForm.get('firstname').hasError('required')">
+            Vorname ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-long">
+          <mat-label>Nachname</mat-label>
+          <input matInput formControlName="familyname">
+          <mat-error *ngIf="myForm.get('familyname').hasError('required')">
+            Nachname ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Straße</mat-label>
+          <input matInput formControlName="street">
+          <mat-error *ngIf="myForm.get('street').hasError('required')">
+            Straße ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-short">
+          <mat-label>PLZ</mat-label>
+          <input matInput formControlName="zipcode">
+          <mat-error *ngIf="myForm.get('zipcode').hasError('required')">
+            PLZ erforderlich
+          </mat-error>
+          <mat-error *ngIf="myForm.get('zipcode').hasError('minLength')">
+            Min. 5 Zeichen
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-long">
+          <mat-label>Ort</mat-label>
+          <input matInput formControlName="city">
+          <mat-error *ngIf="myForm.get('city').hasError('required')">
+            Ort ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Telefon</mat-label>
+          <input matInput formControlName="phone">
+          <mat-error *ngIf="myForm.get('phone').hasError('minLength')">
+            Min. 4 Ziffern
+          </mat-error>
+          <mat-error *ngIf="myForm.get('phone').hasError('pattern')">
+            Es sind nur Ziffern zulässig
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>E-Mail</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="myForm.get('email').hasError('email')">
+            Format falsch
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Geburtsdatum</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="birthday">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker startView="multi-year" #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-long">
+          <mat-label>Geburtsname</mat-label>
+          <input matInput formControlName="birthname">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Eintrittsdatum</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="entryday">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-checkbox color="primary" formControlName="addressinvalid">Ungültige Adressdaten</mat-checkbox>
+      </p>
+
+      <p>
+        <mat-checkbox color="primary" formControlName="flag">Kennung</mat-checkbox>
+      </p>
+
+    </div>
+    </mat-tab>
+
+
+    <mat-tab label="Ehrungen">
+    <div class="form-area">
+      <p>
+          <mat-checkbox color="primary" formControlName="active">Aktiv</mat-checkbox>
+      </p>
+
+      <p>
+        <mat-form-field class="field-short">
+          <mat-label>Aktivenjahre</mat-label>
+          <input matInput formControlName="activeyears">
+          <mat-error *ngIf="myForm.get('activeyears').hasError('pattern')">
+            Es sind nur Ziffern zulässig
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>Aktivenpunkte</mat-label>
+          <input matInput formControlName="activepoints">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-checkbox color="primary" formControlName="brokenyears">Unterbochene Aktivenjahre</mat-checkbox>
+      </p>
+
+
+      <p>
+        <mat-form-field class="field-short">
+          <mat-label>Bronze</mat-label>
+          <input matInput formControlName="bronze">
+          <mat-error *ngIf="myForm.get('bronze').hasError('min')">
+            Die Jahreszahl muss größer 1955 sein
+          </mat-error>
+          <mat-error *ngIf="myForm.get('bronze').hasError('max')">
+            Die Jahreszahl muss kleiner 2050 sein
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>Silber</mat-label>
+          <input matInput formControlName="silver">
+          <mat-error *ngIf="myForm.get('silver').hasError('min')">
+            Die Jahreszahl muss größer 1955 sein
+          </mat-error>
+          <mat-error *ngIf="myForm.get('silver').hasError('max')">
+            Die Jahreszahl muss kleiner 2050 sein
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>Gold</mat-label>
+          <input matInput formControlName="gold">
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>4x11</mat-label>
+          <input matInput formControlName="active44">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-short">
+          <mat-label>5x11</mat-label>
+          <input matInput formControlName="active55">
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>6x11</mat-label>
+          <input matInput formControlName="active66">
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>7x11</mat-label>
+          <input matInput formControlName="active77">
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>8x11</mat-label>
+          <input matInput formControlName="active88">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-short">
+          <mat-label>Goldner Löwe</mat-label>
+          <input matInput formControlName="goldlion">
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>Löwe Nummer</mat-label>
+          <input matInput formControlName="goldlionnr">
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-short">
+          <mat-label>Löwe mit Brilliant</mat-label>
+          <input matInput formControlName="goldlionbrilliant">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-checkbox color="primary" formControlName="tributmember">Ehrenmitglied</mat-checkbox>
+      </p>
+    </div>
+    </mat-tab>
+
+    <mat-tab label="Historie">
+    <div class="form-area">
+
+      <p>
+      <mat-form-field class="field-comment">
+        <mat-label>Bemerkung</mat-label>
+        <textarea matInput formControlName="comment"></textarea>
+      </mat-form-field>
+      </p>
+
+    </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSave()" color="warn" class="ok-button">Anlegen</button>
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSaveNew()" color="warn" class="ok-button">Anlegen + Neu</button>
+</form>

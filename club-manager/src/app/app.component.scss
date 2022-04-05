@@ -22,6 +22,7 @@
 
 // Menü
 .minMenu {
+  position: fixed;
   text-align-last: left;
   top: 60px;
   margin: 0px;
@@ -31,7 +32,7 @@
 }
 
 .maxMenu {
-  //position: fixed;
+  position: fixed;
   text-align-last: left;
   top: 60px;
   padding: 0px;
@@ -75,6 +76,7 @@
 }
 
 .workspace {
+  //position: fixed;
   background-color: rgb(255, 255, 255);
   height: $base-workspace;
 }
@@ -94,13 +96,3 @@
   z-index: 80;
 }
 
-/* hide scrollbar but allow scrolling */
-element {
-  -ms-overflow-style: none; /* for Internet Explorer, Edge */
-  scrollbar-width: none; /* for Firefox */
-  overflow-y: scroll;
-}
-
-element::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Opera */
-}

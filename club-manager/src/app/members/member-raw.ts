@@ -1,4 +1,4 @@
-export interface MemberRaw {
+export class MemberRaw {
   Id: number;
   PartnerId: number;
   WParentId: number;

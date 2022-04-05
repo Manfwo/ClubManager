@@ -58,9 +58,10 @@ export class AppComponent implements OnInit, DoCheck {
     // Open/Close Menü
     this.isShowing = this.localStorageService.get('menuShow');
     // Close-Button Sidebar empfangen
-    this.sb.sharedState.subscribe(value => {console.log('NEXT',value); this.sidebarIsVisible= value});
+    this.sb.sharedState.subscribe(value => {this.sidebarIsVisible= value});
      // Header ändern
-    this.hs.sharedheaderId.subscribe(value => {this.area= value});
+    this.hs.sharedheaderId.subscribe(value => {console.log('AREA',value);this.area= value});
+
   }
 
   ngDoCheck(): void {

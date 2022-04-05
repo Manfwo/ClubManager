@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Output, EventEmitter } from '@angular/core';
+import {  Component } from '@angular/core';
 
 @Component({
   selector: 'cl-member-create-header',
