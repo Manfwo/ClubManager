@@ -1,11 +1,13 @@
 @import '../../_shared/variables.sass';
 
 .table-container {
+  overflow:auto;
   max-width: 100%;
   height: $base-workspace;
 }
 
-.header-row {
+.table-header {
+  position: sticky;
   min-height: 35px;
   height: 35px;
   font-family: 'Arial Black', Helvetica, sans-serif;
@@ -21,6 +23,11 @@
 .table-row:hover {
   background-color: rgba(0, 0, 0, .05);
   cursor: pointer;
+}
+
+.table-footer {
+  position: sticky;
+  background-color: cadetblue;
 }
 
 .pag-base {

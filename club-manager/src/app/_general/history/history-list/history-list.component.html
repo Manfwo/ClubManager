@@ -1,18 +1,18 @@
-<table mat-table class="table-container" [dataSource]="history$">
+<div class="table-container">
+  <table mat-table  [dataSource]="history$">
+    <!-- Header -->
+    <ng-container [matColumnDef]="col.Name" *ngFor="let col of displayedColumns; let i = index" >
+      <th mat-header-cell *matHeaderCellDef>
+          {{col.Label}}
+      </th>
+      <td mat-cell [class]="col.Width" *matCellDef="let history">{{history[col.Name]}}
+      </td>
+    </ng-container>
 
-  <!-- Header -->
-  <ng-container [matColumnDef]="col.Name" *ngFor="let col of displayedColumns; let i = index" >
-    <th mat-header-cell *matHeaderCellDef>
-        {{col.Label}}
-    </th>
-    <td mat-cell [class]="col.Width" *matCellDef="let history">{{history[col.Name]}}
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumnNames; sticky:true" class="header-row"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row"></tr>
-</table>
-
+    <tr mat-header-row *matHeaderRowDef="displayedColumnNames; sticky:true" class="header-row"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row"></tr>
+  </table>
+</div>
 
 <div class="spinner-text" *ngIf="loading async">Daten werden geladen</div>
 <div class="spinner-container" *ngIf="loading async">
