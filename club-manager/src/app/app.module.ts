@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './_general/auth/auth.guard';
 
 import { LoginComponent } from './_general/login/login.component';
-import { SettingsComponent } from './_general/settings/settings.component';
+import { SettingsComponent } from './_general/settings/settings/settings.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './_general/page-not-found/page-not-found.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
@@ -31,6 +31,7 @@ import { GroupHeaderComponent } from './groups/group-header/group-header.compone
 import { ReportHeaderComponent } from './reports/report-header/report-header.component';
 import { WorkHeaderComponent } from './works/work-header/work-header.component';
 import { ActivityHeaderComponent } from './activity/activity-header/activity-header.component';
+import { SettingsHeaderComponent } from  './_general/settings/settings-header/settings-header.component';
 // Sidebar
 import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.component';
 
@@ -57,6 +58,7 @@ import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.co
     SidebarEmptyComponent,
     HistoryListComponent,
     MemberUpdateComponent,
+    SettingsHeaderComponent,
   ],
   imports: [
     BrowserModule,

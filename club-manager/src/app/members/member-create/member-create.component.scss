@@ -1,4 +1,4 @@
-//p { white-space: pre-wrap; }
+@import '../../_shared/variables.sass';
 
 .form-area {
   margin-left: 16px;
@@ -41,5 +41,5 @@
 }
 
 .icon-button:hover {
-  color: rgb(236, 81, 81);
+  color:var(--primary);
 }

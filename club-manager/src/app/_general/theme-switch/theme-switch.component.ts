@@ -16,7 +16,10 @@ export class ThemeSwitchComponent {
 
     public theme: string;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private localStorageService: LocalStorageService) {
+    constructor(
+      @Inject(DOCUMENT)
+      private document: Document,
+      private localStorageService: LocalStorageService) {
       this.theme = this.document.documentElement.classList.contains(ThemeSwitchComponent.DARK_THEME_CLASS) ?
                    ThemeSwitchComponent.THEME_DARK : ThemeSwitchComponent.THEME_LIGHT;
     }

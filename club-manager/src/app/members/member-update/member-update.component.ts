@@ -1,5 +1,5 @@
 import { MemberTransferService } from './../member-transfer.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -8,7 +8,6 @@ import { Member } from '../member';
 import { MemberRaw } from '../member-raw';
 import { MemberStoreService } from '../member-store.service';
 import { HeaderService } from './../../app-header.service';
-import { HistoryListComponent} from '../../_general/history/history-list/history-list.component'
 
 @Component({
   selector: 'cl-member-update',

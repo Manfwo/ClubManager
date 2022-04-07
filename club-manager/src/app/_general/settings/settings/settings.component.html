@@ -1,0 +1,36 @@
+<mat-tab-group>
+
+  <mat-tab label="Allgemein">
+    <div class="modul">
+      <p>
+        <cl-theme-switch></cl-theme-switch>
+        <mat-label class="label">Programm Farbschema festlegen</mat-label>
+      </p>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Mitglieder">
+    <div class="modul">
+      <p>
+        <button mat-raised-button type="submit" (click)="onTest()" color="primary" class="button">Ausführen</button>
+        <mat-label class="label">Alle Kurznamen neu erzeugen</mat-label>
+      </p>
+
+      <p>
+        <button mat-raised-button type="submit" (click)="onTest()" color="primary" class="button">Ausführen</button>
+        <mat-label class="label">Alle Familien Abhängigkeiten neu erzeugen</mat-label>
+      </p>
+
+      <p>
+        <button mat-raised-button type="submit" (click)="onTest()" color="primary" class="button">Ausführen</button>
+        <mat-label class="label">Alle Aktivenjahre neu berechnen</mat-label>
+      </p>
+
+      <p>
+        <button mat-raised-button type="submit" (click)="onTest()" color="primary" class="button">Ausführen</button>
+        <mat-label class="label">Alle Aktivenpunkte neu berechnen</mat-label>
+    </p>
+  </div>
+  </mat-tab>
+
+</mat-tab-group>

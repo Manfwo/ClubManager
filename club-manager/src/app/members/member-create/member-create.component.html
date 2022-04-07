@@ -6,7 +6,7 @@
       <div class="form-area">
         <p>
           <mat-form-field class="field-short">
-            <mat-label>Alias</mat-label>
+            <mat-label>Kurzname</mat-label>
             <input matInput formControlName="alias">
           </mat-form-field>
           <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
@@ -304,13 +304,13 @@
       </div>
       </mat-tab>
 
-    <mat-tab label="Historie">
+    <mat-tab label="Kommentar">
     <div class="form-area">
 
       <p>
       <mat-form-field class="field-comment">
         <mat-label>Bemerkung</mat-label>
-        <textarea matInput formControlName="comment"></textarea>
+        <textarea matInput rows="5" formControlName="comment"></textarea>
       </mat-form-field>
       </p>
 
@@ -319,6 +319,6 @@
 
   </mat-tab-group>
 
-  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSave()" color="warn" class="ok-button">Anlegen</button>
-  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSaveNew()" color="warn" class="ok-button">Anlegen + Neu</button>
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSave()" color="primary" class="ok-button">Anlegen</button>
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSaveNew()" color="primary" class="ok-button">Anlegen + Neu</button>
 </form>

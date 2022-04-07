@@ -6,7 +6,7 @@
       <div class="form-area">
         <p>
           <mat-form-field class="field-short">
-            <mat-label>Alias</mat-label>
+            <mat-label>Kurzname</mat-label>
             <input matInput formControlName="alias">
           </mat-form-field>
           <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
@@ -325,6 +325,6 @@
 
   </mat-tab-group>
 
-  <button mat-raised-button type="submit" (click)="onCancel()" color="warn" class="ok-button">Abbrechen</button>
-  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onUpdate()" color="warn" class="ok-button">Speichern</button>
+  <button mat-raised-button type="submit" (click)="onCancel()" color="primary" class="ok-button">Abbrechen</button>
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onUpdate()" color="primary" class="ok-button">Speichern</button>
 </form>

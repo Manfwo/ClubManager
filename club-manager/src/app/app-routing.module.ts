@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './_general/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
-import { SettingsComponent } from './_general/settings/settings.component';
+import { SettingsComponent } from './_general/settings/settings/settings.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { StatisticComponent } from './statistic/statistic/statistic.component';
 import { PageNotFoundComponent } from './_general/page-not-found/page-not-found.component';

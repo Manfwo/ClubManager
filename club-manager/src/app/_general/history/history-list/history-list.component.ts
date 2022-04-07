@@ -22,7 +22,7 @@ export class HistoryListComponent implements OnInit {
 
   constructor(
     private hi: HistoryStoreService,
-    private sf:FieldStoreService) {}
+    private sf: FieldStoreService) {}
 
   ngOnInit(): void {
 
@@ -39,7 +39,6 @@ export class HistoryListComponent implements OnInit {
   private initTableColumns(): void {
     // sichtbare Spalten lesen
     this.fields$ =  this.sf.getTableVisibleFields('history');
-
 
     // In arrays konvertieren
     this.fields$.subscribe( result => {

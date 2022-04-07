@@ -1,5 +1,11 @@
+@import '../../_shared/variables.sass';
 
+.mat-button-toggle {
+  background-color: white;
+  color: black;
+}
 
-mat-button-toggle-appearance-standard mat-button-toggle-label-content {
-  line-height: 30px;
+.mat-button-toggle-checked {
+  background-color: var(--primary);
+  color: white;
 }

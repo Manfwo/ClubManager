@@ -1,3 +1,5 @@
+@import '../../_shared/variables.sass';
+
 .form-area {
   margin-left: 16px;
 }
@@ -38,7 +40,7 @@
 }
 
 .icon-button:hover {
-  color: rgb(236, 81, 81);
+  color: var(--primary);
 }
 
 .history-modul {
@@ -50,8 +52,4 @@
   height: 500px;
   max-width: 750px;
   max-height: 500px;
-
-  //border: 2px;
-  //border-style: solid;
-  //border-color:rgb(214, 206, 206);
 }
