@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit, DoCheck, ViewChild, ViewChildren, QueryList} from '@angular/core';
 import { Inject} from '@angular/core';
 import { DOCUMENT} from '@angular/common';
-import { ThemeSwitchComponent } from './general/theme-switch/theme-switch.component';
+import { ThemeSwitchComponent } from './_general/theme-switch/theme-switch.component';
 import { LocalStorageService } from './_shared/local-storage.service';
 import { TokenStorageService } from './_shared/token-storage.service';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';

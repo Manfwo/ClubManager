@@ -6,14 +6,14 @@ import { MemberCreateComponent } from './members/member-create/member-create.com
 import { MemberUpdateComponent } from './members/member-update/member-update.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './general/login/login.component';
+import { LoginComponent } from './_general/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
-import { SettingsComponent } from './general/settings/settings.component';
+import { SettingsComponent } from './_general/settings/settings.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { StatisticComponent } from './statistic/statistic/statistic.component';
-import { PageNotFoundComponent } from './general/page-not-found/page-not-found.component';
-import { SidebarEmptyComponent } from './general/sidebar-empty/sidebar-empty.component';
-import { AuthGuard } from './general/auth/auth.guard';
+import { PageNotFoundComponent } from './_general/page-not-found/page-not-found.component';
+import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.component';
+import { AuthGuard } from './_general/auth/auth.guard';
 
 const routes: Routes = [
 

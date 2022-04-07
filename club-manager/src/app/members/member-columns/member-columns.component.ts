@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FieldStoreService } from '../../_fields/field-store.service';
-import { Field } from '../../_fields/field';
+import { FieldStoreService } from '../../_general/field/field-store.service';
+import { Field } from '../../_general/field/field';
 import { MemberColumnService } from './../member-column.service';
 import { SidebarService } from './../../app-sidebar.service';
 import { Observable } from 'rxjs';

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '../general/auth/auth.guard';
+import { AuthGuard } from '../_general/auth/auth.guard';
 import { GroupListComponent } from './group-list/group-list.component';
 
 

@@ -8,14 +8,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './_shared/token.interceptor';
-import { ThemeSwitchComponent } from './general/theme-switch/theme-switch.component';
+import { ThemeSwitchComponent } from './_general/theme-switch/theme-switch.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthGuard } from './general/auth/auth.guard';
+import { AuthGuard } from './_general/auth/auth.guard';
 
-import { LoginComponent } from './general/login/login.component';
-import { SettingsComponent } from './general/settings/settings.component';
+import { LoginComponent } from './_general/login/login.component';
+import { SettingsComponent } from './_general/settings/settings.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
-import { PageNotFoundComponent } from './general/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './_general/page-not-found/page-not-found.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { StatisticComponent } from './statistic/statistic/statistic.component';
 
@@ -24,7 +24,7 @@ import { MemberHeaderComponent } from './members/member-header/member-header.com
 import { MemberCreateHeaderComponent } from './members/member-create-header/member-create-header.component';
 import { MemberUpdateHeaderComponent } from './members/member-update-header/member-update-header.component';
 import { MemberUpdateComponent } from './members/member-update/member-update.component';
-import { HistoryListComponent } from './general/history/history-list/history-list.component';
+import { HistoryListComponent } from './_general/history/history-list/history-list.component';
 import { StatisticHeaderComponent} from './statistic/statistic-header/statistic-header.component';
 import { DashboardHeaderComponent } from './dashboard/dashboard-header/dashboard-header.component';
 import { GroupHeaderComponent } from './groups/group-header/group-header.component';
@@ -32,7 +32,7 @@ import { ReportHeaderComponent } from './reports/report-header/report-header.com
 import { WorkHeaderComponent } from './works/work-header/work-header.component';
 import { ActivityHeaderComponent } from './activity/activity-header/activity-header.component';
 // Sidebar
-import { SidebarEmptyComponent } from './general/sidebar-empty/sidebar-empty.component';
+import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.component';
 
 
 @NgModule({

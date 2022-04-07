@@ -13,9 +13,9 @@ import { MemberStoreService } from '../member-store.service';
 import { MemberSearchService } from '../member-search.service';
 import { MemberTransferService } from '../member-transfer.service';
 import { MemberColumnService } from '../member-column.service';
-import { FieldStoreService } from '../../_fields/field-store.service';
+import { FieldStoreService } from '../../_general/field/field-store.service';
 import { HeaderService } from 'src/app/app-header.service';
-import { Field } from '../../_fields/field';
+import { Field } from '../../_general/field/field';
 import { Router } from '@angular/router';
 
 @Component({
