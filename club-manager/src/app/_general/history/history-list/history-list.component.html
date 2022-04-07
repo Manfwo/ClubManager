@@ -2,7 +2,7 @@
   <table mat-table  [dataSource]="history$">
     <!-- Header -->
     <ng-container [matColumnDef]="col.Name" *ngFor="let col of displayedColumns; let i = index" >
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef [class]="col.Width">
           {{col.Label}}
       </th>
       <td mat-cell [class]="col.Width" *matCellDef="let history">{{history[col.Name]}}
