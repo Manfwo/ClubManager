@@ -19,9 +19,6 @@ export class MemberCreateComponent implements OnInit {
   newflag: boolean = false;
   result$: Observable<string>;
 
-  @Output() submitMember = new EventEmitter<MemberRaw>();
-  @Output() submitMemberNew = new EventEmitter<MemberRaw>();
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -33,6 +30,7 @@ export class MemberCreateComponent implements OnInit {
 
     this.myForm = new FormGroup({
 
+        alias: new FormControl(''),
         gender: new FormControl('',Validators.required),
         title: new FormControl(''),
         firstname: new FormControl('',Validators.required),
@@ -41,7 +39,7 @@ export class MemberCreateComponent implements OnInit {
         zipcode: new FormControl('',[Validators.required,Validators.minLength(5)]),
         city: new FormControl('',Validators.required),
         email: new FormControl('',Validators.email),
-        phone: new FormControl('',[Validators.pattern('[0-9]'),Validators.minLength(4)]),
+        phone: new FormControl('',Validators.minLength(4)),
         birthday: new FormControl('',Validators.required),
         age: new FormControl(''),
         birthname: new FormControl(''),
@@ -50,24 +48,33 @@ export class MemberCreateComponent implements OnInit {
         flag:new FormControl(false),
 
         active: new FormControl(false),
-        activeyears: new FormControl('',Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")),
+        activeyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
         brokenyears: new FormControl(false),
-        activepoints: new FormControl('',Validators.pattern('[0-9]')),
-        bronze: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        silver: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        gold: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        active44: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        active55: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        active66: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        active77: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        active88: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        goldlion: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        goldlionnr: new FormControl('',Validators.pattern('[0-9]')),
-        goldlionbrilliant: new FormControl('',[Validators.pattern('[0-9]'),Validators.min(1955),Validators.max(2050)]),
-        tributmember: new FormControl(''),
+        activepoints: new FormControl('',[Validators.max(99),Validators.pattern('^[0-9,.]*$')]),
+        bronze: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        silver: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        gold: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        active44: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        active55: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        active66: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        active77: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        active88: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        goldlion: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        goldlionnr: new FormControl('',Validators.pattern('^[0-9]*$')),
+        goldlionbrilliant: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        tributmember: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
 
         comment: new FormControl(''),
+
       });
+      // Vorbesetzung
+      this.myForm.get('zipcode').patchValue('76761');
+      this.myForm.get('city').patchValue('Rülzheim');
+  }
+
+  public getAlias(): void {
+    let alias = this.myForm.get('familyname').value.substring(0,2) + this.myForm.get('firstname').value.substring(0,3) +  this.myForm.get('street').value.substring(0,2);
+    this.myForm.get('alias').patchValue(alias);
   }
 
   public onSave(): void {

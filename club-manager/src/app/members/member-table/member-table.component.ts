@@ -11,9 +11,12 @@ import { CustomPaginator } from './../../_shared/custom-paginator';
 import { Member } from '../member';
 import { MemberStoreService } from '../member-store.service';
 import { MemberSearchService } from '../member-search.service';
+import { MemberTransferService } from '../member-transfer.service';
 import { MemberColumnService } from '../member-column.service';
 import { FieldStoreService } from '../../_fields/field-store.service';
+import { HeaderService } from 'src/app/app-header.service';
 import { Field } from '../../_fields/field';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cl-member-table',
@@ -57,10 +60,13 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   fieldsSelected: Field[] = [];
 
   constructor(
+    private router: Router,
     private mb: MemberStoreService,
     private localStore: LocalStorageService,
     private ms: MemberSearchService,
     private mc: MemberColumnService,
+    private hs: HeaderService,
+    private mt: MemberTransferService,
     private sf:FieldStoreService) {}
 
   ngOnInit(): void {
@@ -180,6 +186,9 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   editMember($event:Member) {
     console.log("EDI_MEMBER",$event);
+    this.hs.nextMessage(12);
+    this.mt.nextMessage($event);
+    this.router.navigate( ['mem-update']);
   }
 
   // *** Daten ermitteln
@@ -205,7 +214,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   // *** Init Tabellenkopf
   private initTableColumns(): void {
     // sichtbare Spalten lesen
-    this.fields$ =  this.sf.getTableVisibleFields('members');
+    this.fields$ =  this.sf.getTableVisibleUserFields('members');
 
     // In arrays konvertieren
     this.fields$.subscribe( result => {

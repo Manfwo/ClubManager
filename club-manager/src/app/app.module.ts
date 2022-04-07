@@ -22,6 +22,9 @@ import { StatisticComponent } from './statistic/statistic/statistic.component';
 // Header Componenten
 import { MemberHeaderComponent } from './members/member-header/member-header.component';
 import { MemberCreateHeaderComponent } from './members/member-create-header/member-create-header.component';
+import { MemberUpdateHeaderComponent } from './members/member-update-header/member-update-header.component';
+import { MemberUpdateComponent } from './members/member-update/member-update.component';
+import { HistoryListComponent } from './general/history/history-list/history-list.component';
 import { StatisticHeaderComponent} from './statistic/statistic-header/statistic-header.component';
 import { DashboardHeaderComponent } from './dashboard/dashboard-header/dashboard-header.component';
 import { GroupHeaderComponent } from './groups/group-header/group-header.component';
@@ -30,6 +33,7 @@ import { WorkHeaderComponent } from './works/work-header/work-header.component';
 import { ActivityHeaderComponent } from './activity/activity-header/activity-header.component';
 // Sidebar
 import { SidebarEmptyComponent } from './general/sidebar-empty/sidebar-empty.component';
+
 
 @NgModule({
   declarations: [
@@ -43,13 +47,16 @@ import { SidebarEmptyComponent } from './general/sidebar-empty/sidebar-empty.com
     LoginComponent,
     MemberHeaderComponent,
     MemberCreateHeaderComponent,
+    MemberUpdateHeaderComponent,
     StatisticHeaderComponent,
     DashboardHeaderComponent,
     GroupHeaderComponent,
     ReportHeaderComponent,
     WorkHeaderComponent,
     ActivityHeaderComponent,
-    SidebarEmptyComponent
+    SidebarEmptyComponent,
+    HistoryListComponent,
+    MemberUpdateComponent,
   ],
   imports: [
     BrowserModule,

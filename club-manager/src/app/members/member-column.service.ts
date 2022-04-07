@@ -14,7 +14,6 @@ export class MemberColumnService {
   constructor() { }
 
   nextMessage( result: Field[]) {
-    //console.log("MemberColumnService",result[0].Label);
     this.resultList.next(result)
   };
 }

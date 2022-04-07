@@ -30,6 +30,16 @@ export class FieldStoreService {
   }
 
   getTableVisibleFields(table: string): Observable<Field[]> {
+    return this.http.get<FieldRaw[]>(`${this.api}/field/tablevisible/${table}`)
+    .pipe(
+      retry(3),
+      map(fieldRaw => fieldRaw.map(m => FieldFactory.fromRaw(m)),
+      ),
+      catchError(this.errorHandler)
+    );
+  }
+
+  getTableVisibleUserFields(table: string): Observable<Field[]> {
     return this.http.get<FieldRaw[]>(`${this.api}/field/tablevisibleuser/${table}`)
     .pipe(
       retry(3),

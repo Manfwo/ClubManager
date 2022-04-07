@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MemberTableComponent,
     MemberColumnsComponent,
     MemberCreateComponent,
-    MemberUpdateComponent,
+
   ],
   imports: [
     CommonModule,

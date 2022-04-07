@@ -76,7 +76,7 @@ export class MemberStoreService {
     );
   }
 
-  update(member: Member): Observable<any> {
+  update(member: MemberRaw): Observable<any> {
     return this.http.put(
       `${this.api}/member/${member.Id}`,
       member,

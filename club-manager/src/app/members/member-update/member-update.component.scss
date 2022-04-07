@@ -1,0 +1,57 @@
+.form-area {
+  margin-left: 16px;
+}
+
+.field-short {
+  width: 120px;
+}
+
+.field-short1 {
+  width: 120px;
+  height: 30px !important;
+}
+
+.field-long {
+  width: 300px;
+}
+
+.column2-field-short {
+  margin-left: 16px;
+  width: 120px;
+}
+
+.column2-field-long {
+  margin-left: 16px;
+  width: 300px;
+}
+
+.field-comment {
+  width: 600px;
+}
+
+.ok-button {
+  margin-left: 16px;
+}
+
+.icon-button {
+  margin-left: 16px;
+}
+
+.icon-button:hover {
+  color: rgb(236, 81, 81);
+}
+
+.history-modul {
+  //position: fixed;
+  overflow:auto;
+  margin-bottom: 16px;
+   // < 719 get horz slider
+  width: 718px;
+  height: 500px;
+  max-width: 750px;
+  max-height: 500px;
+
+  //border: 2px;
+  //border-style: solid;
+  //border-color:rgb(214, 206, 206);
+}

@@ -3,6 +3,7 @@ import { MemberGroupsComponent } from './members/member-groups/member-groups.com
 import { MemberColumnsComponent } from './members/member-columns/member-columns.component';
 import { MemberViewComponent } from './members/member-view/member-view.component';
 import { MemberCreateComponent } from './members/member-create/member-create.component';
+import { MemberUpdateComponent } from './members/member-update/member-update.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './general/login/login.component';
@@ -24,8 +25,9 @@ const routes: Routes = [
 {  path: 'close',  outlet: 'sidebar', component: SidebarEmptyComponent },
 
 // Member Bereich
-{ path: 'mem-create', component: MemberCreateComponent, canActivate : [AuthGuard] },
 { path: 'members', component: MemberViewComponent, canActivate : [AuthGuard] },
+{ path: 'mem-create', component: MemberCreateComponent, canActivate : [AuthGuard] },
+{ path: 'mem-update', component: MemberUpdateComponent, canActivate : [AuthGuard] },
 { path: 'mem-columns', outlet: 'sidebar', component: MemberColumnsComponent },
 { path: 'mem-groups', outlet: 'sidebar', component: MemberGroupsComponent },
 
