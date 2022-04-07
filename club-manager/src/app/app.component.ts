@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, DoCheck {
   public isAuthenticated = false;
   public area = 0;
   public sidebarIsVisible = false;
-  public statusText = "Ready";
+  public statusText = "Bereit";
 
 
   ngOnInit(): void {

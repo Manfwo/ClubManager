@@ -36,7 +36,7 @@
   text-align-last: left;
   top: 60px;
   padding: 0px;
-  width: 130px;
+  width: 133px;
 }
 
 .minMenuButton {
@@ -77,22 +77,37 @@
 
 .workspace {
   //position: fixed;
-  background-color: rgb(255, 255, 255);
+  //background-color: rgb(255, 255, 255);
   height: $base-workspace;
 }
 
 .workspace_sec {
-  background-color: rgb(255, 255, 255);
+  //background-color: rgb(255, 255, 255);
   height: $base-workspace;
 }
 
-.footer{
+.footer {
   position: fixed;
   bottom: 0px !important;
-  height: 30px;
+  height: 50px;
   width: 100%;
-  min-height: 30px !important;
-  background-color: var(--accent);
-  z-index: 80;
+  min-height: 50px !important;
+  border-top: 2px;
+  border-top-style: solid;
+  border-color: var(--primary);
+  background-color: white; //var(--accent);
+  z-index: 100;
 }
 
+.footer-status {
+  float: left;
+  margin-top: 16px;
+  margin-left: 16px;
+  width: 110px;
+}
+
+.footer-comp {
+  margin-top: 0px;
+  margin-left: 150px;
+  width: 500px;
+}

@@ -1,13 +1,10 @@
 import { Component, Input, ViewChild, OnInit, AfterViewInit, DoCheck, } from '@angular/core';
 import { CdkDragStart, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatPaginatorIntl } from '@angular/material/paginator';
 import { Observable, merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LocalStorageService } from './../../_shared/local-storage.service';
 import { ResultValue } from './../../_shared/result-value';
-import { CustomPaginator } from './../../_shared/custom-paginator';
 import { Member } from '../member';
 import { MemberStoreService } from '../member-store.service';
 import { MemberSearchService } from '../member-search.service';
@@ -21,10 +18,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'cl-member-table',
   templateUrl: './member-table.component.html',
-  styleUrls: ['./member-table.component.scss'],
-  providers: [
-    { provide: MatPaginatorIntl, useValue: CustomPaginator('Mitglieder pro Seite') }
-  ]
+  styleUrls: ['./member-table.component.scss']
 })
 
 export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
@@ -35,7 +29,8 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   @Input() filter: string;
 
   // Pagination
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  pageSize = 25;
+  pageIndex = 0
   pageTotalCount = 0;
   pageCount = 50;
 
@@ -104,18 +99,20 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
       this.sortActive = this.sortField;
       this.sort.direction = this.localStore.get('memberSortDirection');
       this.sortActive = this.localStore.get('memberSortField');
-      this.paginator.pageSize = this.localStore.get('memberPageSize');
+      this.pageSize = this.localStore.get('memberPageSize');
     });
 
     // reset the paginator after sorting
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sort.sortChange.subscribe(() => this.pageIndex = 0);
 
     // on sort or paginate events, load a new page
-    merge(this.sort.sortChange, this.paginator.page)
+    /*
+    merge(this.sort.sortChange, this.page)
     .pipe(
         tap(() => this.loadMemberPage())
     )
     .subscribe();
+    */
   }
 
   // *** Suche
@@ -194,13 +191,13 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   // *** Daten ermitteln
   private loadMemberPage(): any {
     this.countMemberPage();
-    this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.paginator.pageIndex, this.paginator.pageSize);
+    this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.pageIndex, this.pageSize);
 
     // save Settings
     this.localStore.set('memberSortField', this.sortActive);
     this.localStore.set('memberSortFieldDb', this.sortField);
     this.localStore.set('memberSortDirection', this.sortDirection);
-    this.localStore.set('memberPageSize', this.paginator.pageSize);
+    this.localStore.set('memberPageSize', this.pageSize);
     this.localStore.set('memberFilter', this.filter);
   }
 

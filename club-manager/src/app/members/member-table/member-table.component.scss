@@ -30,14 +30,6 @@
   background-color: cadetblue;
 }
 
-.pag-base {
-  border: 2px;
-  border-style: solid;
-  border-color: var(--primary);
-  position: fixed;
-  bottom: 30px;
-  max-height: 70px;
-}
 
 /* Animate items as they're being sorted. */
 .cdk-drop-list-dragging .cdk-drag {

@@ -143,7 +143,47 @@
 <!-- Fußzeile -->
 <ng-container >
   <div class="footer">
-      {{statusText}}
+ <div class="footer-status">
+        {{statusText}}
+    </div>
+    <!-- Bereich Fußzeile ausgeben -->
+    <ng-container [ngSwitch]="area">
+      <span *ngSwitchCase="0">
+        <div class="footer-comp">
+          <cl-footer-empty></cl-footer-empty>
+        </div>
+      </span>
+      <span *ngSwitchCase="1">
+        <div class="footer-comp">
+          <cl-footer-pagination></cl-footer-pagination>
+        </div>
+      </span>
+      <span *ngSwitchCase="2">
+        <div class="footer-comp">
+          <cl-footer-empty></cl-footer-empty>
+        </div>
+      </span>
+      <span *ngSwitchCase="3">
+        <div class="footer-comp">
+          <cl-footer-empty></cl-footer-empty>
+        </div>
+      </span>
+      <span *ngSwitchCase="4">
+        <div class="footer-comp">
+          <cl-footer-empty></cl-footer-empty>
+        </div>
+      </span>
+      <span *ngSwitchCase="5">
+        <div class="footer-comp">
+          <cl-footer-empty></cl-footer-empty>
+        </div>
+      </span>
+      <span *ngSwitchCase="6">
+        <div class="footer-comp">
+          <cl-footer-empty></cl-footer-empty>
+        </div>
+      </span>
+    </ng-container>
   </div>
 </ng-container>
 

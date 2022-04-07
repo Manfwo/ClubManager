@@ -34,6 +34,9 @@ import { ActivityHeaderComponent } from './activity/activity-header/activity-hea
 import { SettingsHeaderComponent } from  './_general/settings/settings-header/settings-header.component';
 // Sidebar
 import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.component';
+// Footer
+import { FooterEmptyComponent } from './_general/footer-empty/footer-empty/footer-empty.component';
+import { FooterPaginationComponent } from './_general/footer-pagination/footer-pagination/footer-pagination.component';
 
 
 @NgModule({
@@ -59,6 +62,8 @@ import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.co
     HistoryListComponent,
     MemberUpdateComponent,
     SettingsHeaderComponent,
+    FooterEmptyComponent,
+    FooterPaginationComponent,
   ],
   imports: [
     BrowserModule,
