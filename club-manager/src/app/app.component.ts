@@ -60,7 +60,9 @@ export class AppComponent implements OnInit, DoCheck {
     // Close-Button Sidebar empfangen
     this.sb.sharedState.subscribe(value => {this.sidebarIsVisible= value});
      // Header ändern
-    this.hs.sharedheaderId.subscribe(value => {console.log('AREA',value);this.area= value});
+    //this.hs.sharedheaderId.subscribe(value => {console.log('AREA',value);this.area= value});
+    this.hs.sharedheaderId.subscribe(value => {this.area= value});
+
 
   }
 

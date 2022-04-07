@@ -6,14 +6,15 @@ export class HistoryFactory {
   static fromRaw(h: HistoryRaw): History {
     let history = new History();
 
-    history.Id = h.Id;
-    history.User = h.User;
-    history.Action = h.Action;
-    history.Description = h.Description;
-    history.Table = h.Table;
-    history.RecordId = h.RecordId;
-    history.Changedate = this.getDateToString(h.ChangeDate);
-
+    if (h != undefined) {
+      history.Id = h.Id;
+      history.User = h.User;
+      history.Action = h.Action;
+      history.Description = h.Description;
+      history.Table = h.Table;
+      history.RecordId = h.RecordId;
+      history.Changedate = this.getDateToString(h.ChangeDate);
+    }
     return history;
   }
 

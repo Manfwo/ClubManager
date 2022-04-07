@@ -28,9 +28,7 @@ export class HistoryStoreService {
       );
   }
 
-
   getSingle(id: number): Observable<History> {
-    console.log('ID:', id);
     return this.http.get<HistoryRaw>(
       `${this.api}/history/${id}`
     ).pipe(
@@ -40,6 +38,18 @@ export class HistoryStoreService {
     );
   }
 
+  getByRecordId(id: number): Observable<History[]> {
+    console.log('RECORD_ID:', id);
+
+    return this.http.get<HistoryRaw[]>(`${this.api}/history/record/${id}`)
+    .pipe(
+      retry(3),
+      // map(historyRaw => console.log(historyRaw)
+      map(historyRaw => historyRaw.map(h => HistoryFactory.fromRaw(h)),
+      ),
+      catchError(this.errorHandler)
+    );
+  }
 
   private errorHandler(error: HttpErrorResponse): Observable<any> {
     console.error('Es ist ein Fehler beim HTTP-Request aufgetreten!');

@@ -13,7 +13,7 @@ export class HeaderService {
   constructor() { }
 
   nextMessage( areaId: number) {
-    console.log("Headerid", areaId);
+    //console.log("Headerid", areaId);
     this.headerId.next(areaId)
   };
 }

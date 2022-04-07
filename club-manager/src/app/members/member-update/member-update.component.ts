@@ -22,6 +22,8 @@ export class MemberUpdateComponent implements OnInit {
   updateflag: boolean = false;
   result$: Observable<string>;
   memberIn: Member;
+  recordId: number;
+  mode: number = 1;
 
   constructor(
     private router: Router,
@@ -34,6 +36,10 @@ export class MemberUpdateComponent implements OnInit {
   ngOnInit(): void {
     // Member übernehmen
     this.mt.sharedMember.subscribe(value => {console.log('MEMBER',value);this.memberIn= value});
+
+    // für History
+    this.mode = 1;
+    this.recordId = this.memberIn.Id;
 
     this.myForm = new FormGroup({
       alias: new FormControl(''),
