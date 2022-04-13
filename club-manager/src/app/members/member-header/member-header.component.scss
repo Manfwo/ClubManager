@@ -10,12 +10,12 @@
   height: 50px;
 }
 
-.add-icon {
+#add-icon {
   margin-left: 20px;
 }
 
-.add-icon:hover {
-  background-color: snow;
+#add-icon:hover {
+  background-color: var(--primary);
 }
 
 .search {

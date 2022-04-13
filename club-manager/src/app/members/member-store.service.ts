@@ -115,6 +115,24 @@ export class MemberStoreService {
     );
   }
 
+  generateAlias(): Observable<any> {
+    return this.http.delete(
+      `${this.api}/member/alias`,
+      { responseType: 'text' }
+    ).pipe(
+      catchError(this.errorHandler)
+    );
+  }
+
+  generateParentChilds(): Observable<any> {
+    return this.http.delete(
+      `${this.api}/member/parent_childs`,
+      { responseType: 'text' }
+    ).pipe(
+      catchError(this.errorHandler)
+    );
+  }
+
   private errorHandler(error: HttpErrorResponse): Observable<any> {
     console.error('Es ist ein Fehler beim HTTP-Request aufgetreten!');
     return throwError(error);

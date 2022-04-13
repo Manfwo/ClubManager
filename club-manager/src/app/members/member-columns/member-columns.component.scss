@@ -1,3 +1,5 @@
+@import '../../_shared/variables.sass';
+
 .sidebar-base {
   margin-top:5px;
   margin-left: 10px;
@@ -15,12 +17,16 @@
 }
 
 .close-button {
-  position: absolute;
-  right: 0px;
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+.close-button:hover {
+  background-color: var(--primary);
 }
 
 .apply-button {
-  position: absolute;
   margin-top: 10px;
-  right: 10px;
+  margin-left: 16px;
+  margin-bottom: 10px;
 }
