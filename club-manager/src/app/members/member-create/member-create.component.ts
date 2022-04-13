@@ -18,6 +18,7 @@ export class MemberCreateComponent implements OnInit {
   myForm: FormGroup;
   newflag: boolean = false;
   result$: Observable<string>;
+  currentYear: number;
 
   constructor(
     private router: Router,
@@ -28,9 +29,13 @@ export class MemberCreateComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let currentDate = new Date();
+    this.currentYear = currentDate.getFullYear() + 1;
+
     this.myForm = new FormGroup({
 
         alias: new FormControl(''),
+        externalid: new FormControl('',Validators.required),
         gender: new FormControl('',Validators.required),
         title: new FormControl(''),
         firstname: new FormControl('',Validators.required),
@@ -51,18 +56,18 @@ export class MemberCreateComponent implements OnInit {
         activeyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
         brokenyears: new FormControl(false),
         activepoints: new FormControl('',[Validators.max(99),Validators.pattern('^[0-9,.]*$')]),
-        bronze: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        silver: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        gold: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        active44: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        active55: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        active66: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        active77: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        active88: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        goldlion: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        bronze: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        silver: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        gold: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        active44: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        active55: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        active66: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        active77: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        active88: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        goldlion: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
         goldlionnr: new FormControl('',Validators.pattern('^[0-9]*$')),
-        goldlionbrilliant: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-        tributmember: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+        goldlionbrilliant: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        tributmember: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
 
         comment: new FormControl(''),
 
@@ -88,7 +93,9 @@ export class MemberCreateComponent implements OnInit {
   }
 
   onFormSubmit() {
+    this.member.Alias = this.myForm.get('alias').value;
     this.member.Gender = this.myForm.get('gender').value;
+    this.member.ExternalId = this.myForm.get('externalid').value;
     this.member.Title = this.myForm.get('title').value;
     this.member.Firstname = this.myForm.get('firstname').value;
     this.member.Familyname = this.myForm.get('familyname').value;

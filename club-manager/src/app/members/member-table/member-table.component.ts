@@ -14,6 +14,8 @@ import { FieldStoreService } from '../../_general/field/field-store.service';
 import { HeaderService } from 'src/app/app-header.service';
 import { Field } from '../../_general/field/field';
 import { Router } from '@angular/router';
+import { PageParameterService } from './../../_shared/page-parameter.service';
+import { PageParameter } from './../../_shared/page-parameter';
 
 @Component({
   selector: 'cl-member-table',
@@ -29,10 +31,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   @Input() filter: string;
 
   // Pagination
-  pageSize = 25;
-  pageIndex = 0
-  pageTotalCount = 0;
-  pageCount = 50;
+  page: PageParameter;
 
   // Sortierung
   @ViewChild(MatSort) sort: MatSort;
@@ -56,13 +55,14 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   constructor(
     private router: Router,
-    private mb: MemberStoreService,
     private localStore: LocalStorageService,
+    private mb: MemberStoreService,
     private ms: MemberSearchService,
     private mc: MemberColumnService,
     private hs: HeaderService,
     private mt: MemberTransferService,
-    private sf:FieldStoreService) {}
+    private ps: PageParameterService,
+    private sf: FieldStoreService) {}
 
   ngOnInit(): void {
     // Suchtext from Header
@@ -71,24 +71,24 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     // Spalten von Spaltenauswahl
     this.mc.sharedMessage.subscribe(list => this.fieldsSelected = list)
 
+    // Paginator
+    this.ps.sharedPageParameter.subscribe(value => {this.page = value;
+      console.log("PAGINATOR");
+      this.loadMemberPage();});
+
     // gespeicherte Einstellungen speichern
     this.filter = "" //this.localStore.get('memberFilter');
     this.sortDirection = this.localStore.get('memberSortDirection');
     this.sortField = this.localStore.get('memberSortFieldDb'),
-    this.pageCount = this.localStore.get('memberPageSize');
-    //console.log('MemberTable.OnInit.filter:', this.filter);
-    //console.log('MemberTable.OnInit.sortDirection:', this.sortDirection);
 
+    // Init Table
     this.initTableColumns();
 
     this.loading = true;
-    this.count$ = this.mb.getCount('');
-    this.count$.subscribe( result => {
-      this.pageTotalCount = result[0].resCount;
-    });
-    this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, 0, this.pageCount);
+
+    this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, 0, this.localStore.get('memberPageSize'));
     this.members$.subscribe( result => {
-      this.pageCount = result.length;
+      console.log('READ_ONINIT',result.length);
       this.loading = false;
     });
   }
@@ -99,20 +99,17 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
       this.sortActive = this.sortField;
       this.sort.direction = this.localStore.get('memberSortDirection');
       this.sortActive = this.localStore.get('memberSortField');
-      this.pageSize = this.localStore.get('memberPageSize');
     });
 
     // reset the paginator after sorting
-    this.sort.sortChange.subscribe(() => this.pageIndex = 0);
+    this.sort.sortChange.subscribe(() => this.page.pageIndex = 0);
 
     // on sort or paginate events, load a new page
-    /*
-    merge(this.sort.sortChange, this.page)
+    merge(this.sort.sortChange, this.page.pageIndex)
     .pipe(
-        tap(() => this.loadMemberPage())
+      tap(() => this.loadMemberPage())
     )
     .subscribe();
-    */
   }
 
   // *** Suche
@@ -121,21 +118,18 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
       let change = false;
       // Änderung des Suchtextes
       if (this.searchTextOld != this.searchText) {
-        this.searchTextOld = this.searchText;
-        this.filter = this.searchText;
-        //console.log('SearchText:', this.searchText);
-        change = true;
+          this.searchTextOld = this.searchText;
+          this.filter = this.searchText;
+          change = true;
       }
 
       // Spalten Änderung
-      if ((this.fieldsSelected !== null) && (this.fieldsSelected.length > 0)
-          && (this.fieldsSelected !== this.fieldsSelectedOld)) {
-        this.fieldsSelectedOld = this.fieldsSelected;
-        this.displayedColumnNames = [];
-        this.displayedColumns = [];
-        this.fieldsSelected.forEach(( col, index) => {
+      if ((this.fieldsSelected !== null) && (this.fieldsSelected.length > 0) && (this.fieldsSelected !== this.fieldsSelectedOld)) {
+          this.fieldsSelectedOld = this.fieldsSelected;
+          this.displayedColumnNames = [];
+          this.displayedColumns = [];
+          this.fieldsSelected.forEach(( col, index) => {
           this.displayedColumnNames[index] = col.Name;
-          //console.log('newfield', col.Label, col.Width);
           this.displayedColumns[index] = col;
           change = true;
         })
@@ -153,14 +147,16 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
       this.sortField = 'me_family_name';
       return;
     }
+    console.log('SORTDATA');
     this.sortActive = sort.active;
     this.sortDirection = sort.direction;
     this.displayedColumns.forEach(item => {
-      if (sort.active === item.field) {
-        this.sortField = item.db;
+      if (sort.active == item.Name) {
+        this.sortField = item.Column;
+        console.log('SORTDATA', this.sortField);
+        this.loadMemberPage();
       }
     });
-    this.loadMemberPage();
   }
 
   // *** Spaltenreihenfolge per Drag & Drop ändern
@@ -182,7 +178,6 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   }
 
   editMember($event:Member) {
-    console.log("EDI_MEMBER",$event);
     this.hs.nextMessage(12);
     this.mt.nextMessage($event);
     this.router.navigate( ['mem-update']);
@@ -190,21 +185,28 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   // *** Daten ermitteln
   private loadMemberPage(): any {
+    console.log("LOADMEMBERPAGE");
     this.countMemberPage();
-    this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.pageIndex, this.pageSize);
-
-    // save Settings
-    this.localStore.set('memberSortField', this.sortActive);
-    this.localStore.set('memberSortFieldDb', this.sortField);
-    this.localStore.set('memberSortDirection', this.sortDirection);
-    this.localStore.set('memberPageSize', this.pageSize);
-    this.localStore.set('memberFilter', this.filter);
+    this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
+    this.members$.subscribe(result => {
+      // save Settings
+      console.log('memberSortField', this.sortActive);
+      console.log('memberSortFieldDb', this.sortField);
+      console.log('memberSortDirection', this.sortDirection);
+      console.log('memberPageSize', this.page.pageSize);
+      console.log('memberFilter', this.filter);
+      this.localStore.set('memberSortField', this.sortActive);
+      this.localStore.set('memberSortFieldDb', this.sortField);
+      this.localStore.set('memberSortDirection', this.sortDirection);
+      this.localStore.set('memberPageSize', this.page.pageSize);
+      this.localStore.set('memberFilter', this.filter);
+    } )
   }
 
   private countMemberPage(): any {
     this.count$ = this.mb.getCount(this.filter);
     this.count$.subscribe( result => {
-      this.pageTotalCount = result[0].resCount;
+      this.page.pageLength = result[0].resCount;
     });
   }
 
@@ -213,9 +215,9 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     // sichtbare Spalten lesen
     this.fields$ =  this.sf.getTableVisibleUserFields('members');
 
-    // In arrays konvertieren
+    // in arrays konvertieren
     this.fields$.subscribe( result => {
-      let pageCount = result.length;
+      this.page.pageLength = result.length;
 
       result.forEach(( col: Field, index: number) => {
         this.displayedColumnNames[index] = col.Name;

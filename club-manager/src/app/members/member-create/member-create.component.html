@@ -10,8 +10,16 @@
             <input matInput formControlName="alias">
           </mat-form-field>
           <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
+
+          <mat-form-field class="column2-field-short">
+            <mat-label>Externe Id</mat-label>
+            <input matInput required formControlName="externalid">
+            <mat-error *ngIf="myForm.get('externalid').hasError('required')">
+              Id erforderlich
+            </mat-error>
+          </mat-form-field>
         </p>
-      <p>
+
       <p>
         <mat-form-field class="field-short">
           <mat-label>Anrede</mat-label>
@@ -176,7 +184,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('bronze').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
 
@@ -187,7 +195,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('silver').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
 
@@ -198,7 +206,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('gold').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
 
@@ -209,7 +217,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('active44').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
         </p>
@@ -222,7 +230,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('active55').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
 
@@ -233,7 +241,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('active66').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
 
@@ -244,7 +252,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('active77').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
 
@@ -255,7 +263,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('active88').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
         </p>
@@ -268,7 +276,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('goldlion').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
 
@@ -284,7 +292,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('goldlionbrilliant').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
         </p>
@@ -297,7 +305,7 @@
               Die Jahreszahl muss größer 1955 sein
             </mat-error>
             <mat-error *ngIf="myForm.get('tributmember').hasError('max')">
-              Die Jahreszahl muss kleiner 2050 sein
+              Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
         </p>

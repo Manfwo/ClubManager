@@ -24,6 +24,7 @@ export class MemberUpdateComponent implements OnInit {
   memberIn: Member;
   recordId: number;
   mode: number = 1;
+  currentYear: number;
 
   constructor(
     private router: Router,
@@ -34,6 +35,9 @@ export class MemberUpdateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    let currentDate = new Date();
+    this.currentYear = currentDate.getFullYear() + 1;
+
     // Member übernehmen
     this.mt.sharedMember.subscribe(value => {console.log('MEMBER',value);this.memberIn= value});
 
@@ -43,6 +47,7 @@ export class MemberUpdateComponent implements OnInit {
 
     this.myForm = new FormGroup({
       alias: new FormControl(''),
+      externalid: new FormControl('',Validators.required),
       gender: new FormControl('',Validators.required),
       title: new FormControl(''),
       firstname: new FormControl('',Validators.required),
@@ -64,24 +69,25 @@ export class MemberUpdateComponent implements OnInit {
       activeyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
       brokenyears: new FormControl(false),
       activepoints: new FormControl('',[Validators.max(99),Validators.pattern('^[0-9,.]*$')]),
-      bronze: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      silver: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      gold: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      active44: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      active55: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      active66: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      active77: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      active88: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      goldlion: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+      bronze: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      silver: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      gold: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      active44: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      active55: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      active66: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      active77: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      active88: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      goldlion: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
       goldlionnr: new FormControl('',Validators.pattern('^[0-9]*$')),
-      goldlionbrilliant: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
-      tributmember: new FormControl('',[Validators.min(1955),Validators.max(2050),Validators.pattern('^[0-9]*$')]),
+      goldlionbrilliant: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      tributmember: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
 
       comment: new FormControl(''),
     });
     // Set values
     if (this.memberIn != undefined) {
       this.myForm.get('alias').patchValue(this.memberIn.Alias);
+      this.myForm.get('externalid').patchValue(this.memberIn.ExternalId);
       if (this.memberIn.Gender == "Herr")
         this.myForm.get('gender').patchValue('m');
       else
@@ -147,6 +153,8 @@ export class MemberUpdateComponent implements OnInit {
 
   onFormSubmit() {
     this.member.Id = this.memberIn.Id
+    this.member.Alias= this.myForm.get('alias').value;
+    this.member.ExternalId = this.myForm.get('externalid').value;
     this.member.Gender = this.myForm.get('gender').value;
     this.member.Title = this.myForm.get('title').value;
     this.member.Firstname = this.myForm.get('firstname').value;
