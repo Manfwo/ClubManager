@@ -28,6 +28,7 @@ export class MemberStoreService {
         catchError(this.errorHandler)
       );
   }
+
   getCount(filter: string ): Observable<ResultValue> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter;
@@ -107,16 +108,9 @@ export class MemberStoreService {
     );
   }
 
-  check(isbn: string): Observable<boolean> {
-    return this.http.get(
-      `${this.api}/member/${isbn}/check`
-    ).pipe(
-      catchError(this.errorHandler)
-    );
-  }
-
   generateAlias(): Observable<any> {
-    return this.http.delete(
+    console.log('generateAlias');
+    return this.http.put(
       `${this.api}/member/alias`,
       { responseType: 'text' }
     ).pipe(
@@ -125,7 +119,7 @@ export class MemberStoreService {
   }
 
   generateParentChilds(): Observable<any> {
-    return this.http.delete(
+    return this.http.put(
       `${this.api}/member/parent_childs`,
       { responseType: 'text' }
     ).pipe(
