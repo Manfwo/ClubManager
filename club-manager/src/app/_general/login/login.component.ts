@@ -1,13 +1,10 @@
 import { CommonValues } from '../../_shared/common';
-import { JwtResponse } from '../jwt-response';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserStoreService } from '../users/user-store.service';
 import { TokenStorageService } from '../../_shared/token-storage.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { User } from '../users/user';
-
 
 @Component({
   selector: 'cl-login',

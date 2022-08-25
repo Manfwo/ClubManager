@@ -1,3 +1,4 @@
+import { ResignComponent } from './members/member-resign/resign.component';
 import { MemberModule } from './members/member.module';
 import { NgModule} from '@angular/core';
 import { MAT_DATE_LOCALE} from '@angular/material/core';
@@ -49,6 +50,7 @@ import { FooterPaginationComponent } from './_general/footer-pagination/footer-p
     ReportListComponent,
     StatisticComponent,
     LoginComponent,
+    ResignComponent,
     MemberHeaderComponent,
     MemberCreateHeaderComponent,
     MemberUpdateHeaderComponent,

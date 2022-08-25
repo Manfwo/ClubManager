@@ -8,6 +8,8 @@ import { Member } from '../member';
 import { MemberRaw } from '../member-raw';
 import { MemberStoreService } from '../member-store.service';
 import { HeaderService } from './../../app-header.service';
+import { ResignComponent } from '../member-resign/resign.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'cl-member-update',
@@ -32,6 +34,7 @@ export class MemberUpdateComponent implements OnInit {
     private ms: MemberStoreService,
     private sh: HeaderService,
     private mt: MemberTransferService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -151,6 +154,19 @@ export class MemberUpdateComponent implements OnInit {
     this.updateflag = false;
   }
 
+  public onDelete():  void {
+    this.updateflag = false;
+
+    let dialogRef = this.dialog.open(ResignComponent, {
+      width: '450px',
+      data: { member: this.memberIn}
+    });
+
+    //dialogRef.afterClosed().subscribe(result => {
+    //  this.member.ResignReason = result;
+    //});
+  }
+
   onFormSubmit() {
     this.member.Id = this.memberIn.Id
     this.member.Alias= this.myForm.get('alias').value;
@@ -201,7 +217,7 @@ export class MemberUpdateComponent implements OnInit {
     this.member.TributeMember= this.myForm.get('tributmember').value;
     this.member.Comment = this.myForm.get('comment').value;
 
-    console.log('UPDATE_MEMBER',this.myForm.value);
+    //console.log('UPDATE_MEMBER',this.myForm.value);
     if (this.updateflag) {
       this.result$ = this.ms.update(this.member)
       this.result$.subscribe(message  => console.log(message));
