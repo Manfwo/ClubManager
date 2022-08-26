@@ -1,5 +1,6 @@
-import { ResignComponent } from './members/member-resign/resign.component';
+
 import { MemberModule } from './members/member.module';
+import { ActivityModule } from './activity/activity.module';
 import { NgModule} from '@angular/core';
 import { MAT_DATE_LOCALE} from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,7 +25,7 @@ import { StatisticComponent } from './statistic/statistic/statistic.component';
 import { MemberHeaderComponent } from './members/member-header/member-header.component';
 import { MemberCreateHeaderComponent } from './members/member-create-header/member-create-header.component';
 import { MemberUpdateHeaderComponent } from './members/member-update-header/member-update-header.component';
-import { MemberUpdateComponent } from './members/member-update/member-update.component';
+import { ActivityCreateHeaderComponent } from './activity/activity-create-header/activity-create-header.component';
 import { HistoryListComponent } from './_general/history/history-list/history-list.component';
 import { StatisticHeaderComponent} from './statistic/statistic-header/statistic-header.component';
 import { DashboardHeaderComponent } from './dashboard/dashboard-header/dashboard-header.component';
@@ -38,6 +39,7 @@ import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.co
 // Footer
 import { FooterEmptyComponent } from './_general/footer-empty/footer-empty/footer-empty.component';
 import { FooterPaginationComponent } from './_general/footer-pagination/footer-pagination/footer-pagination.component';
+import { MemberUpdateComponent } from './members/member-update/member-update.component';
 
 
 @NgModule({
@@ -50,7 +52,6 @@ import { FooterPaginationComponent } from './_general/footer-pagination/footer-p
     ReportListComponent,
     StatisticComponent,
     LoginComponent,
-    ResignComponent,
     MemberHeaderComponent,
     MemberCreateHeaderComponent,
     MemberUpdateHeaderComponent,
@@ -60,12 +61,13 @@ import { FooterPaginationComponent } from './_general/footer-pagination/footer-p
     ReportHeaderComponent,
     WorkHeaderComponent,
     ActivityHeaderComponent,
+    ActivityCreateHeaderComponent,
     SidebarEmptyComponent,
     HistoryListComponent,
-    MemberUpdateComponent,
     SettingsHeaderComponent,
     FooterEmptyComponent,
     FooterPaginationComponent,
+    MemberUpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ import { FooterPaginationComponent } from './_general/footer-pagination/footer-p
     HttpClientModule,
     MyMaterialModule,
     ReactiveFormsModule,
-    MemberModule
+    MemberModule,
+    ActivityModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
               { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, AuthGuard ],

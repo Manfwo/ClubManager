@@ -28,7 +28,7 @@ export class ActivityStoreService {
         catchError(this.errorHandler)
       );
   }
-/*
+
   getCount(filter: string ): Observable<ResultValue> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter;
@@ -55,7 +55,7 @@ export class ActivityStoreService {
         catchError(this.errorHandler)
       );
   }
-*/
+
   getSingle(id: number): Observable<Activity> {
     console.log('ID:', id);
     return this.http.get<ActivityRaw>(

@@ -8,8 +8,9 @@ import { Member } from '../member';
 import { MemberRaw } from '../member-raw';
 import { MemberStoreService } from '../member-store.service';
 import { HeaderService } from './../../app-header.service';
-import { ResignComponent } from '../member-resign/resign.component';
+import { MemberResignComponent } from '../member-resign/member-resign.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MemberTableComponent } from '../member-table/member-table.component';
 
 @Component({
   selector: 'cl-member-update',
@@ -35,6 +36,7 @@ export class MemberUpdateComponent implements OnInit {
     private sh: HeaderService,
     private mt: MemberTransferService,
     private dialog: MatDialog,
+    private mem: MemberTableComponent
   ) { }
 
   ngOnInit(): void {
@@ -157,14 +159,16 @@ export class MemberUpdateComponent implements OnInit {
   public onDelete():  void {
     this.updateflag = false;
 
-    let dialogRef = this.dialog.open(ResignComponent, {
+    let dialogRef = this.dialog.open(MemberResignComponent, {
       width: '450px',
       data: { member: this.memberIn}
     });
 
-    //dialogRef.afterClosed().subscribe(result => {
-    //  this.member.ResignReason = result;
-    //});
+    dialogRef.afterClosed().subscribe(
+      message => {
+        console.log(message,"AFTERCLOSE");
+       // this.mem.loadMemberPage()
+      });
   }
 
   onFormSubmit() {

@@ -14,6 +14,9 @@ import { StatisticComponent } from './statistic/statistic/statistic.component';
 import { PageNotFoundComponent } from './_general/page-not-found/page-not-found.component';
 import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.component';
 import { AuthGuard } from './_general/auth/auth.guard';
+import { ActivityViewComponent } from './activity/activity-view/activity-view.component';
+import { ActivityCreateComponent } from './activity/activity-create/activity-create.component';
+import { ActivityColumnsComponent } from './activity/activity_columns/activity-columns.component';
 
 const routes: Routes = [
 
@@ -30,15 +33,14 @@ const routes: Routes = [
 { path: 'mem-update', component: MemberUpdateComponent, canActivate : [AuthGuard] },
 { path: 'mem-columns', outlet: 'sidebar', component: MemberColumnsComponent },
 { path: 'mem-groups', outlet: 'sidebar', component: MemberGroupsComponent },
-
 {
   path: 'groups',
   loadChildren: () => import('./groups/group.module').then(g => g.GroupModule)
 },
-{
-  path: 'activities',
-  loadChildren: () => import('./activity/activity.module').then(a => a.ActivityModule)
-},
+{ path: 'activities', component: ActivityViewComponent, canActivate : [AuthGuard] },
+{ path: 'act-create', component: ActivityCreateComponent, canActivate : [AuthGuard] },
+{ path: 'act-update', component: ActivityCreateComponent, canActivate : [AuthGuard] },
+{ path: 'act-columns', outlet: 'sidebar', component: ActivityColumnsComponent },
 {
   path: 'works',
   loadChildren: () => import('./works/work.module').then(w => w.WorkModule)

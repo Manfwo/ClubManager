@@ -2,6 +2,13 @@
   <span>Aktivitäten</span>
   <mat-icon class="add-icon">add_circle</mat-icon>
 
+  <div class="search">
+    <mat-icon class="search-icon">search</mat-icon>Filter:
+    <mat-form-field class="search-input">
+    <input  matInput placeholder="nach Kurzname, Vor- und Nachnamen, Jahr" #input>
+  </mat-form-field>
+  </div>
+
   <div class="toolbar-right">
     <button mat-button [matMenuTriggerFor]="menu">
       <mat-icon>more_horiz</mat-icon>
@@ -10,7 +17,6 @@
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="secondaryNav('mem-columns')">Spalten ändern...</button>
-  <button mat-menu-item (click)="secondaryNav('mem-groups')">Gruppen zuweisen...</button>
+  <button mat-menu-item (click)="secondaryNav('act-columns')">Spalten ändern...</button>
   <button mat-menu-item (click)="secondaryNav('close')">Sidebar schließen</button>
 </mat-menu>

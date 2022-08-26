@@ -190,11 +190,11 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
     this.members$.subscribe(result => {
       // save Settings
-      console.log('memberSortField', this.sortActive);
-      console.log('memberSortFieldDb', this.sortField);
-      console.log('memberSortDirection', this.sortDirection);
-      console.log('memberPageSize', this.page.pageSize);
-      console.log('memberFilter', this.filter);
+      //console.log('memberSortField', this.sortActive);
+      //console.log('memberSortFieldDb', this.sortField);
+      //console.log('memberSortDirection', this.sortDirection);
+      //console.log('memberPageSize', this.page.pageSize);
+      //console.log('memberFilter', this.filter);
       this.localStore.set('memberSortField', this.sortActive);
       this.localStore.set('memberSortFieldDb', this.sortField);
       this.localStore.set('memberSortDirection', this.sortDirection);

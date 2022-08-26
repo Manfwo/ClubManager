@@ -51,7 +51,7 @@ export class HistoryListComponent implements OnInit {
 
     // In arrays konvertieren
     this.fields$.subscribe( result => {
-      //console.log('HISTORY_FIELDS',result.length);
+      console.log('HISTORY_FIELDS',result.length);
       result.forEach(( col: Field, index: number) => {
         this.displayedColumnNames[index] = col.Name;
         this.displayedColumns[index] = col;

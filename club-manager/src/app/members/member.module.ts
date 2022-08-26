@@ -7,6 +7,7 @@ import { MemberUpdateComponent } from './member-update/member-update.component';
 import { MemberTableComponent } from './member-table/member-table.component';
 import { MemberColumnsComponent } from './member-columns/member-columns.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MemberResignComponent } from './member-resign/member-resign.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MemberTableComponent,
     MemberColumnsComponent,
     MemberCreateComponent,
-
+    MemberResignComponent,
+   // MemberUpdateComponent,
   ],
   imports: [
     CommonModule,
