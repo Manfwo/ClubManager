@@ -1,0 +1,76 @@
+<form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+
+  <mat-tab-group>
+
+    <mat-tab label="Stammdaten">
+      <div class="form-area">
+        <p>
+
+          <mat-form-field class="column2-field-short">
+            <mat-label>Externe Id</mat-label>
+            <input matInput required formControlName="externalid">
+            <mat-error *ngIf="myForm.get('externalid').hasError('required')">
+              Id erforderlich
+            </mat-error>
+          </mat-form-field>
+        </p>
+
+
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Vorname</mat-label>
+          <input matInput formControlName="firstname">
+          <mat-error *ngIf="myForm.get('firstname').hasError('required')">
+            Vorname ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-long">
+          <mat-label>Nachname</mat-label>
+          <input matInput formControlName="familyname">
+          <mat-error *ngIf="myForm.get('familyname').hasError('required')">
+            Nachname ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Straße</mat-label>
+          <input matInput formControlName="street">
+          <mat-error *ngIf="myForm.get('street').hasError('required')">
+            Straße ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="field-short">
+          <mat-label>PLZ</mat-label>
+          <input matInput formControlName="zipcode">
+          <mat-error *ngIf="myForm.get('zipcode').hasError('required')">
+            PLZ erforderlich
+          </mat-error>
+          <mat-error *ngIf="myForm.get('zipcode').hasError('minLength')">
+            Min. 5 Zeichen
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-long">
+          <mat-label>Ort</mat-label>
+          <input matInput formControlName="city">
+          <mat-error *ngIf="myForm.get('city').hasError('required')">
+            Ort ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+
+    </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSave()" color="primary" class="ok-button">Anlegen</button>
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSaveNew()" color="primary" class="ok-button">Anlegen + Neu</button>
+</form>

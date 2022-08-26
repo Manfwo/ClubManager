@@ -1,0 +1,45 @@
+@import '../../_shared/variables.sass';
+
+.form-area {
+  margin-left: 16px;
+}
+
+.field-short {
+  width: 120px;
+}
+
+.field-short1 {
+  width: 120px;
+  height: 30px !important;
+}
+
+.field-long {
+  width: 300px;
+}
+
+.column2-field-short {
+  margin-left: 16px;
+  width: 120px;
+}
+
+.column2-field-long {
+  margin-left: 16px;
+  width: 300px;
+}
+
+.field-comment {
+  width: 600px;
+  min-height: 200px;
+}
+
+.ok-button {
+  margin-left: 16px;
+}
+
+.icon-button {
+  margin-left: 16px;
+}
+
+.icon-button:hover {
+  color:var(--primary);
+}

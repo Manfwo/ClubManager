@@ -1,0 +1,30 @@
+
+<h1 mat-dialog-title>Mitglied entfernen</h1>
+<div mat-dialog-content>
+  <form [formGroup]="resignForm" (ngSubmit)="submitForm()" name="resignForm">
+    <p>Wollen Sie <b>{{ Firstname }} {{ Familyname }}</b> aus der Mitgliederliste entfernen?</p>
+
+    <p>
+      <mat-form-field class="field-short">
+        <mat-label>Austrittsdatum</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="resigndate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="field-long">
+        <mat-label>Austrittsgrund</mat-label>
+        <select matNativeControl required formControlName="resignreason">
+          <option value="a">Austritt</option>
+          <option value="v">Verstorben</option>
+          <option value="k">Konto erloschen</option>
+        </select>
+        <mat-error *ngIf="resignForm.get('resignreason').hasError('required')">
+          Austrittsgrund ist erforderlich
+        </mat-error>
+      </mat-form-field>
+    </p>
+    <button mat-raised-button mat-dialog-close color="primary" (click)="onCancel()" class="close-button">Abbrechen</button>
+    <button mat-raised-button type="submit" mat-dialog-close color="primary" [disabled]="!resignForm.valid" class="close-button">Ja</button>
+</form>
+</div>

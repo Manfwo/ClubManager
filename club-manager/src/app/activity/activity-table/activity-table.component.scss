@@ -1,0 +1,99 @@
+@import '../../_shared/variables.sass';
+
+.table-container {
+  overflow:auto;
+  max-width: 100%;
+  height: $base-table;
+}
+
+.table-header {
+  position: sticky;
+  min-height: 35px;
+  height: 35px;
+  font-family: 'Arial Black', Helvetica, sans-serif;
+  z-index: 50;
+}
+
+.table-row {
+  min-height: 40px;
+  max-height: 40px !important;
+  height: 40px;
+}
+
+.table-row:hover {
+  background-color: rgba(0, 0, 0, .05);
+  cursor: pointer;
+}
+
+.table-footer {
+  position: sticky;
+  background-color: cadetblue;
+}
+
+
+/* Animate items as they're being sorted. */
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  // color: var(--primary);
+}
+
+.cdk-drag-preview  {
+  color: var(--primary);
+  display: flex;
+  border: white;
+}
+
+// Progressbar
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.spinner-text {
+  position: absolute;
+  text-align: center;
+  top: 35%;
+  left: 44%;
+}
+
+// Spaltenbreiten
+.W25 {
+  width : 25px;
+}
+
+.W50 {
+  width : 50px;
+}
+
+.W75 {
+  width : 75px;
+}
+
+.W100 {
+  width : 100px;
+}
+
+.W150 {
+  width : 150px;
+}
+
+.W200 {
+  width : 200px;
+}
+
+.W250 {
+  width : 250px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.W300 {
+  width : 300px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+

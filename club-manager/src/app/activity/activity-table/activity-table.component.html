@@ -1,0 +1,25 @@
+<div class="table-container">
+  <table mat-table [dataSource]="activitys$" matSort (matSortChange)="sortData($event)"
+    cdkDropList cdkDropListLockAxis="x" cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropListDropped($event)">
+
+    <!-- Header -->
+    <ng-container [matColumnDef]="col.Name" *ngFor="let col of displayedColumns; let i = index" >
+      <th mat-header-cell mat-sort-header *matHeaderCellDef
+          cdkDrag (cdkDragStarted)="dragStarted($event)" [cdkDragData]="{name: col.Name}">
+          {{col.Label}}
+      </th>
+      <td mat-cell [class]="col.Width" *matCellDef="let activity">{{activity[col.Name]}}
+        <!-- <div *ngIf="i==0"><button mat-icon-button color="primary" (click)="editMember(col)" title="Edit Contact"><mat-icon>edit</mat-icon></button></div> -->
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnNames; sticky:true" class="table-header"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row" (click)="editActivity(row)"></tr>
+    <!--<tr mat-footer-row *matFooterRowDef="displayedColumnNames" class="table-footer"></tr> -->
+  </table>
+</div>
+
+<div class="spinner-text" *ngIf="loading async">Daten werden geladen</div>
+<div class="spinner-container" *ngIf="loading async">
+  <mat-spinner value="100" mode="determinate" diameter="40"></mat-spinner>
+</div>
