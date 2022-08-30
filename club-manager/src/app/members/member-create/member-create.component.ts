@@ -67,6 +67,7 @@ export class MemberCreateComponent implements OnInit {
         goldlion: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
         goldlionnr: new FormControl('',Validators.pattern('^[0-9]*$')),
         goldlionbrilliant: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+        goldlionbrilliantnr: new FormControl('',Validators.pattern('^[0-9]*$')),
         tributmember: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
 
         comment: new FormControl(''),
@@ -138,6 +139,7 @@ export class MemberCreateComponent implements OnInit {
     this.member.GoldLion= this.myForm.get('goldlion').value;
     this.member.GoldLionNumber= this.myForm.get('goldlionnr').value;
     this.member.GoldLionNBrilliant = this.myForm.get('goldlionbrilliant').value;
+    this.member.GoldLionNBrilliantNumber = this.myForm.get('goldlionbrilliantnr').value;
     this.member.TributeMember= this.myForm.get('tributmember').value;
     this.member.Comment = this.myForm.get('comment').value;
 

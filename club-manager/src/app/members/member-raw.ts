@@ -33,6 +33,7 @@ export class MemberRaw {
   GoldLion: string;
   GoldLionNumber: string;
   GoldLionNBrilliant: string;
+  GoldLionNBrilliantNumber: string;
   TributeMember: string;
   Comment: string;
   ResignDate: Date;

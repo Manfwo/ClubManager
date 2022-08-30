@@ -5,6 +5,7 @@ import { ActivityStoreService } from '../../../activity/activity-store.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { SettingTransferService } from '../setting-transfer.service';
 
 @Component({
   selector: 'cl-settings',
@@ -20,7 +21,8 @@ export class SettingsComponent implements OnInit {
   constructor(
     private hs: HeaderService,
     private ms: MemberStoreService,
-    private as: ActivityStoreService
+    private as: ActivityStoreService,
+    private sets: SettingTransferService
     ) { }
 
   ngOnInit(): void {
@@ -32,6 +34,7 @@ export class SettingsComponent implements OnInit {
 
     this.myForm = new FormGroup({
       year: new FormControl(this.currentYear,[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      storage:new FormControl(false),
   })
   }
 
@@ -57,8 +60,16 @@ export class SettingsComponent implements OnInit {
       let currentDate = new Date();
       year = currentDate.getFullYear();
     }
-    console.log(year)
+
     this.result$ = this.as.generateActiveState(year);
     this.result$.subscribe(message  => console.log(message));
+  }
+
+  onStorage(){
+    let memberStorage = 'n'
+    if (this.myForm.get('storage').value != true)
+        memberStorage = 'y';
+    console.log(memberStorage);
+    this.sets.nextMessage(memberStorage);
   }
 }

@@ -55,6 +55,9 @@ export class MemberResignComponent implements OnInit {
       case 'k':
         this.member.ResignReason ='Beitrag';
         break;
+      case 'c':
+        this.member.ResignReason ='Kontakt';
+        break;
     }
     this.member.ResignDate = this.resignForm.get('resigndate').value;
 

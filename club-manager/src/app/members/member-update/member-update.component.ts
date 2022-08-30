@@ -69,7 +69,6 @@ export class MemberUpdateComponent implements OnInit {
       addressinvalid:new FormControl(false),
       flag:new FormControl(false),
 
-
       active: new FormControl(false),
       activeyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
       brokenyears: new FormControl(false),
@@ -85,6 +84,7 @@ export class MemberUpdateComponent implements OnInit {
       goldlion: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
       goldlionnr: new FormControl('',Validators.pattern('^[0-9]*$')),
       goldlionbrilliant: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
+      goldlionbrilliantnr: new FormControl('',Validators.pattern('^[0-9]*$')),
       tributmember: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
 
       comment: new FormControl(''),
@@ -140,6 +140,7 @@ export class MemberUpdateComponent implements OnInit {
       this.myForm.get('goldlion').patchValue(this.memberIn.GoldLion);
       this.myForm.get('goldlionnr').patchValue(this.memberIn.GoldLionNumber);
       this.myForm.get('goldlionbrilliant').patchValue(this.memberIn.GoldLionBrilliant);
+      this.myForm.get('goldlionbrilliantnr').patchValue(this.memberIn.GoldLionBrilliantNumber);
       this.myForm.get('tributmember').patchValue(this.memberIn.TributeMember);
     }
   }
@@ -218,6 +219,7 @@ export class MemberUpdateComponent implements OnInit {
     this.member.GoldLion= this.myForm.get('goldlion').value;
     this.member.GoldLionNumber= this.myForm.get('goldlionnr').value;
     this.member.GoldLionNBrilliant = this.myForm.get('goldlionbrilliant').value;
+    this.member.GoldLionNBrilliantNumber = this.myForm.get('goldlionbrilliantnr').value;
     this.member.TributeMember= this.myForm.get('tributmember').value;
     this.member.Comment = this.myForm.get('comment').value;
 

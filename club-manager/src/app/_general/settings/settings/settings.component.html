@@ -24,12 +24,12 @@
 
       <p>
         <button mat-raised-button type="submit" (click)="onDetermineActiveYears()" color="primary" class="button">Ausführen</button>
-        <mat-label class="label">Alle Aktivenjahre /-punkte neu berechnen</mat-label>
+        <mat-label class="label">Alle Aktivenjahre und Goldene Löwe Punkte neu berechnen</mat-label>
       </p>
 
       <p>
         <button mat-raised-button type="submit" (click)="onDetermineActiveState()" color="primary" class="button">Ausführen</button>
-        <mat-label class="label">Aktiven-Status für alle setzen</mat-label>
+        <mat-label class="label">Aktiven-Status für alle Mitglieder neu berechnen</mat-label>
 
         <mat-form-field class="column2-field-short">
           <mat-label>Jahr</mat-label>
@@ -44,6 +44,10 @@
               Die Jahreszahl darf nicht größer {{currentYear}} sein
             </mat-error>
           </mat-form-field>
+        </p>
+
+        <p>
+          <mat-checkbox formControlName="storage" color="primary" class="button" (click)="onStorage()">Mitglieder Ablage anzeigen anstatt Mitgliederliste</mat-checkbox>
         </p>
 
     </div>

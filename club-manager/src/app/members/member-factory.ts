@@ -32,6 +32,8 @@ export class MemberFactory {
     member.Active8x11 = m.Active8x11;
     member.GoldLion = m.GoldLion;
     member.GoldLionNumber = m.GoldLionNumber;
+    member.GoldLionBrilliant= m.GoldLionNBrilliant;
+    member.GoldLionBrilliantNumber= m.GoldLionNBrilliantNumber;
     member.TributeMember = m.TributeMember;
     member.Comment = m.Comment;
     member.ExternalId = m.ExternalId;
@@ -102,6 +104,8 @@ export class MemberFactory {
     member.Active8x11 = m.Active8x11;
     member.GoldLion = m.GoldLion;
     member.GoldLionNumber = m.GoldLionNumber;
+    member.GoldLionNBrilliant = m.GoldLionBrilliant;
+    member.GoldLionNBrilliantNumber = m.GoldLionBrilliantNumber;
     member.TributeMember = m.TributeMember;
     member.Comment = m.Comment;
     member.ExternalId = m.ExternalId;
