@@ -39,7 +39,7 @@ export class HistoryStoreService {
   }
 
   getByRecordId(id: number): Observable<History[]> {
-    console.log('RECORD_ID:', id);
+    //('RECORD_ID:', id);
 
     return this.http.get<HistoryRaw[]>(`${this.api}/history/record/${id}`)
     .pipe(

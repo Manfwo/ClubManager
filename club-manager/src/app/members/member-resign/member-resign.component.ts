@@ -40,9 +40,6 @@ export class MemberResignComponent implements OnInit {
 
   submitForm(): void {
     let memberRaw: MemberRaw;
-    console.log("DIALOG_DEL");
-    console.log(this.resignForm.get('resignreason').value);
-    console.log(this.resignForm.get('resigndate').value);
     this.member.Resign = 1;
     this.member.ResignReason = this.resignForm.get('resignreason').value;
     switch (this.resignForm.get('resignreason').value) {

@@ -318,6 +318,16 @@
     </div>
     </mat-tab>
 
+    <mat-tab label="Aktivitäten">
+      <div class="form-area">
+
+        <div class="activity-modul">
+          <cl-activity-list [recordValue]="recordId"></cl-activity-list>
+        </div>
+
+      </div>
+    </mat-tab>
+
     <mat-tab label="Historie">
     <div class="form-area">
 
@@ -335,7 +345,6 @@
 
     </div>
     </mat-tab>
-
   </mat-tab-group>
 
   <button mat-raised-button type="submit" (click)="onCancel()" color="primary" class="ok-button">Abbrechen</button>

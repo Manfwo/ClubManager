@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SidebarService } from 'src/app/app-sidebar.service';
 
 @Component({
   selector: 'cl-dashboard',
@@ -9,9 +10,10 @@ export class DashboardComponent implements OnInit {
 
   mode: number = 0;
 
-  constructor() { }
+  constructor( private sb: SidebarService) { }
 
   ngOnInit(): void {
+    this.sb.nextMessage(false);
   }
 
 }

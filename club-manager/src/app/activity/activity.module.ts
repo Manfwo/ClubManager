@@ -15,7 +15,7 @@ import { ActivityTableComponent } from './activity-table/activity-table.componen
 @NgModule({
   declarations: [
     ActivityViewComponent,
-    ActivityListComponent,
+    //ActivityListComponent,
     ActivityColumnsComponent,
     ActivityCreateComponent,
     ActivityTableComponent

@@ -39,7 +39,7 @@ export class HistoryListComponent implements OnInit {
 
     this.history$.subscribe( result => {
       if (result != undefined)
-        console.log('HISTORY_RESULT',result.length);
+        //console.log('HISTORY_RESULT',result.length);
       this.loading = false;
     });
   }
@@ -51,7 +51,6 @@ export class HistoryListComponent implements OnInit {
 
     // In arrays konvertieren
     this.fields$.subscribe( result => {
-      console.log('HISTORY_FIELDS',result.length);
       result.forEach(( col: Field, index: number) => {
         this.displayedColumnNames[index] = col.Name;
         this.displayedColumns[index] = col;

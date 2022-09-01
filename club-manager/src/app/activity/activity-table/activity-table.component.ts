@@ -1,3 +1,4 @@
+import { ActivityMem } from './../activity-mem';
 import { Component, Input, ViewChild, OnInit, AfterViewInit, DoCheck, } from '@angular/core';
 import { CdkDragStart, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -16,6 +17,7 @@ import { Field } from '../../_general/field/field';
 import { Router } from '@angular/router';
 import { PageParameterService } from '../../_shared/page-parameter.service';
 import { PageParameter } from '../../_shared/page-parameter';
+import { SidebarService } from 'src/app/app-sidebar.service';
 
 @Component({
   selector: 'cl-activity-table',
@@ -35,7 +37,7 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   // Sortierung
   @ViewChild(MatSort) sort: MatSort;
-  sortField = 'me_family_name';
+  sortField = 'me_alias';
   sortActive = '';
   sortDirection = 'ASC';
 
@@ -45,7 +47,7 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   // Tabellen Daten
   displayedColumns: any[] = [];
   displayedColumnNames: string[] = [];
-  activitys$: Observable<Activity[]>;
+  activitys$: Observable<ActivityMem[]>;
   count$: Observable<ResultValue>;
   searchText: string;
   searchTextOld: string;
@@ -62,9 +64,13 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
     private hs: HeaderService,
     private mt:ActivityTransferService,
     private ps: PageParameterService,
-    private sf: FieldStoreService) {}
+    private sf: FieldStoreService,
+    private sb: SidebarService ) {}
 
   ngOnInit(): void {
+    // close Sidebar
+    this.sb.nextMessage(false);
+
     // Suchtext from Header
     this.ms.sharedMessage.subscribe(message => this.searchText = message)
 
@@ -177,15 +183,15 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
     }
   }
 
-  editActivity($event:Activity) {
+  editActivity($event:ActivityMem) {
     this.hs.nextMessage(12);
     this.mt.nextMessage($event);
-    this.router.navigate( ['mem-update']);
+    this.router.navigate( ['act-update']);
   }
 
   // *** Daten ermitteln
   private loadActivityPage(): any {
-    console.log("LOADMEMBERPAGE");
+    console.log("LOAD_ACTIVITY_PAGE");
     this.countActivityPage();
     this.activitys$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
     this.activitys$.subscribe(result => {
@@ -213,16 +219,14 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   // *** Init Tabellenkopf
   private initTableColumns(): void {
     // sichtbare Spalten lesen
-    this.fields$ =  this.sf.getTableVisibleUserFields('activitys');
-
-    // in arrays konvertieren
+    this.fields$ =  this.sf.getTableVisibleUserFields('activities-mem');
     this.fields$.subscribe( result => {
       this.page.pageLength = result.length;
-
-      result.forEach(( col: Field, index: number) => {
-        this.displayedColumnNames[index] = col.Name;
-        this.displayedColumns[index] = col;
-      });
+          // in arrays konvertieren
+        result.forEach(( col: Field, index: number) => {
+          this.displayedColumnNames[index] = col.Name;
+          this.displayedColumns[index] = col;
+        });
     });
   }
 }

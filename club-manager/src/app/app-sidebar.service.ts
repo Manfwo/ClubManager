@@ -14,7 +14,7 @@ export class SidebarService {
   constructor() { }
 
   nextMessage( onOff: boolean) {
-    console.log("SidebarService", onOff);
+    //console.log("SidebarService", onOff);
     this.state.next(onOff)
 
   };

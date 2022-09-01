@@ -16,6 +16,7 @@ import { Field } from '../../_general/field/field';
 import { Router } from '@angular/router';
 import { PageParameterService } from './../../_shared/page-parameter.service';
 import { PageParameter } from './../../_shared/page-parameter';
+import { SidebarService } from 'src/app/app-sidebar.service';
 
 @Component({
   selector: 'cl-member-table',
@@ -62,9 +63,13 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     private hs: HeaderService,
     private mt: MemberTransferService,
     private ps: PageParameterService,
-    private sf: FieldStoreService) {}
+    private sf: FieldStoreService,
+    private sb: SidebarService) {}
 
   ngOnInit(): void {
+    // close Sidebar
+    this.sb.nextMessage(false);
+
     // Suchtext from Header
     this.ms.sharedMessage.subscribe(message => this.searchText = message)
 
@@ -73,7 +78,6 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
     // Paginator
     this.ps.sharedPageParameter.subscribe(value => {this.page = value;
-      console.log("PAGINATOR");
       this.loadMemberPage();});
 
     // gespeicherte Einstellungen speichern
@@ -88,7 +92,6 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
     this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, 0, this.localStore.get('memberPageSize'));
     this.members$.subscribe( result => {
-      console.log('READ_ONINIT',result.length);
       this.loading = false;
     });
   }
@@ -185,7 +188,6 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   // *** Daten ermitteln
   private loadMemberPage(): any {
-    console.log("LOADMEMBERPAGE");
     this.countMemberPage();
     this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
     this.members$.subscribe(result => {
@@ -214,15 +216,13 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   private initTableColumns(): void {
     // sichtbare Spalten lesen
     this.fields$ =  this.sf.getTableVisibleUserFields('members');
-
-    // in arrays konvertieren
     this.fields$.subscribe( result => {
       this.page.pageLength = result.length;
-
-      result.forEach(( col: Field, index: number) => {
-        this.displayedColumnNames[index] = col.Name;
-        this.displayedColumns[index] = col;
-      });
+        // in arrays konvertieren
+        result.forEach(( col: Field, index: number) => {
+          this.displayedColumnNames[index] = col.Name;
+          this.displayedColumns[index] = col;
+        });
     });
   }
 }

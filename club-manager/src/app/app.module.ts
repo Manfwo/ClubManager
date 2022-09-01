@@ -1,3 +1,4 @@
+import { ActivityListComponent } from './activity/activity-list/activity-list.component';
 
 import { MemberModule } from './members/member.module';
 import { ActivityModule } from './activity/activity.module';
@@ -64,6 +65,7 @@ import { MemberUpdateComponent } from './members/member-update/member-update.com
     ActivityCreateHeaderComponent,
     SidebarEmptyComponent,
     HistoryListComponent,
+    ActivityListComponent,
     SettingsHeaderComponent,
     FooterEmptyComponent,
     FooterPaginationComponent,

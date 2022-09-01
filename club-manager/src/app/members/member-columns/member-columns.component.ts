@@ -30,7 +30,7 @@ export class MemberColumnsComponent {
     private sb: SidebarService) {
 
     // Lese member fields
-    this.sf.getTableFields('members')
+    this.sf.getTableUserFields('members')
     .subscribe(fields => this.fieldList = fields);
     //console.log('fieldList.Length', this.fieldList.length);
     this.sb.nextMessage(true);

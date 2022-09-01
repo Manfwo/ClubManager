@@ -30,7 +30,7 @@ export class UserStoreService {
   }
 
   getSingle(id: number): Observable<User> {
-    console.log('ID:', id);
+   //console.log('ID:', id);
     return this.http.get<UserRaw>(
       `${this.api}/user/${id}`
     ).pipe(

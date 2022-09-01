@@ -84,12 +84,10 @@ export class MemberCreateComponent implements OnInit {
   }
 
   public onSave(): void {
-    console.log('SAVE');
     this.newflag = false;
   }
 
   public onSaveNew():  void {
-    console.log('NEW');
     this.newflag = true;
   }
 

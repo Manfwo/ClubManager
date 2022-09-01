@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   hide = true;
 
   ngOnInit(): void {
-    console.log('LoginComponent.OnInit');
     this.reactiveForm();
   }
 

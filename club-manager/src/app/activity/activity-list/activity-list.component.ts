@@ -13,8 +13,6 @@ import { Activity } from '../activity';
 export class ActivityListComponent implements OnInit {
 
   loading = true;           // Kennungn für Spinner
-
-  @Input() modeSwitch: number = 0;
   @Input() recordValue: number = 0;
 
   // Tabellen Daten
@@ -24,7 +22,7 @@ export class ActivityListComponent implements OnInit {
   fields$:  Observable<Field[]>;
 
   constructor(
-    private hi: ActivityStoreService,
+    private as: ActivityStoreService,
     private sf: FieldStoreService) {}
 
   ngOnInit(): void {
@@ -32,14 +30,10 @@ export class ActivityListComponent implements OnInit {
     this.initTableColumns();
 
     // Modus alles lesen oder nur zu einem Mitglied
-    if (this.modeSwitch == 0)
-     // this.activity$ = this.hi.getAll()
-    //else
-      //this.activity$ = this.hi.getByRecordId(this.recordValue)
-
+    this.activity$ = this.as.getByMemberId(this.recordValue);
     this.activity$.subscribe( result => {
       if (result != undefined)
-        console.log('HISTORY_RESULT',result.length);
+        console.log('ACTIVITY_RESULT',result.length);
       this.loading = false;
     });
   }
@@ -47,11 +41,11 @@ export class ActivityListComponent implements OnInit {
   // *** Init Tabellenkopf
   private initTableColumns(): void {
     // sichtbare Spalten lesen
-    this.fields$ =  this.sf.getTableVisibleFields('history');
+    this.fields$ =  this.sf.getTableVisibleFields('activities');
 
     // In arrays konvertieren
     this.fields$.subscribe( result => {
-      //console.log('HISTORY_FIELDS',result.length);
+      //console.log('ACTIVITY_FIELDS',result.length);
       result.forEach(( col: Field, index: number) => {
         this.displayedColumnNames[index] = col.Name;
         this.displayedColumns[index] = col;

@@ -98,7 +98,7 @@ export class AppComponent implements OnInit, DoCheck {
 
   // Sidebar aus-/einblenden
   public hideSidebar($event: boolean) {
-    console.log('SIDEBAR', $event);
+    //console.log('SIDEBAR', $event);
     this.sidebarIsVisible = $event;
   }
 

@@ -223,7 +223,6 @@ export class MemberUpdateComponent implements OnInit {
     this.member.TributeMember= this.myForm.get('tributmember').value;
     this.member.Comment = this.myForm.get('comment').value;
 
-    //console.log('UPDATE_MEMBER',this.myForm.value);
     if (this.updateflag) {
       this.result$ = this.ms.update(this.member)
       this.result$.subscribe(message  => console.log(message));
