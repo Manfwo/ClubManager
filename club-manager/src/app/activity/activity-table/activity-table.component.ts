@@ -31,6 +31,10 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   // Suche
   @Input() filter: string;
+  filter1: string;
+  filter2: string;
+  searchText: string;
+  searchTextOld: string;
 
   // Pagination
   page: PageParameter;
@@ -49,8 +53,7 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   displayedColumnNames: string[] = [];
   activitys$: Observable<ActivityMem[]>;
   count$: Observable<ResultValue>;
-  searchText: string;
-  searchTextOld: string;
+
   fields$: Observable<Field[]>;
   fieldsSelectedOld: Field[] = [];
   fieldsSelected: Field[] = [];
@@ -58,32 +61,32 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   constructor(
     private router: Router,
     private localStore: LocalStorageService,
-    private mb:ActivityStoreService,
-    private ms:ActivitySearchService,
-    private mc:ActivityColumnService,
-    private hs: HeaderService,
-    private mt:ActivityTransferService,
-    private ps: PageParameterService,
-    private sf: FieldStoreService,
-    private sb: SidebarService ) {}
+    private headerService: HeaderService,
+    private pageService: PageParameterService,
+    private fieldStoreService: FieldStoreService,
+    private sidebarService: SidebarService,
+    private storeService:ActivityStoreService,
+    private searchSerice:ActivitySearchService,
+    private columService:ActivityColumnService,
+    private transferService:ActivityTransferService) {}
 
   ngOnInit(): void {
     // close Sidebar
-    this.sb.nextMessage(false);
+    this.sidebarService.nextMessage(false);
 
     // Suchtext from Header
-    this.ms.sharedMessage.subscribe(message => this.searchText = message)
+    this.searchSerice.sharedMessage.subscribe(message => this.searchText = message)
 
     // Spalten von Spaltenauswahl
-    this.mc.sharedMessage.subscribe(list => this.fieldsSelected = list)
+    this.columService.sharedMessage.subscribe(list => this.fieldsSelected = list)
 
     // Paginator
-    this.ps.sharedPageParameter.subscribe(value => {this.page = value;
-      console.log("PAGINATOR");
+    this.pageService.sharedPageParameter.subscribe(value => {this.page = value;
       this.loadActivityPage();});
 
     // gespeicherte Einstellungen speichern
-    this.filter = "" //this.localStore.get('activityFilter');
+    this.filter1 = "" //this.localStore.get('activityFilter');
+    this.filter2 = "" //this.localStore.get('activityFilterYear');
     this.sortDirection = this.localStore.get('activitySortDirection');
     this.sortField = this.localStore.get('activitySortFieldDb'),
 
@@ -92,7 +95,7 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
 
     this.loading = true;
 
-    this.activitys$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, 0, this.localStore.get('activityPageSize'));
+    this.activitys$ = this.storeService.getPage(this.filter1,this.filter2, this.sortField, this.sortDirection, 0, this.localStore.get('activityPageSize'));
     this.activitys$.subscribe( result => {
       console.log('READ_ONINIT',result.length);
       this.loading = false;
@@ -125,8 +128,13 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
       // Änderung des Suchtextes
       if (this.searchTextOld != this.searchText) {
           this.searchTextOld = this.searchText;
-          this.filter = this.searchText;
-          change = true;
+          var parts = this.searchText.split('/');
+          if(parts && parts.length > 0) {
+            this.filter1 = parts[0];
+            this.filter2 = parts[1];
+            console.log("FILTER",this.searchText, this.filter1 ,this.filter2);
+            change = true;
+          }
       }
 
       // Spalten Änderung
@@ -184,16 +192,15 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   }
 
   editActivity($event:ActivityMem) {
-    this.hs.nextMessage(12);
-    this.mt.nextMessage($event);
+    this.headerService.nextMessage(12);
+    this.transferService.nextMessage($event);
     this.router.navigate( ['act-update']);
   }
 
   // *** Daten ermitteln
   private loadActivityPage(): any {
-    console.log("LOAD_ACTIVITY_PAGE");
     this.countActivityPage();
-    this.activitys$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
+    this.activitys$ = this.storeService.getPage(this.filter1, this.filter2, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
     this.activitys$.subscribe(result => {
       // save Settings
       //console.log('activitySortField', this.sortActive);
@@ -205,12 +212,13 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
       this.localStore.set('activitySortFieldDb', this.sortField);
       this.localStore.set('activitySortDirection', this.sortDirection);
       this.localStore.set('activityPageSize', this.page.pageSize);
-      this.localStore.set('activityFilter', this.filter);
+      this.localStore.set('activityFilter', this.filter1);
+      this.localStore.set('activityFilterYear', this.filter2);
     } )
   }
 
   private countActivityPage(): any {
-    this.count$ = this.mb.getCount(this.filter);
+    this.count$ = this.storeService.getCount(this.filter1, this.filter2);
     this.count$.subscribe( result => {
       this.page.pageLength = result[0].resCount;
     });
@@ -219,7 +227,7 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   // *** Init Tabellenkopf
   private initTableColumns(): void {
     // sichtbare Spalten lesen
-    this.fields$ =  this.sf.getTableVisibleUserFields('activities-mem');
+    this.fields$ =  this.fieldStoreService.getTableVisibleUserFields('activities-mem');
     this.fields$.subscribe( result => {
       this.page.pageLength = result.length;
           // in arrays konvertieren

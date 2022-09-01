@@ -19,16 +19,6 @@ export class MemberStoreService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Member[]> {
-    return this.http.get<MemberRaw[]>(`${this.api}/member/all`)
-      .pipe(
-        retry(3),
-        map(memberRaw => memberRaw.map(m => MemberFactory.fromRaw(m)),
-        ),
-        catchError(this.errorHandler)
-      );
-  }
-
   getCount(filter: string ): Observable<ResultValue> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter;
@@ -56,17 +46,6 @@ export class MemberStoreService {
       );
   }
 
-  getSingle(id: number): Observable<Member> {
-    console.log('ID:', id);
-    return this.http.get<MemberRaw>(
-      `${this.api}/member/${id}`
-    ).pipe(
-      retry(3),
-      map(m => MemberFactory.fromRaw(m)),
-      catchError(this.errorHandler)
-    );
-  }
-
   create(member: MemberRaw): Observable<any> {;
     return this.http.post(
       `${this.api}/member`,
@@ -92,18 +71,6 @@ export class MemberStoreService {
       `${this.api}/member/${id}`,
       { responseType: 'text' }
     ).pipe(
-      catchError(this.errorHandler)
-    );
-  }
-
-  getAllSearch(searchTerm: string): Observable<Member[]> {
-    return this.http.get<MemberRaw[]>(
-      `${this.api}/member/search/${searchTerm}`
-    ).pipe(
-      retry(3),
-      map(membersRaw =>
-        membersRaw.map(m => MemberFactory.fromRaw(m)),
-      ),
       catchError(this.errorHandler)
     );
   }
