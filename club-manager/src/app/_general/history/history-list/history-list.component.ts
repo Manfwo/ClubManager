@@ -28,9 +28,25 @@ export class HistoryListComponent implements OnInit {
     private sf: FieldStoreService) {}
 
   ngOnInit(): void {
-
     this.initTableColumns();
+  }
 
+  // Init Tabellenkopf
+  private initTableColumns(): void {
+    // sichtbare Spalten lesen
+    this.fields$ =  this.sf.getTableVisibleFields('history');
+    this.fields$.subscribe( result => {
+      result.forEach(( col: Field, index: number) => {
+        this.displayedColumnNames[index] = col.Name;
+        this.displayedColumns[index] = col;
+
+      });
+      this.readHistory();
+    });
+  }
+
+  // History lesen
+  private readHistory(): void {
     // Modus alles lesen oder nur zu einem Mitglied
     if (this.modeSwitch == 0)
       this.history$ = this.hi.getAll()
@@ -39,22 +55,8 @@ export class HistoryListComponent implements OnInit {
 
     this.history$.subscribe( result => {
       if (result != undefined)
-        //console.log('HISTORY_RESULT',result.length);
-      this.loading = false;
-    });
-  }
-
-  // *** Init Tabellenkopf
-  private initTableColumns(): void {
-    // sichtbare Spalten lesen
-    this.fields$ =  this.sf.getTableVisibleFields('history');
-
-    // In arrays konvertieren
-    this.fields$.subscribe( result => {
-      result.forEach(( col: Field, index: number) => {
-        this.displayedColumnNames[index] = col.Name;
-        this.displayedColumns[index] = col;
-      });
+          this.loading = false;
+       // console.log('HISTORY_RESULT',result.length);
     });
   }
 }

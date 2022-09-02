@@ -39,8 +39,9 @@ import { SettingsHeaderComponent } from  './_general/settings/settings-header/se
 import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.component';
 // Footer
 import { FooterEmptyComponent } from './_general/footer-empty/footer-empty/footer-empty.component';
-import { FooterPaginationComponent } from './_general/footer-pagination/footer-pagination/footer-pagination.component';
+import { MemberFooterPaginationComponent } from './members/member-footer-pagination/member-footer-pagination.component';
 import { MemberUpdateComponent } from './members/member-update/member-update.component';
+import { ActivityFooterPaginationComponent } from './activity/activity-footer-pagination/activity-footer-pagination.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { MemberUpdateComponent } from './members/member-update/member-update.com
     ActivityListComponent,
     SettingsHeaderComponent,
     FooterEmptyComponent,
-    FooterPaginationComponent,
+    MemberFooterPaginationComponent,
+    ActivityFooterPaginationComponent,
     MemberUpdateComponent,
   ],
   imports: [
