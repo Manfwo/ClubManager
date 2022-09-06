@@ -33,7 +33,6 @@ export class ActivityListComponent implements OnInit {
     this.activity$ = this.as.getByMemberId(this.recordValue);
     this.activity$.subscribe( result => {
       if (result != undefined)
-        console.log('ACTIVITY_RESULT',result.length);
       this.loading = false;
     });
   }
@@ -45,7 +44,6 @@ export class ActivityListComponent implements OnInit {
 
     // In arrays konvertieren
     this.fields$.subscribe( result => {
-      //console.log('ACTIVITY_FIELDS',result.length);
       result.forEach(( col: Field, index: number) => {
         this.displayedColumnNames[index] = col.Name;
         this.displayedColumns[index] = col;

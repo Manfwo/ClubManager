@@ -132,7 +132,6 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
           if(parts && parts.length > 0) {
             this.filter1 = parts[0];
             this.filter2 = parts[1];
-            console.log("FILTER",this.searchText, this.filter1 ,this.filter2);
             change = true;
           }
       }
@@ -161,13 +160,12 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
       this.sortField = 'me_family_name';
       return;
     }
-    console.log('SORTDATA');
     this.sortActive = sort.active;
     this.sortDirection = sort.direction;
     this.displayedColumns.forEach(item => {
       if (sort.active == item.Name) {
         this.sortField = item.Column;
-        console.log('SORTDATA', this.sortField);
+        //console.log('SORTDATA', this.sortField);
         this.loadActivityPage();
       }
     });
@@ -181,7 +179,7 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   }
 
   dropListDropped(event: CdkDragDrop<any[]>): void  {
-    console.log('ActivityTable.DropListDropped', event);
+    //console.log('ActivityTable.DropListDropped', event);
     if (event) {
       moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
       moveItemInArray(this.displayedColumnNames, event.previousIndex, event.currentIndex);

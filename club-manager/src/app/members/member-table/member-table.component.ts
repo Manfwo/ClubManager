@@ -34,6 +34,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   // Settings  -> Ablage o Mitgliederliste
   resignList = 'n';
   oldresignList: string;
+  settingsName: string;
 
   // Pagination
   page: PageParameter;
@@ -76,6 +77,10 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
     // Settings für ehemalige Mitglieder lesen
     this.resignList = this.localStore.get('member_resign');
+    if (this.resignList == 'y')
+        this.settingsName = "members-resign";
+    else
+        this.settingsName = "members";
 
     // Suchtext from Header
     this.searchService.sharedMessage.subscribe(message => this.searchText = message)
@@ -164,13 +169,13 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
       this.sortField = 'me_family_name';
       return;
     }
-    console.log('SORTDATA');
+
     this.sortActive = sort.active;
     this.sortDirection = sort.direction;
     this.displayedColumns.forEach(item => {
       if (sort.active == item.Name) {
         this.sortField = item.Column;
-        console.log('SORTDATA', this.sortField);
+        //console.log('SORTDATA', this.sortField);
         this.loadMemberPage();
       }
     });
@@ -184,7 +189,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   }
 
   dropListDropped(event: CdkDragDrop<any[]>): void  {
-    console.log('MemberTable.DropListDropped', event);
+    //console.log('MemberTable.DropListDropped', event);
     if (event) {
       moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
       moveItemInArray(this.displayedColumnNames, event.previousIndex, event.currentIndex);
@@ -232,7 +237,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   // *** Init Tabellenkopf
   private initTableColumns(): void {
     // sichtbare Spalten lesen
-    this.fields$ =  this.fieldService.getTableVisibleUserFields('members');
+    this.fields$ =  this.fieldService.getTableVisibleUserFields(this.settingsName);
     this.fields$.subscribe( result => {
       this.page.pageLength = result.length;
         // in arrays konvertieren

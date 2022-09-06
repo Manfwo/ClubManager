@@ -15,7 +15,7 @@ export class PageParameterService {
   constructor() { }
 
   public nextMessage( p: PageParameter) {
-    console.log("PAGE-SERVICE",p);
+    //console.log("PAGE-SERVICE",p);
     this.param.next(p)
   };
 }

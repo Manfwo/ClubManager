@@ -50,12 +50,12 @@ export class ActivityCreateComponent implements OnInit {
   }
 
   public onSave(): void {
-    console.log('SAVE');
+    //console.log('SAVE');
     this.newflag = false;
   }
 
   public onSaveNew():  void {
-    console.log('NEW');
+    //console.log('NEW');
     this.newflag = true;
   }
 
@@ -63,7 +63,7 @@ export class ActivityCreateComponent implements OnInit {
 
     this.member.Comment = this.myForm.get('comment').value;
 
-    console.log('CREATE_ACTVITY',this.myForm.value);
+    //console.log('CREATE_ACTVITY',this.myForm.value);
     if (this.newflag) {
       this.result$ = this.ms.create(this.member);
       this.result$.subscribe(message  => console.log(message));

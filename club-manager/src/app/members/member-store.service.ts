@@ -41,7 +41,7 @@ export class MemberStoreService {
     parameter.sortDirection =  sortDirection;
     parameter.pageSize = pagesize;
     parameter.pageStart = pageIndex * pagesize;
-    console.log("resignList",resignList);
+
     if (resignList == 'y')
       parameter.resign = 1;
     else

@@ -141,7 +141,6 @@ export class MemberCreateComponent implements OnInit {
     this.member.TributeMember= this.myForm.get('tributmember').value;
     this.member.Comment = this.myForm.get('comment').value;
 
-    console.log('CREATE_MEMBER',this.myForm.value);
     if (this.newflag) {
       this.result$ = this.ms.create(this.member);
       this.result$.subscribe(message  => console.log(message));

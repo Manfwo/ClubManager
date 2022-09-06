@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FieldStoreService } from '../../_general/field/field-store.service';
 import { Field } from '../../_general/field/field';
@@ -6,38 +6,50 @@ import { MemberColumnService } from './../member-column.service';
 import { SidebarService } from './../../app-sidebar.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/_shared/local-storage.service';
 
 @Component({
   selector: 'cl-member-columns',
   templateUrl: './member-columns.component.html',
   styleUrls: ['./member-columns.component.scss']
 })
-export class MemberColumnsComponent {
+export class MemberColumnsComponent implements OnInit{
 
   @Output() sidebarEventOff = new EventEmitter();
 
   public myForm: FormGroup;
-  public  fieldList: Field[]=[];
+  public fieldList: Field[]=[];
 
   private resultList: Field[]=[];
   private result$: Observable<string>;
+  private resignList: string;
+  private tablename: string;
 
   constructor(
+    private localStore: LocalStorageService,
     private router: Router,
     private sf: FieldStoreService,
-    private fb: FormBuilder,
+    private formb: FormBuilder,
     private mc: MemberColumnService,
-    private sb: SidebarService) {
+    private sb: SidebarService) {}
+
+  ngOnInit(): void {
+    // Settings für ehemalige Mitglieder lesen
+    this.resignList = this.localStore.get('member_resign');
+    if ( this.resignList =='y')
+      this.tablename = "members-resign";
+    else
+      this.tablename = "members";
 
     // Lese member fields
-    this.sf.getTableUserFields('members')
+    this.sf.getTableUserFields(this.tablename)
     .subscribe(fields => this.fieldList = fields);
     //console.log('fieldList.Length', this.fieldList.length);
     this.sb.nextMessage(true);
     // Erzeuge FormGroup
-    this.myForm = fb.group({
+    this.myForm = this.formb.group({
         selectedFields: ''
-     });
+      });
   }
 
   onFormSubmit() {
@@ -46,7 +58,7 @@ export class MemberColumnsComponent {
 
     if (results.length != 0) {
       this.resultList = [];
-      this.result$  = this.sf.resetVisible('members');
+      this.result$  = this.sf.resetVisible(this.tablename);
       this.result$.subscribe( message  => console.log(message));
       results.forEach(name => {
         for (let element of this.fieldList) {

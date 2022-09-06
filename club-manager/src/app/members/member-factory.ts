@@ -39,7 +39,7 @@ export class MemberFactory {
     member.ExternalId = m.ExternalId;
     member.Age = m.Age;
 
-    member.ResignDate = m.ResignDate;
+    member.ResignDate = this.getDateToString(m.ResignDate);
     member.Resign = m.Resign;
     member.ResignReason = m.ResignReason;
 
@@ -111,7 +111,7 @@ export class MemberFactory {
     member.ExternalId = m.ExternalId;
     member.Age = m.Age;
 
-    member.ResignDate = m.ResignDate;
+    member.ResignDate = this.getStringToDate(m.ResignDate);
     member.Resign = m.Resign;
     member.ResignReason = m.ResignReason;
 

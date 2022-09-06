@@ -36,7 +36,7 @@ export class Member {
   GoldLionBrilliantNumber: string;
   TributeMember: string;
   Comment: string;
-  ResignDate: Date;
+  ResignDate: string;
   ResignReason: string;
   Resign: number;
   ExternalId: string;
