@@ -1,8 +1,7 @@
-
 <h1 mat-dialog-title>Mitglied entfernen</h1>
 <div mat-dialog-content>
   <form [formGroup]="resignForm" (ngSubmit)="submitForm()" name="resignForm">
-    <p>Wollen Sie <b>{{ Firstname }} {{ Familyname }}</b> aus der Mitgliederliste entfernen?</p>
+    <p class="resign-main">Wollen Sie <b>{{ Firstname }} {{ Familyname }}</b> aus der Mitgliederliste entfernen?</p>
 
     <p>
       <mat-form-field class="field-short">
@@ -27,5 +26,5 @@
     </p>
     <button mat-raised-button mat-dialog-close color="primary" (click)="onCancel()" class="close-button">Abbrechen</button>
     <button mat-raised-button type="submit" mat-dialog-close color="primary" [disabled]="!resignForm.valid" class="close-button">Ja</button>
-</form>
+  </form>
 </div>

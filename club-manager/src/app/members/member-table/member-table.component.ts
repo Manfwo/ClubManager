@@ -31,6 +31,10 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   // Suche
   @Input() filter: string;
 
+  // Settings  -> Ablage o Mitgliederliste
+  resignList = 'n';
+  oldresignList: string;
+
   // Pagination
   page: PageParameter;
 
@@ -57,28 +61,32 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   constructor(
     private router: Router,
     private localStore: LocalStorageService,
-    private mb: MemberStoreService,
-    private ms: MemberSearchService,
-    private mc: MemberColumnService,
-    private hs: HeaderService,
-    private mt: MemberTransferService,
-    private ps: PageParameterService,
-    private sf: FieldStoreService,
-    private sb: SidebarService) {}
+    private storeService: MemberStoreService,
+    private searchService: MemberSearchService,
+    private columnService: MemberColumnService,
+    private headerService: HeaderService,
+    private transferService: MemberTransferService,
+    private pageService: PageParameterService,
+    private fieldService: FieldStoreService,
+    private sidebarService: SidebarService) {}
 
   ngOnInit(): void {
     // close Sidebar
-    this.sb.nextMessage(false);
+    this.sidebarService.nextMessage(false);
+
+    // Settings für ehemalige Mitglieder lesen
+    this.resignList = this.localStore.get('member_resign');
 
     // Suchtext from Header
-    this.ms.sharedMessage.subscribe(message => this.searchText = message)
+    this.searchService.sharedMessage.subscribe(message => this.searchText = message)
 
     // Spalten von Spaltenauswahl
-    this.mc.sharedMessage.subscribe(list => this.fieldsSelected = list)
+    this.columnService.sharedMessage.subscribe(list => this.fieldsSelected = list)
 
     // Paginator
-    this.ps.sharedPageParameter.subscribe(value => {this.page = value;
-      this.loadMemberPage();});
+    this.pageService.sharedPageParameter.subscribe(value => {this.page = value;
+      this.loadMemberPage();
+    });
 
     // gespeicherte Einstellungen speichern
     this.filter = "" //this.localStore.get('memberFilter');
@@ -89,8 +97,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     this.initTableColumns();
 
     this.loading = true;
-
-    this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, 0, this.localStore.get('memberPageSize'));
+    this.members$ = this.storeService.getPage(this.filter, this.sortField, this.sortDirection, 0, this.localStore.get('memberPageSize'), this.resignList);
     this.members$.subscribe( result => {
       this.loading = false;
     });
@@ -138,9 +145,16 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
         })
       }
 
+      if (this.resignList != this.oldresignList) {
+        this.oldresignList = this.resignList;
+        change = true;
+      }
+
       // Seite neu laden
-      if (change == true)
+      if (change == true) {
+        console.log("NHDOCHECK");
         this.loadMemberPage();
+      }
     }
   }
 
@@ -181,32 +195,35 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   }
 
   editMember($event:Member) {
-    this.hs.nextMessage(12);
-    this.mt.nextMessage($event);
+    this.headerService.nextMessage(12);
+    this.transferService.nextMessage($event);
     this.router.navigate( ['mem-update']);
   }
 
   // *** Daten ermitteln
   private loadMemberPage(): any {
-    this.countMemberPage();
-    this.members$ = this.mb.getPage(this.filter, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
-    this.members$.subscribe(result => {
-      // save Settings
-      //console.log('memberSortField', this.sortActive);
-      //console.log('memberSortFieldDb', this.sortField);
-      //console.log('memberSortDirection', this.sortDirection);
-      //console.log('memberPageSize', this.page.pageSize);
-      //console.log('memberFilter', this.filter);
-      this.localStore.set('memberSortField', this.sortActive);
-      this.localStore.set('memberSortFieldDb', this.sortField);
-      this.localStore.set('memberSortDirection', this.sortDirection);
-      this.localStore.set('memberPageSize', this.page.pageSize);
-      this.localStore.set('memberFilter', this.filter);
-    } )
+    if (!this.loading) {
+      console.log("LOADMEMBERPAGE");
+      this.countMemberPage();
+      this.members$ = this.storeService.getPage(this.filter, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize, this.resignList);
+      this.members$.subscribe(result => {
+        // save Settings
+        //console.log('memberSortField', this.sortActive);
+        //console.log('memberSortFieldDb', this.sortField);
+        //console.log('memberSortDirection', this.sortDirection);
+        //console.log('memberPageSize', this.page.pageSize);
+        //console.log('memberFilter', this.filter);
+        this.localStore.set('memberSortField', this.sortActive);
+        this.localStore.set('memberSortFieldDb', this.sortField);
+        this.localStore.set('memberSortDirection', this.sortDirection);
+        this.localStore.set('memberPageSize', this.page.pageSize);
+        this.localStore.set('memberFilter', this.filter);
+      } )
+    }
   }
 
   private countMemberPage(): any {
-    this.count$ = this.mb.getCount(this.filter);
+    this.count$ = this.storeService.getCount(this.filter, this.resignList);
     this.count$.subscribe( result => {
       this.page.pageLength = result[0].resCount;
     });
@@ -215,7 +232,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   // *** Init Tabellenkopf
   private initTableColumns(): void {
     // sichtbare Spalten lesen
-    this.fields$ =  this.sf.getTableVisibleUserFields('members');
+    this.fields$ =  this.fieldService.getTableVisibleUserFields('members');
     this.fields$.subscribe( result => {
       this.page.pageLength = result.length;
         // in arrays konvertieren

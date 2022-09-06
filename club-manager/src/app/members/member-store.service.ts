@@ -19,9 +19,14 @@ export class MemberStoreService {
 
   constructor(private http: HttpClient) {}
 
-  getCount(filter: string ): Observable<ResultValue> {
+  getCount(filter: string, resignList: string  ): Observable<ResultValue> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter;
+    if (resignList == 'y')
+      parameter.resign = 1;
+    else
+      parameter.resign = 0;
+
     return this.http.put<ResultValue>(`${this.api}/member/count/0`, parameter)
       .pipe(
         retry(3),
@@ -29,21 +34,26 @@ export class MemberStoreService {
       );
   }
 
-  getPage(filter: string, sortField: string, sortDirection: string, pageIndex: number, pagesize: number ): Observable<Member[]> {
+  getPage(filter: string, sortField: string, sortDirection: string, pageIndex: number, pagesize: number, resignList: string ): Observable<Member[]> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter;
     parameter.sort = sortField;
     parameter.sortDirection =  sortDirection;
     parameter.pageSize = pagesize;
     parameter.pageStart = pageIndex * pagesize;
+    console.log("resignList",resignList);
+    if (resignList == 'y')
+      parameter.resign = 1;
+    else
+      parameter.resign = 0;
 
     return this.http.put<MemberRaw[]>(`${this.api}/member/filter/0`, parameter )
-      .pipe(
-        retry(3),
-        map(memberRaw => memberRaw.map(m => MemberFactory.fromRaw(m)),
-        ),
-        catchError(this.errorHandler)
-      );
+    .pipe(
+          retry(3),
+          map(memberRaw => memberRaw.map(m => MemberFactory.fromRaw(m)),
+          ),
+          catchError(this.errorHandler)
+    );
   }
 
   create(member: MemberRaw): Observable<any> {;
@@ -95,7 +105,7 @@ export class MemberStoreService {
   }
 
   private errorHandler(error: HttpErrorResponse): Observable<any> {
-    console.error('Es ist ein Fehler beim HTTP-Request aufgetreten!');
+    console.error('Es ist ein Fehler beim HTTP-Request aufgetreten!',error);
     return throwError(error);
   }
 }

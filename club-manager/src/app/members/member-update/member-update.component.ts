@@ -10,7 +10,8 @@ import { MemberStoreService } from '../member-store.service';
 import { HeaderService } from './../../app-header.service';
 import { MemberResignComponent } from '../member-resign/member-resign.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MemberTableComponent } from '../member-table/member-table.component';
+import { LocalStorageService } from 'src/app/_shared/local-storage.service';
+import { MemberDeleteComponent } from '../member-delete/member-delete.component';
 
 @Component({
   selector: 'cl-member-update',
@@ -28,20 +29,29 @@ export class MemberUpdateComponent implements OnInit {
   recordId: number;
   mode: number = 1;
   currentYear: number;
+  resignList = 'n';
+  resignText = false;
 
   constructor(
     private router: Router,
+    private localStore: LocalStorageService,
     private route: ActivatedRoute,
     private ms: MemberStoreService,
     private sh: HeaderService,
     private mt: MemberTransferService,
     private dialog: MatDialog,
-    private mem: MemberTableComponent
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     let currentDate = new Date();
     this.currentYear = currentDate.getFullYear() + 1;
+
+    // Settings für ehemalige Mitglieder lesen
+    this.resignList = this.localStore.get('member_resign');
+    if ( this.resignList =='y')
+      this.resignText = true;
+    else
+      this.resignText = false;
 
     // Member übernehmen
     this.mt.sharedMember.subscribe(value => {console.log('MEMBER',value);this.memberIn= value});
@@ -160,16 +170,17 @@ export class MemberUpdateComponent implements OnInit {
   public onDelete():  void {
     this.updateflag = false;
 
-    let dialogRef = this.dialog.open(MemberResignComponent, {
-      width: '450px',
-      data: { member: this.memberIn}
-    });
-
-    dialogRef.afterClosed().subscribe(
-      message => {
-        console.log(message,"AFTERCLOSE");
-       // this.mem.loadMemberPage()
-      });
+    if (this.resignList == "n") {
+      let dialogRef = this.dialog.open(MemberResignComponent,
+          {width: '450px', data: { member: this.memberIn}});
+    }
+    else {
+      let dialogRef = this.dialog.open(MemberDeleteComponent,
+        {width: '450px', data: { member: this.memberIn}});
+    }
+      //  dialogRef.afterClosed().subscribe( message => {console.log(message,"AFTERCLOSE");
+      // this.mem.loadMemberPage()
+      // });
   }
 
   onFormSubmit() {

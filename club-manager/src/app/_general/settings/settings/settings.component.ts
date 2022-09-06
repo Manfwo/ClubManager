@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SettingTransferService } from '../setting-transfer.service';
+import { LocalStorageService } from '../../../_shared/local-storage.service';
 
 @Component({
   selector: 'cl-settings',
@@ -17,25 +18,35 @@ export class SettingsComponent implements OnInit {
   myForm: FormGroup;
   currentYear: number;
   result$: Observable<string>;
+  memberResignList = 'n';
 
   constructor(
     private hs: HeaderService,
     private ms: MemberStoreService,
     private as: ActivityStoreService,
-    private sets: SettingTransferService
-    ) { }
+    private settingssService: SettingTransferService,
+    private localStore: LocalStorageService)  { }
 
   ngOnInit(): void {
+
     // Headline ändern
     this.hs.nextMessage(99);
 
+    // Settings für ehemalige Mitglieder lesen
+    let rMemberList = false;
+    this.memberResignList = this.localStore.get('member_resign');
+    if (this.memberResignList == 'y')
+        rMemberList = true;
+
+    // Vorbesetzung für AKtivenjahren Berechnung
     let currentDate = new Date();
     this.currentYear = currentDate.getFullYear();
 
+    // Formular Werte setzen
     this.myForm = new FormGroup({
       year: new FormControl(this.currentYear,[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
-      storage:new FormControl(false),
-  })
+      resignMemList:new FormControl(rMemberList)
+    })
   }
 
   onCreateAlias() {
@@ -65,11 +76,12 @@ export class SettingsComponent implements OnInit {
     this.result$.subscribe(message  => console.log(message));
   }
 
-  onStorage(){
-    let memberStorage = 'n'
-    if (this.myForm.get('storage').value != true)
-        memberStorage = 'y';
-    console.log(memberStorage);
-    this.sets.nextMessage(memberStorage);
+  onResignMemberList(){
+    if (this.myForm.get('resignMemList').value != true)
+      this.memberResignList = 'y';
+    else
+      this.memberResignList = 'n';
+    this.localStore.set('member_resign', this.memberResignList);
+    this.settingssService.nextMessage(this.memberResignList);
   }
 }

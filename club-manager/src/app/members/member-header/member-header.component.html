@@ -1,6 +1,6 @@
 <mat-toolbar color="accent">
-  <span>Mitglieder</span>
-  <mat-icon id="add-icon" class="material-icons-round" (click)="headerNav('mem-create')">person_add</mat-icon>
+  <span>{{ title }}</span>
+  <mat-icon *ngIf="memberList" id="add-icon" class="material-icons-round" (click)="headerNav('mem-create')">person_add</mat-icon>
   <div class="search">
     <mat-icon class="search-icon">search</mat-icon>Filter:
     <mat-form-field class="search-input">

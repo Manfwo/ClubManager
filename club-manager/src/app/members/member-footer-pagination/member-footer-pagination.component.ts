@@ -1,3 +1,4 @@
+import { SettingTransferService } from 'src/app/_general/settings/setting-transfer.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable} from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
@@ -25,21 +26,28 @@ export class MemberFooterPaginationComponent implements OnInit {
   pageSize: number;
   pageSizeOptions = [5, 10, 25, 50, 100]
 
+
   count$: Observable<ResultValue>;
   loading = true;           // Kennungn für Spinner
   pageParam: PageParameter = new PageParameter;
+  memberResignList = 'n';
+  oldresignList: string;
 
   constructor(
     private localStore: LocalStorageService,
-    private mb: MemberStoreService,
-    private ps: PageParameterService,
-  ) { }
+    private storeService: MemberStoreService,
+    private pageService: PageParameterService,
+  ) {}
+
 
   ngOnInit(): void {
+    // Settings für ehemalige Mitglieder lesen
+    this.memberResignList = this.localStore.get('member_resign');
+
     // Init Paginator
     this.pageSize = this.localStore.get('memberPageSize');
     this.loading = true;
-    this.count$ = this.mb.getCount('');
+    this.count$ = this.storeService.getCount('',this.memberResignList);
     this.count$.subscribe( result => {
       this.length = result[0].resCount;
       this.loading = false;
@@ -47,7 +55,7 @@ export class MemberFooterPaginationComponent implements OnInit {
       this.pageParam.pageLength = this.length;
       this.pageParam.pageSize = this.pageSize;
       this.pageParam.pageIndex = 0;
-      this.ps.nextMessage(this.pageParam);
+      this.pageService.nextMessage(this.pageParam);
     });
   }
 
@@ -59,10 +67,22 @@ export class MemberFooterPaginationComponent implements OnInit {
     });
   }
 
+  ngDoCheck(): void {
+    if (this.memberResignList != this.oldresignList) {
+      this.oldresignList = this.memberResignList;
+      this.count$ = this.storeService.getCount('',this.memberResignList);
+      this.count$.subscribe( result => {
+        this.length = result[0].resCount;
+        this.pageParam.pageIndex = 0;
+      });
+    }
+  }
+
   onChangePage() {
     this.pageParam.pageLength = this.length;
     this.pageParam.pageIndex = this.paginator.pageIndex;
     this.pageParam.pageSize = this.paginator.pageSize;
-    this.ps.nextMessage(this.pageParam);
+    this.pageService.nextMessage(this.pageParam);
   }
+
 }

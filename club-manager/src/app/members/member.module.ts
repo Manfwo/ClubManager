@@ -1,3 +1,4 @@
+import { MemberDeleteComponent } from './member-delete/member-delete.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyMaterialModule  } from '../material.module';
@@ -16,6 +17,8 @@ import { MemberResignComponent } from './member-resign/member-resign.component';
     MemberColumnsComponent,
     MemberCreateComponent,
     MemberResignComponent,
+    MemberDeleteComponent,
+    MemberCreateComponent,
    // MemberUpdateComponent,
   ],
   imports: [

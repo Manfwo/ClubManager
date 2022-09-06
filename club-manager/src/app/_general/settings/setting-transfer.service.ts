@@ -13,6 +13,7 @@ export class SettingTransferService {
   constructor() { }
 
   nextMessage(message: string) {
+    console.log("SETTINGS.TRANSFER.SERVICE",message);
     this.memberStoarge.next(message)
   };
 }

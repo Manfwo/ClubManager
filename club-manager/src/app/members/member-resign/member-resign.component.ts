@@ -6,6 +6,7 @@ import { Member } from '../member';
 import { MemberFactory } from '../member-factory';
 import { MemberRaw } from '../member-raw';
 import { MemberStoreService } from '../member-store.service';
+import { ActivityStoreService } from 'src/app/activity/activity-store.service';
 
 @Component({
   selector: 'cl-member-resign',
@@ -18,6 +19,7 @@ export class MemberResignComponent implements OnInit {
   public resignForm: FormGroup;
   public Firstname:string;
   public Familyname:string;
+  public Remove:boolean;
   private result$: Observable<string>;
   private member: Member;
 
@@ -25,17 +27,18 @@ export class MemberResignComponent implements OnInit {
       @Inject(MAT_DIALOG_DATA) public data: any,
       public fb: FormBuilder,
       private ms: MemberStoreService,
-    ) {
+      private as: ActivityStoreService)
+    {
     this.Firstname = data.member.Firstname;
     this.Familyname = data.member.Familyname;
     this.member = data.member;
   }
 
   ngOnInit(): void {
-    this.resignForm= new FormGroup({
-      resignreason: new FormControl('a',Validators.required),
-      resigndate: new FormControl(new Date(),Validators.required)
-    });
+      this.resignForm= new FormGroup({
+        resignreason: new FormControl('a',Validators.required),
+        resigndate: new FormControl(new Date(),Validators.required)
+      });
   }
 
   submitForm(): void {

@@ -21,6 +21,8 @@ export class MemberHeaderComponent implements AfterViewInit {
 
   // Suchbegriff -> filter für Tabelle
   public search = '';
+  public title = "Mitglieder";
+  public memberList = true;
 
   constructor(
     private localStore: LocalStorageService,
@@ -31,6 +33,12 @@ export class MemberHeaderComponent implements AfterViewInit {
    }
 
   ngAfterViewInit(): void {
+    // Settings für ehemalige Mitglieder lesen
+    if (this.localStore.get('member_resign') == 'y') {
+        this.title = "Mitglieder Ablage";
+        this.memberList = false;
+    }
+
     setTimeout(() => {
       this.search = this.localStore.get('memberFilter');
       this.input.nativeElement.value = this.search;

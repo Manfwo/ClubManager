@@ -90,6 +90,15 @@ export class ActivityStoreService {
     );
   }
 
+  removeMember(id: number): Observable<any> {
+    return this.http.delete(
+      `${this.api}/activity/member/${id}`,
+      { responseType: 'text' }
+    ).pipe(
+      catchError(this.errorHandler)
+    );
+  }
+
   generateTributeValues( ): Observable<any> {
     console.log('generateTributeValues');
     return this.http.put(
