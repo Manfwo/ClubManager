@@ -3,141 +3,171 @@
   <mat-tab-group>
 
     <mat-tab label="Stammdaten">
+
       <div class="form-area">
-        <p>
-          <mat-form-field class="field-short">
-            <mat-label>Kurzname</mat-label>
-            <input matInput formControlName="alias">
-          </mat-form-field>
-          <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
+        <div class="member-intro-modul">
+          <p>
+            <mat-form-field class="field-short">
+              <mat-label>Kurzname</mat-label>
+              <input matInput formControlName="alias">
+            </mat-form-field>
+            <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
 
-          <mat-form-field class="column2-field-short">
-            <mat-label>Externe Id</mat-label>
-            <input matInput required formControlName="externalid">
-            <mat-error *ngIf="myForm.get('externalid').hasError('required')">
-              Id erforderlich
-            </mat-error>
-          </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field class="field-short">
-          <mat-label>Anrede</mat-label>
-          <select matNativeControl required formControlName="gender">
-            <option value="w">Frau</option>
-            <option value="m">Herr</option>
-          </select>
-          <mat-error *ngIf="myForm.get('gender').hasError('required')">
-            Anrede erforderlich
-          </mat-error>
-        </mat-form-field>
+            <mat-form-field class="column2-field-short">
+              <mat-label>Externe Id</mat-label>
+              <input matInput required formControlName="externalid">
+              <mat-error *ngIf="myForm.get('externalid').hasError('required')">
+                Id erforderlich
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="field-short">
+              <mat-label>Anrede</mat-label>
+              <select matNativeControl required formControlName="gender">
+                <option value="w">Frau</option>
+                <option value="m">Herr</option>
+              </select>
+              <mat-error *ngIf="myForm.get('gender').hasError('required')">
+                Anrede erforderlich
+              </mat-error>
+            </mat-form-field>
 
-        <mat-form-field class="column2-field-short">
-          <mat-label>Titel</mat-label>
-          <input matInput formControlName="title">
-        </mat-form-field>
-      </p>
+            <mat-form-field class="column2-field-short">
+              <mat-label>Titel</mat-label>
+              <input matInput formControlName="title">
+            </mat-form-field>
+          </p>
+        </div>
 
-      <p>
-        <mat-form-field class="field-long">
-          <mat-label>Vorname</mat-label>
-          <input matInput formControlName="firstname">
-          <mat-error *ngIf="myForm.get('firstname').hasError('required')">
-            Vorname ist erforderlich!
-          </mat-error>
-        </mat-form-field>
+        <div class="member-ext-modul">
+          <cl-member-partner-child *ngIf="partnerid > 0 || haschilds > 0"  [mem_id]="memberid" [partner_id]="partnerid" [has_child]="haschilds"></cl-member-partner-child>
+          <cl-member-parent *ngIf="mid > 0 || wid > 0" [w_parent]="wid" [m_parent]="mid"></cl-member-parent>
+        </div>
 
-        <mat-form-field class="column2-field-long">
-          <mat-label>Nachname</mat-label>
-          <input matInput formControlName="familyname">
-          <mat-error *ngIf="myForm.get('familyname').hasError('required')">
-            Nachname ist erforderlich!
-          </mat-error>
-        </mat-form-field>
-      </p>
+        <div class="member-modul">
+          <p>
+            <mat-form-field class="field-long">
+              <mat-label>Vorname</mat-label>
+              <input matInput formControlName="firstname">
+              <mat-error *ngIf="myForm.get('firstname').hasError('required')">
+                Vorname ist erforderlich!
+              </mat-error>
+            </mat-form-field>
 
-      <p>
-        <mat-form-field class="field-long">
-          <mat-label>Straße</mat-label>
-          <input matInput formControlName="street">
-          <mat-error *ngIf="myForm.get('street').hasError('required')">
-            Straße ist erforderlich!
-          </mat-error>
-        </mat-form-field>
-      </p>
+            <mat-form-field class="column2-field-long">
+              <mat-label>Nachname</mat-label>
+              <input matInput formControlName="familyname">
+              <mat-error *ngIf="myForm.get('familyname').hasError('required')">
+                Nachname ist erforderlich!
+              </mat-error>
+            </mat-form-field>
+          </p>
 
-      <p>
-        <mat-form-field class="field-short">
-          <mat-label>PLZ</mat-label>
-          <input matInput formControlName="zipcode">
-          <mat-error *ngIf="myForm.get('zipcode').hasError('required')">
-            PLZ erforderlich
-          </mat-error>
-          <mat-error *ngIf="myForm.get('zipcode').hasError('minLength')">
-            Min. 5 Zeichen
-          </mat-error>
-        </mat-form-field>
+          <p>
+            <mat-form-field class="field-long">
+              <mat-label>Straße</mat-label>
+              <input matInput formControlName="street">
+              <mat-error *ngIf="myForm.get('street').hasError('required')">
+                Straße ist erforderlich!
+              </mat-error>
+            </mat-form-field>
+          </p>
 
-        <mat-form-field class="column2-field-long">
-          <mat-label>Ort</mat-label>
-          <input matInput formControlName="city">
-          <mat-error *ngIf="myForm.get('city').hasError('required')">
-            Ort ist erforderlich!
-          </mat-error>
-        </mat-form-field>
-      </p>
+          <p>
+            <mat-form-field class="field-short">
+              <mat-label>PLZ</mat-label>
+              <input matInput formControlName="zipcode">
+              <mat-error *ngIf="myForm.get('zipcode').hasError('required')">
+                PLZ erforderlich
+              </mat-error>
+              <mat-error *ngIf="myForm.get('zipcode').hasError('minLength')">
+                Min. 5 Zeichen
+              </mat-error>
+            </mat-form-field>
 
-      <p>
-        <mat-form-field class="field-long">
-          <mat-label>Telefon</mat-label>
-          <input matInput formControlName="phone">
-          <mat-error *ngIf="myForm.get('phone').hasError('minLength')">
-            Min. 4 Ziffern
-          </mat-error>
-        </mat-form-field>
-      </p>
+            <mat-form-field class="column2-field-long">
+              <mat-label>Ort</mat-label>
+              <input matInput formControlName="city">
+              <mat-error *ngIf="myForm.get('city').hasError('required')">
+                Ort ist erforderlich!
+              </mat-error>
+            </mat-form-field>
+          </p>
 
-      <p>
-        <mat-form-field class="field-long">
-          <mat-label>E-Mail</mat-label>
-          <input matInput formControlName="email">
-          <mat-error *ngIf="myForm.get('email').hasError('email')">
-            Format falsch
-          </mat-error>
-        </mat-form-field>
-      </p>
+          <p>
+            <mat-form-field class="field-long">
+              <mat-label>Telefon</mat-label>
+              <input matInput formControlName="phone">
+              <mat-error *ngIf="myForm.get('phone').hasError('minLength')">
+                Min. 4 Ziffern
+              </mat-error>
+            </mat-form-field>
+          </p>
 
-      <p>
-        <mat-form-field class="field-long">
-          <mat-label>Geburtsdatum</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="birthday">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker startView="multi-year" #picker></mat-datepicker>
-        </mat-form-field>
+          <p>
+            <mat-form-field class="field-long">
+              <mat-label>E-Mail</mat-label>
+              <input matInput formControlName="email">
+              <mat-error *ngIf="myForm.get('email').hasError('email')">
+                Format falsch
+              </mat-error>
+            </mat-form-field>
+          </p>
 
-        <mat-form-field class="column2-field-long">
-          <mat-label>Geburtsname</mat-label>
-          <input matInput formControlName="birthname">
-        </mat-form-field>
-      </p>
+          <p>
+            <mat-form-field class="field-long">
+              <mat-label>Geburtsdatum</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="birthday">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker startView="multi-year" #picker></mat-datepicker>
+            </mat-form-field>
 
-      <p>
-        <mat-form-field class="field-long">
-          <mat-label>Eintrittsdatum</mat-label>
-          <input matInput [matDatepicker]="picker1" formControlName="entryday">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
-      </p>
+            <mat-form-field class="column2-field-long">
+              <mat-label>Geburtsname</mat-label>
+              <input matInput formControlName="birthname">
+            </mat-form-field>
 
-      <p>
-        <mat-checkbox color="primary" formControlName="addressinvalid">Ungültige Adressdaten</mat-checkbox>
-      </p>
+            <mat-form-field class="field-short">
+              <mat-label>Alter</mat-label>
+              <input matInput formControlName="age">
+              <mat-error *ngIf="myForm.get('activeyears').hasError('pattern')">
+                Nur Zahlen und 2 Ziffern zulässig
+              </mat-error>
+            </mat-form-field>
+            <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
+          </p>
 
-      <p>
-        <mat-checkbox color="primary" formControlName="flag">Kennung</mat-checkbox>
-      </p>
+          <p>
+            <mat-form-field class="field-long">
+              <mat-label>Eintrittsdatum</mat-label>
+              <input matInput [matDatepicker]="picker1" formControlName="entryday">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </p>
 
-    </div>
+
+          <p *ngIf="resignList=='y'">
+            <mat-form-field class="field-long">
+              <mat-label>Austrittsdatum</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="resignday">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker startView="multi-year" #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="column2-field-long">
+              <mat-label>Austrittsgrund</mat-label>
+              <input matInput formControlName="resignreason">
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-checkbox color="primary" class="field-long" formControlName="addressinvalid">Ungültige Adressdaten</mat-checkbox>
+            <mat-checkbox color="primary" class="column2-field-long" formControlName="flag">Kennung</mat-checkbox>
+          </p>
+        </div>
+      </div>
     </mat-tab>
 
     <mat-tab label="Ehrungen">
@@ -149,6 +179,15 @@
 
       <p>
         <mat-form-field class="field-short">
+          <mat-label>Mitgliedsjahre</mat-label>
+          <input matInput formControlName="activeyears">
+          <mat-error *ngIf="myForm.get('activeyears').hasError('pattern')">
+            Nur Zahlen und 2 Ziffern zulässig
+          </mat-error>
+        </mat-form-field>
+        <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
+
+        <mat-form-field class="column2-field-short">
           <mat-label>Aktivenjahre</mat-label>
           <input matInput formControlName="activeyears">
           <mat-error *ngIf="myForm.get('activeyears').hasError('pattern')">
@@ -158,7 +197,7 @@
         <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
 
         <mat-form-field class="column2-field-short">
-          <mat-label>Aktivenpunkte</mat-label>
+          <mat-label>Löwenpunkte</mat-label>
           <input matInput formControlName="activepoints">
           <mat-error *ngIf="myForm.get('activepoints').hasError('pattern')">
             Es sind nur Ziffern zulässig
@@ -347,7 +386,8 @@
     </mat-tab>
   </mat-tab-group>
 
-  <button mat-raised-button type="submit" (click)="onCancel()" color="primary" class="ok-button">Abbrechen</button>
-  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onUpdate()" color="primary" class="ok-button">Speichern</button>
   <button mat-raised-button (click)="onDelete()" color="primary" class="del-button"> {{ resignText == true ? 'Löschen' : 'Entfernen' }}</button>
+  <button mat-raised-button type="submit" (click)="onCancel()" color="primary" class="cancel-button">Abbrechen</button>
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onUpdate()" color="primary" class="ok-button">Speichern</button>
+
 </form>

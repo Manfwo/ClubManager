@@ -19,6 +19,28 @@ export class MemberStoreService {
 
   constructor(private http: HttpClient) {}
 
+  // Partner Daten lesen
+  getByMemberId(id: number ): Observable<Member[]> {
+    return this.http.get<MemberRaw[]>(`${this.api}/member/${id}`)
+      .pipe(
+      retry(3),
+      map(memberRaw => memberRaw.map(m => MemberFactory.fromRaw(m)),
+      ),
+      catchError(this.errorHandler)
+    );
+  }
+
+    // Kinder zu Mitglied lesen
+    getByChildrens(id: number ): Observable<Member[]> {
+      return this.http.get<MemberRaw[]>(`${this.api}/member/children/${id}`)
+        .pipe(
+        retry(3),
+        map(memberRaw => memberRaw.map(m => MemberFactory.fromRaw(m)),
+        ),
+        catchError(this.errorHandler)
+      );
+    }
+
   getCount(filter: string, resignList: string  ): Observable<ResultValue> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter;
@@ -79,6 +101,15 @@ export class MemberStoreService {
   remove(id: number): Observable<any> {
     return this.http.delete(
       `${this.api}/member/${id}`,
+      { responseType: 'text' }
+    ).pipe(
+      catchError(this.errorHandler)
+    );
+  }
+
+  generateSingleAlias(id: number): Observable<any> {
+    return this.http.put(
+      `${this.api}/member/singlealias/${id}`,
       { responseType: 'text' }
     ).pipe(
       catchError(this.errorHandler)

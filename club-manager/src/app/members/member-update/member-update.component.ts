@@ -27,17 +27,30 @@ export class MemberUpdateComponent implements OnInit {
   result$: Observable<string>;
   memberIn: Member;
   recordId: number;
-  mode: number = 1;
   currentYear: number;
+
+  // Mitglieder Ablage
   resignList = 'n';
   resignText = false;
+
+  // Daten für History Componente
+  mode: number = 1;
+
+  // Daten für Partner-Child Componente
+  memberid = 0;
+  partnerid = 0;
+  haschilds = 0;
+
+  // Daten für Parent Componente
+  wid = 0;
+  mid = 0;
 
   constructor(
     private router: Router,
     private localStore: LocalStorageService,
     private route: ActivatedRoute,
-    private ms: MemberStoreService,
-    private sh: HeaderService,
+    private storeService: MemberStoreService,
+    private headerService: HeaderService,
     private mt: MemberTransferService,
     private dialog: MatDialog,
   ) {}
@@ -54,7 +67,16 @@ export class MemberUpdateComponent implements OnInit {
       this.resignText = false;
 
     // Member übernehmen
-    this.mt.sharedMember.subscribe(value => {console.log('MEMBER',value);this.memberIn= value});
+    this.mt.sharedMember.subscribe(value => {
+      //console.log('MEMBER',value);
+      this.memberIn= value
+      this.memberid = this.memberIn.Id;
+      this.partnerid = this.memberIn.PartnerId;
+      this.haschilds = this.memberIn.HasChilds;
+      this.partnerid = this.memberIn.PartnerId;
+      this.wid = this.memberIn.WParentId;
+      this.mid = this.memberIn.MParentId;
+    });
 
     // für History
     this.mode = 1;
@@ -73,13 +95,16 @@ export class MemberUpdateComponent implements OnInit {
       email: new FormControl('',Validators.email),
       phone: new FormControl('',Validators.minLength(4)),
       birthday: new FormControl('',Validators.required),
-      age: new FormControl(''),
+      age: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
       birthname: new FormControl(''),
       entryday: new FormControl('',Validators.required),
       addressinvalid:new FormControl(false),
       flag:new FormControl(false),
+      resignday: new FormControl(''),
+      resignreason: new FormControl(''),
 
       active: new FormControl(false),
+      memberyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
       activeyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
       brokenyears: new FormControl(false),
       activepoints: new FormControl('',[Validators.max(99),Validators.pattern('^[0-9,.]*$')]),
@@ -129,6 +154,11 @@ export class MemberUpdateComponent implements OnInit {
       else
         this.myForm.get('flag').patchValue(0);
 
+        // Resign
+      parts = this.memberIn.ResignDate.split(".");
+      this.myForm.get('resignday').patchValue(new Date(Date.UTC(Number(parts[2]),Number(parts[1])-1,Number(parts[0]), 0, 0, 0)));
+      this.myForm.get('resignreason').patchValue(this.memberIn.ResignReason);
+
       if (this.memberIn.Active == "ja")
         this.myForm.get('active').patchValue(1);
       else
@@ -149,7 +179,7 @@ export class MemberUpdateComponent implements OnInit {
       this.myForm.get('active77').patchValue(this.memberIn.Active8x11);
       this.myForm.get('goldlion').patchValue(this.memberIn.GoldLion);
       this.myForm.get('goldlionnr').patchValue(this.memberIn.GoldLionNumber);
-      this.myForm.get('goldlionbrilliant').patchValue(this.memberIn.GoldLionBrilliant);
+      this.myForm.get('goldlionbrilliant').patchValue(this.memberIn.GoldLionBrilliant);+
       this.myForm.get('goldlionbrilliantnr').patchValue(this.memberIn.GoldLionBrilliantNumber);
       this.myForm.get('tributmember').patchValue(this.memberIn.TributeMember);
     }
@@ -157,6 +187,15 @@ export class MemberUpdateComponent implements OnInit {
 
   public getAlias(): void {
     console.log('GET-ALIAS');
+    let stringObject: any;
+    this.result$ = this.storeService.generateSingleAlias(this.memberIn.Id);
+    this.result$.subscribe( v  => {
+      stringObject =JSON.stringify(v);
+      this.memberIn.Alias = JSON.parse(stringObject).value ;
+      console.log(this.memberIn.Alias);
+      this.myForm.get('alias').patchValue(this.memberIn.Alias);
+    });
+
   }
 
   public onUpdate(): void {
@@ -235,15 +274,15 @@ export class MemberUpdateComponent implements OnInit {
     this.member.Comment = this.myForm.get('comment').value;
 
     if (this.updateflag) {
-      this.result$ = this.ms.update(this.member)
+      this.result$ = this.storeService.update(this.member)
       this.result$.subscribe(message  => console.log(message));
       this.myForm.reset();
-      this.sh.nextMessage(1);
+      this.headerService.nextMessage(1);
       this.router.navigate(['../', 'members'], { relativeTo: this.route });
     }
     else {
       this.myForm.reset();
-      this.sh.nextMessage(1);
+      this.headerService.nextMessage(1);
       this.router.navigate(['../', 'members'], { relativeTo: this.route });
     }
   }

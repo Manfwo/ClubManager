@@ -21,6 +21,8 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './_general/page-not-found/page-not-found.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { StatisticComponent } from './statistic/statistic/statistic.component';
+import { MemberPartnerChildComponent } from './members/member-partner-child/member-partner-child.component';
+import { MemberParentComponent } from './members/member-parent/member-parent.component';
 
 // Header Componenten
 import { MemberHeaderComponent } from './members/member-header/member-header.component';
@@ -44,6 +46,7 @@ import { MemberUpdateComponent } from './members/member-update/member-update.com
 import { ActivityFooterPaginationComponent } from './activity/activity-footer-pagination/activity-footer-pagination.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,24 +57,28 @@ import { ActivityFooterPaginationComponent } from './activity/activity-footer-pa
     ReportListComponent,
     StatisticComponent,
     LoginComponent,
-    MemberHeaderComponent,
-    MemberCreateHeaderComponent,
-    MemberUpdateHeaderComponent,
     StatisticHeaderComponent,
     DashboardHeaderComponent,
     GroupHeaderComponent,
     ReportHeaderComponent,
     WorkHeaderComponent,
-    ActivityHeaderComponent,
-    ActivityCreateHeaderComponent,
     SidebarEmptyComponent,
     HistoryListComponent,
-    ActivityListComponent,
     SettingsHeaderComponent,
     FooterEmptyComponent,
+
+    MemberHeaderComponent,
+    MemberCreateHeaderComponent,
+    MemberUpdateHeaderComponent,
     MemberFooterPaginationComponent,
-    ActivityFooterPaginationComponent,
     MemberUpdateComponent,
+    MemberPartnerChildComponent,
+    MemberParentComponent,
+
+    ActivityFooterPaginationComponent,
+    ActivityListComponent,
+    ActivityHeaderComponent,
+    ActivityCreateHeaderComponent,
   ],
   imports: [
     BrowserModule,

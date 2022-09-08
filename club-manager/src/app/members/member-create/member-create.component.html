@@ -150,6 +150,14 @@
 
         <p>
           <mat-form-field class="field-short">
+            <mat-label>Mitgliedsjahre</mat-label>
+            <input matInput formControlName="memberyears">
+            <mat-error *ngIf="myForm.get('memberyears').hasError('pattern')">
+              Nur Zahlen und 2 Ziffern zulässig
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="column2-field-short">
             <mat-label>Aktivenjahre</mat-label>
             <input matInput formControlName="activeyears">
             <mat-error *ngIf="myForm.get('activeyears').hasError('pattern')">
@@ -158,7 +166,7 @@
           </mat-form-field>
 
           <mat-form-field class="column2-field-short">
-            <mat-label>Aktivenpunkte</mat-label>
+            <mat-label>Löwenpunkte</mat-label>
             <input matInput formControlName="activepoints">
             <mat-error *ngIf="myForm.get('activepoints').hasError('pattern')">
               Es sind nur Ziffern zulässig

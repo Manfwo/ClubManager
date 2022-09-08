@@ -88,15 +88,15 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     // Spalten von Spaltenauswahl
     this.columnService.sharedMessage.subscribe(list => this.fieldsSelected = list)
 
+    // gespeicherte Einstellungen lesen
+    this.filter = this.localStore.get('memberFilter');
+    this.sortDirection = this.localStore.get('memberSortDirection');
+    this.sortField = this.localStore.get('memberSortFieldDb'),
+
     // Paginator
     this.pageService.sharedPageParameter.subscribe(value => {this.page = value;
       this.loadMemberPage();
     });
-
-    // gespeicherte Einstellungen speichern
-    this.filter = "" //this.localStore.get('memberFilter');
-    this.sortDirection = this.localStore.get('memberSortDirection');
-    this.sortField = this.localStore.get('memberSortFieldDb'),
 
     // Init Table
     this.initTableColumns();
