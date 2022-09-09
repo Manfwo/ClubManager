@@ -20,6 +20,8 @@ export class MemberFactory {
     member.Phone = m.Phone;
     member.Mail = m.Mail.toLowerCase();
     member.Birthname = m.Birthname;
+    member.Age = m.Age;
+    member.MemberYears = m.MemberYears;
     member.ActiveYears = m.ActiveYears;
     member.ActivePoints =m.ActivePoints;
     member.Bronze = m.Bronze ;
@@ -37,9 +39,7 @@ export class MemberFactory {
     member.TributeMember = m.TributeMember;
     member.Comment = m.Comment;
     member.ExternalId = m.ExternalId;
-    member.Age = m.Age;
 
-    member.ResignDate = this.getDateToString(m.ResignDate);
     member.Resign = m.Resign;
     member.ResignReason = m.ResignReason;
 
@@ -71,6 +71,7 @@ export class MemberFactory {
 
     member.Birthday = this.getDateToString(m.Birthday);
     member.Entryday = this.getDateToString(m.Entryday);
+    member.ResignDate = this.getDateToString(m.ResignDate);
 
     return member;
   }
@@ -92,6 +93,8 @@ export class MemberFactory {
     member.Phone = m.Phone;
     member.Mail = m.Mail.toLowerCase();
     member.Birthname = m.Birthname;
+    member.Age = m.Age;
+    member.MemberYears = m.MemberYears;
     member.ActiveYears = m.ActiveYears;
     member.ActivePoints =m.ActivePoints;
     member.Bronze = m.Bronze ;
@@ -109,9 +112,7 @@ export class MemberFactory {
     member.TributeMember = m.TributeMember;
     member.Comment = m.Comment;
     member.ExternalId = m.ExternalId;
-    member.Age = m.Age;
 
-    member.ResignDate = this.getStringToDate(m.ResignDate);
     member.Resign = m.Resign;
     member.ResignReason = m.ResignReason;
 
@@ -143,6 +144,7 @@ export class MemberFactory {
 
     member.Birthday = this.getStringToDate(m.Birthday);
     member.Entryday = this.getStringToDate(m.Entryday);
+    member.ResignDate = this.getStringToDate(m.ResignDate);
 
     return member;
   }
@@ -163,11 +165,11 @@ export class MemberFactory {
     return dstr + '.' + mstr + '.' + yy;
   }
 
-    // Konvertierung string zu Datum
-    static getStringToDate (d: string): Date {
-      let parts = d.split(".");
-      let date = new Date(Date.UTC(Number(parts[2]),Number(parts[1])-1,Number(parts[0]), 0, 0, 0));
-      return date
-    }
+  // Konvertierung string zu Datum
+  static getStringToDate (d: string): Date {
+    let parts = d.split(".");
+    let date = new Date(Date.UTC(Number(parts[2]),Number(parts[1])-1,Number(parts[0]), 0, 0, 0));
+    return date
+  }
 
 }

@@ -17,8 +17,10 @@ export class MemberRaw {
   Mail: string;
   Birthday: Date;
   Birthname: string;
+  Age: number;
   Entryday: Date;
   Active: number;
+  MemberYears: number;
   ActiveYears: number;
   BrokenYears: number;
   ActivePoints: number;
@@ -41,5 +43,4 @@ export class MemberRaw {
   Resign: number;
   ExternalId: string;
   Flag: number;
-  Age: number;
 }

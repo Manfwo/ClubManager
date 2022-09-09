@@ -143,6 +143,7 @@ export class MemberUpdateComponent implements OnInit {
       let parts = this.memberIn.Birthday.split(".");
       this.myForm.get('birthday').patchValue(new Date(Date.UTC(Number(parts[2]),Number(parts[1])-1,Number(parts[0]), 0, 0, 0)));
       this.myForm.get('birthname').patchValue(this.memberIn.Birthname);
+      this.myForm.get('age').patchValue(this.memberIn.Age);
       parts = this.memberIn.Entryday.split(".");
       this.myForm.get('entryday').patchValue(new Date(Date.UTC(Number(parts[2]),Number(parts[1])-1,Number(parts[0]), 0, 0, 0)));
       if (this.memberIn.AddressInvalid == "ja")
@@ -186,16 +187,23 @@ export class MemberUpdateComponent implements OnInit {
   }
 
   public getAlias(): void {
-    console.log('GET-ALIAS');
     let stringObject: any;
     this.result$ = this.storeService.generateSingleAlias(this.memberIn.Id);
     this.result$.subscribe( v  => {
       stringObject =JSON.stringify(v);
       this.memberIn.Alias = JSON.parse(stringObject).value ;
-      console.log(this.memberIn.Alias);
       this.myForm.get('alias').patchValue(this.memberIn.Alias);
     });
+  }
 
+  public calcAge(): void {
+    let stringObject: any;
+    this.result$ = this.storeService.calcSingleAge(this.memberIn.Birthday);
+    this.result$.subscribe( v  => {
+      stringObject =JSON.stringify(v);
+      this.memberIn.Age= JSON.parse(stringObject).value ;
+      this.myForm.get('age').patchValue(this.memberIn.Age);
+    });
   }
 
   public onUpdate(): void {

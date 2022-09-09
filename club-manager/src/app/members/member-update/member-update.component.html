@@ -128,14 +128,14 @@
               <input matInput formControlName="birthname">
             </mat-form-field>
 
-            <mat-form-field class="field-short">
+            <mat-form-field class="column2-field-short">
               <mat-label>Alter</mat-label>
               <input matInput formControlName="age">
               <mat-error *ngIf="myForm.get('activeyears').hasError('pattern')">
                 Nur Zahlen und 2 Ziffern zulässig
               </mat-error>
             </mat-form-field>
-            <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
+            <mat-icon class="icon-button" (click)="calcAge()">build_circle</mat-icon>
           </p>
 
           <p>
@@ -180,12 +180,12 @@
       <p>
         <mat-form-field class="field-short">
           <mat-label>Mitgliedsjahre</mat-label>
-          <input matInput formControlName="activeyears">
-          <mat-error *ngIf="myForm.get('activeyears').hasError('pattern')">
+          <input matInput formControlName="memberyears">
+          <mat-error *ngIf="myForm.get('memberyears').hasError('pattern')">
             Nur Zahlen und 2 Ziffern zulässig
           </mat-error>
         </mat-form-field>
-        <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
+        <!-- <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon> -->
 
         <mat-form-field class="column2-field-short">
           <mat-label>Aktivenjahre</mat-label>
@@ -194,7 +194,7 @@
             Nur Zahlen und 2 Ziffern zulässig
           </mat-error>
         </mat-form-field>
-        <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
+        <!-- <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon> -->
 
         <mat-form-field class="column2-field-short">
           <mat-label>Löwenpunkte</mat-label>
@@ -202,11 +202,11 @@
           <mat-error *ngIf="myForm.get('activepoints').hasError('pattern')">
             Es sind nur Ziffern zulässig
           </mat-error>
-          <mat-error *ngIf="myForm.get('bronze').hasError('max')">
+          <mat-error *ngIf="myForm.get('activepoints').hasError('max')">
             Die Punktzahl muss kleiner 100 sein
           </mat-error>
         </mat-form-field>
-        <mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon>
+        <!--<mat-icon class="icon-button" (click)="getAlias()">build_circle</mat-icon> -->
       </p>
 
       <p>

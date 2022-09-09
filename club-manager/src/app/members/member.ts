@@ -17,8 +17,10 @@ export class Member {
   Mail: string;
   Birthday: string;
   Birthname: string;
+  Age: number;
   Entryday:string;
   Active: string;
+  MemberYears: number;
   ActiveYears: number;
   BrokenYears: string;
   ActivePoints: number;
@@ -41,5 +43,4 @@ export class Member {
   Resign: number;
   ExternalId: string;
   Flag: string;
-  Age: number;
 }

@@ -60,9 +60,16 @@ export class SettingsComponent implements OnInit {
   }
 
   onDetermineActiveYears() {
-    this.result$ = this.as.generateTributeValues();
-    this.result$.subscribe(message  => console.log(message));
+    //this.result$ = this.as.generateTributeValues();
+    //this.result$.subscribe(message  => console.log(message));
 
+    this.result$ = this.ms.generateMemberYears();
+    this.result$.subscribe(message  => console.log(message));
+  }
+
+  onCalcAge() {
+    this.result$ = this.ms.calcAge();
+    this.result$.subscribe(message  => console.log(message));
   }
 
   onDetermineActiveState() {

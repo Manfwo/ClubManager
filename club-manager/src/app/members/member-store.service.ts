@@ -135,6 +135,33 @@ export class MemberStoreService {
     );
   }
 
+  calcSingleAge(birthday : string): Observable<any> {
+    return this.http.put(
+      `${this.api}/member/singleage/${birthday}`,
+      { responseType: 'text' }
+      ).pipe(
+        catchError(this.errorHandler)
+      );
+  }
+
+  calcAge(): Observable<any> {
+    return this.http.put(
+      `${this.api}/member/age/0`,
+      { responseType: 'text' }
+      ).pipe(
+        catchError(this.errorHandler)
+      );
+  }
+
+  generateMemberYears(): Observable<any> {
+    return this.http.put(
+      `${this.api}/member/memberyears/0`,
+      { responseType: 'text' }
+      ).pipe(
+        catchError(this.errorHandler)
+      );
+  }
+
   private errorHandler(error: HttpErrorResponse): Observable<any> {
     console.error('Es ist ein Fehler beim HTTP-Request aufgetreten!',error);
     return throwError(error);
