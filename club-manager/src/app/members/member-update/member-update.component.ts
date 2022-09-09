@@ -95,8 +95,8 @@ export class MemberUpdateComponent implements OnInit {
       email: new FormControl('',Validators.email),
       phone: new FormControl('',Validators.minLength(4)),
       birthday: new FormControl('',Validators.required),
-      age: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
       birthname: new FormControl(''),
+      age: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
       entryday: new FormControl('',Validators.required),
       addressinvalid:new FormControl(false),
       flag:new FormControl(false),
@@ -164,6 +164,7 @@ export class MemberUpdateComponent implements OnInit {
         this.myForm.get('active').patchValue(1);
       else
         this.myForm.get('active').patchValue(0);
+      this.myForm.get('memberyears').patchValue(this.memberIn.MemberYears);
       this.myForm.get('activeyears').patchValue(this.memberIn.ActiveYears);
       this.myForm.get('activepoints').patchValue(this.memberIn.ActivePoints);
       if (this.memberIn.BrokenYears== "ja")
@@ -245,6 +246,7 @@ export class MemberUpdateComponent implements OnInit {
     this.member.Mail = this.myForm.get('email').value;
     this.member.Birthday = this.myForm.get('birthday').value;
     this.member.Birthname = this.myForm.get('birthname').value;
+    this.member.Age = this.myForm.get('age').value;
     this.member.Entryday = this.myForm.get('entryday').value;
 
     if (this.myForm.get('addressinvalid').value == true)
@@ -264,6 +266,7 @@ export class MemberUpdateComponent implements OnInit {
     else
       this.member.BrokenYears= 0;
 
+    this.member.MemberYears = this.myForm.get('memberyears').value;
     this.member.ActiveYears = this.myForm.get('activeyears').value;
     this.member.ActivePoints= this.myForm.get('activepoints').value;
     this.member.Bronze= this.myForm.get('bronze').value;
