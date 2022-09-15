@@ -99,6 +99,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
 
     // FilterCondition von Filterauswahl
     this.filterName = this.localStore.get('memberFilterName');
+    console.log("FILTERNAME",this.filterName);
     this.filterService.nextMessage1(this.filterName);
     this.filterCondition = this.localStore.get('memberFilterCondition');
     this.filterService.sharedMessage.subscribe(f => {this.Additionfilter = f;
@@ -177,6 +178,10 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
         this.oldFilterCondition = this.filterCondition;
         if (this.Additionfilter != undefined) {
           this.filterService.nextMessage1(this.Additionfilter.Name);
+          if (this.Additionfilter.Name == undefined) {
+            this.Additionfilter.Name = "";
+            this.Additionfilter.Condition = "";
+          }
           this.localStore.set('memberFilterName', this.Additionfilter.Name);
           this.localStore.set('memberFilterCondition', this.Additionfilter.Condition);
         }

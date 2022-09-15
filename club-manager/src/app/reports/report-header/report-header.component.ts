@@ -20,4 +20,8 @@ export class ReportHeaderComponent implements OnInit, AfterViewInit  {
     //this.hideSidebarEvent.emit(true);
   }
 
+  onHelp() {
+    var win = window.open("http://kgr-database/kgr_club_manual/doku.php?id=manual:report_1", '_blank');
+    win.focus();
+  }
 }

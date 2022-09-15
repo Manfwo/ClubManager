@@ -114,6 +114,11 @@ export class AppComponent implements OnInit, DoCheck {
     }
   }
 
+  onHelp() {
+    var win = window.open("http://kgr-database/kgr_club_manual/doku.php?id=start", '_blank');
+    win.focus();
+  }
+
   firstNav(path:string) {
 
     // Area für Kopfzeile festlegen'

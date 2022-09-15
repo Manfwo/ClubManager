@@ -33,8 +33,8 @@
     <span class="toolbartext">
       V 0.1
     </span>
-    <button mat-button>
-    <mat-icon>help</mat-icon>
+    <button mat-button (click)="onHelp()" class="help-button">
+       <mat-icon>help</mat-icon>
     </button>
     <button mat-button routerLink="settings">
       <mat-icon>settings</mat-icon>

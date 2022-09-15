@@ -12,4 +12,8 @@ export class DashboardHeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onHelp() {
+    var win = window.open("http://kgr-database/kgr_club_manual/doku.php?id=manual:uebersicht_1", '_blank');
+    win.focus();
+  }
 }

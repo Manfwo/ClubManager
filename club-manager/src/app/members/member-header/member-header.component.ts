@@ -39,7 +39,10 @@ export class MemberHeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.filterService.sharedMessage1.subscribe(f => {this.filterName = f;
-      console.log("FILTERHEADER",this.filterName)});
+      if (this.filterName == undefined)
+          this.filterName = "";
+      //console.log("FILTERHEADER",this.filterName)
+    });
   }
 
   ngAfterViewInit(): void {
@@ -66,6 +69,11 @@ export class MemberHeaderComponent implements OnInit, AfterViewInit {
         })
     )
     .subscribe();
+  }
+
+  onHelp() {
+    var win = window.open("http://kgr-database/kgr_club_manual/doku.php?id=manual:mitglieder_1", '_blank');
+    win.focus();
   }
 
   // 3 Punkte Menü rechts

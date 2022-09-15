@@ -87,10 +87,15 @@ export class ActivityHeaderComponent implements AfterViewInit {
     }}]);
   }
 
-    // Add Activity Button
-    headerNav(path:string) {
-      this.headerService.nextMessage(11);
-      this.sidebarService.nextMessage(false);
-      this.router.navigate( [path]);
-    }
+  onHelp() {
+    var win = window.open("http://kgr-database/kgr_club_manual/doku.php?id=manual:aktivitaeten_1", '_blank');
+    win.focus();
+  }
+
+  // Add Activity Button
+  headerNav(path:string) {
+    this.headerService.nextMessage(11);
+    this.sidebarService.nextMessage(false);
+    this.router.navigate( [path]);
+  }
 }

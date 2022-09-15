@@ -15,6 +15,11 @@ export class WorkHeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onHelp() {
+    var win = window.open("http://kgr-database/kgr_club_manual/doku.php?id=manual:arbeitsplan_1", '_blank');
+    win.focus();
+  }
+
   // 3 Punkte Menü rechts
   secondaryNav(path:string) {
     // Sidebar aktivieren

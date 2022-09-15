@@ -17,10 +17,13 @@ export class LocalStorageService {
     if (this.isLocalStorageSupported) {
       const value = localStorage.getItem(key);
       if (value !== undefined) {
-        return JSON.parse(value);
+         return JSON.parse(value);
       }
+      if (value == undefined) {
+         return "";
+     }
     }
-    return null;
+    return "";
   }
 
   set(key: string, value: any): boolean {

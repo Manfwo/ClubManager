@@ -3,6 +3,9 @@
   <!-- <mat-icon class="search-icon1">person_add_alt_1</mat-icon> -->
 
   <div class="toolbar-right">
+    <button mat-button (click)="onHelp()" class="help-button">
+      <mat-icon>help</mat-icon>
+   </button>
     <button mat-button [matMenuTriggerFor]="menu">
       <mat-icon>more_horiz</mat-icon>
     </button>
