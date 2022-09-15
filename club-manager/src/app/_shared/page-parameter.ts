@@ -1,6 +1,7 @@
 export class PageParameter {
   filter = '';
   filter2 = '';
+  filterAdditional = '';
   sort = '';
   sortDirection = 'ASC';
   pageSize = 50;

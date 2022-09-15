@@ -2,10 +2,11 @@
   <span>{{ title }}</span>
   <mat-icon *ngIf="memberList" id="add-icon" class="material-icons-round" (click)="headerNav('mem-create')">person_add</mat-icon>
   <div class="search">
-    <mat-icon class="search-icon">search</mat-icon>Filter:
+    <mat-icon class="search-icon">search</mat-icon>Suche:
     <mat-form-field class="search-input">
     <input  matInput placeholder="nach Vor- und Nachnamen, Kurzname" #input>
   </mat-form-field>
+  <span class="filter"><mat-icon class="search-icon">filter_alt</mat-icon>Filter: <span class="filter-text">{{filterName}}</span></span>
   </div>
 
   <div class="toolbar-right">
@@ -17,6 +18,6 @@
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="secondaryNav('mem-columns')">Spalten ändern...</button>
-  <button mat-menu-item (click)="secondaryNav('mem-groups')">Gruppen zuweisen...</button>
+  <button mat-menu-item (click)="secondaryNav('mem-filter')">Filter anwenden...</button>
   <button mat-menu-item (click)="secondaryNav('close')">Sidebar schließen</button>
 </mat-menu>

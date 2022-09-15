@@ -56,13 +56,15 @@ export class MemberStoreService {
       );
   }
 
-  getPage(filter: string, sortField: string, sortDirection: string, pageIndex: number, pagesize: number, resignList: string ): Observable<Member[]> {
+  getPage(filter: string, filterCondition: string, sortField: string, sortDirection: string, pageIndex: number, pagesize: number, resignList: string ): Observable<Member[]> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter;
+    parameter.filterAdditional = filterCondition;
     parameter.sort = sortField;
     parameter.sortDirection =  sortDirection;
     parameter.pageSize = pagesize;
     parameter.pageStart = pageIndex * pagesize;
+    //console.log("PARAMETER",parameter);
 
     if (resignList == 'y')
       parameter.resign = 1;
@@ -119,7 +121,7 @@ export class MemberStoreService {
   generateAlias(): Observable<any> {
     console.log('generateAlias');
     return this.http.put(
-      `${this.api}/member/alias`,
+      `${this.api}/member/alias/0`,
       { responseType: 'text' }
     ).pipe(
       catchError(this.errorHandler)
@@ -128,7 +130,7 @@ export class MemberStoreService {
 
   generateParentChilds(): Observable<any> {
     return this.http.put(
-      `${this.api}/member/parent_childs`,
+      `${this.api}/member/parent_childs/0`,
       { responseType: 'text' }
     ).pipe(
       catchError(this.errorHandler)

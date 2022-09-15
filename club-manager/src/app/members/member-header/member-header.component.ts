@@ -1,4 +1,4 @@
-import { AfterViewInit, Component,  ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component,  ElementRef, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
@@ -7,13 +7,15 @@ import { LocalStorageService } from '../../_shared/local-storage.service';
 import { MemberSearchService } from './../member-search.service';
 import { HeaderService } from './../../app-header.service';
 import { SidebarService } from 'src/app/app-sidebar.service';
+import { MemberFilterService } from '../member-filter.service';
+import { Filter } from 'src/app/_general/filter/filter';
 
 @Component({
   selector: 'cl-member-header',
   templateUrl: './member-header.component.html',
   styleUrls: ['./member-header.component.scss']
 })
-export class MemberHeaderComponent implements AfterViewInit {
+export class MemberHeaderComponent implements OnInit, AfterViewInit {
 
   @ViewChild('input') input: ElementRef;
   @Output() hideSidebarEvent = new EventEmitter<boolean>();
@@ -23,14 +25,22 @@ export class MemberHeaderComponent implements AfterViewInit {
   public search = '';
   public title = "Mitglieder";
   public memberList = true;
+  public filter: Filter;
+  public filterName = "";
 
   constructor(
     private localStore: LocalStorageService,
     private router: Router,
     private hs: HeaderService,
     private sb: SidebarService,
-    private ms: MemberSearchService) {
+    private ms: MemberSearchService,
+    private filterService: MemberFilterService){
    }
+
+  ngOnInit(): void {
+    this.filterService.sharedMessage1.subscribe(f => {this.filterName = f;
+      console.log("FILTERHEADER",this.filterName)});
+  }
 
   ngAfterViewInit(): void {
     // Settings für ehemalige Mitglieder lesen

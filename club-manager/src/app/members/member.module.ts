@@ -10,12 +10,14 @@ import { MemberColumnsComponent } from './member-columns/member-columns.componen
 import { MemberDeleteComponent } from './member-delete/member-delete.component';
 import { MemberResignComponent } from './member-resign/member-resign.component';
 import { MemberPartnerChildComponent } from './member-partner-child/member-partner-child.component';
+import { MemberFilterComponent } from './member-filter/member-filter.component';
 
 @NgModule({
   declarations: [
     MemberViewComponent,
     MemberTableComponent,
     MemberColumnsComponent,
+    MemberFilterComponent,
     MemberCreateComponent,
     MemberResignComponent,
     MemberDeleteComponent,

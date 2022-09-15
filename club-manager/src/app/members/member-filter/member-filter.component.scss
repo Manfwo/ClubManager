@@ -1,0 +1,31 @@
+@import '../../_shared/variables.sass';
+
+.mat-toolbar {
+  height: 40px;
+}
+
+.close-button {
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+.close-button:hover {
+  background-color: var(--primary);
+}
+
+::ng-deep .mat-list-item-content {
+  padding: 4 !important;
+}
+
+.mat-list-base .mat-list-item.mat-list-item-with-avatar {
+  height: 50px;
+}
+
+.icon:hover {
+  background-color: var(--primary);
+}
+
+.selected-line {
+  color: #ffff;
+  background-color: var(--primary);
+}

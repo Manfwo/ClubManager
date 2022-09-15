@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 import { PageParameterService } from './../../_shared/page-parameter.service';
 import { PageParameter } from './../../_shared/page-parameter';
 import { SidebarService } from 'src/app/app-sidebar.service';
+import { MemberFilterService } from '../member-filter.service';
+import { Filter } from 'src/app/_general/filter/filter';
 
 @Component({
   selector: 'cl-member-table',
@@ -29,7 +31,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   loading = true;           // Kennungn für Spinner
 
   // Suche
-  @Input() filter: string;
+  @Input() search: string;
 
   // Settings  -> Ablage o Mitgliederliste
   resignList = 'n';
@@ -48,6 +50,12 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   // Spaltenreihenfolge
   bodyElement: HTMLElement = document.body;
 
+  // Filter von Filterauswahl
+  Additionfilter: Filter;
+  filterName: string;
+  filterCondition: string;
+  oldFilterCondition = '';
+
   // Tabellen Daten
   displayedColumns: any[] = [];
   displayedColumnNames: string[] = [];
@@ -65,6 +73,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     private storeService: MemberStoreService,
     private searchService: MemberSearchService,
     private columnService: MemberColumnService,
+    private filterService: MemberFilterService,
     private headerService: HeaderService,
     private transferService: MemberTransferService,
     private pageService: PageParameterService,
@@ -88,8 +97,17 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     // Spalten von Spaltenauswahl
     this.columnService.sharedMessage.subscribe(list => this.fieldsSelected = list)
 
+    // FilterCondition von Filterauswahl
+    this.filterName = this.localStore.get('memberFilterName');
+    this.filterService.nextMessage1(this.filterName);
+    this.filterCondition = this.localStore.get('memberFilterCondition');
+    this.filterService.sharedMessage.subscribe(f => {this.Additionfilter = f;
+      if (this.Additionfilter != undefined)
+          this.filterCondition = this.Additionfilter.Condition;
+      console.log("FILTER",this.filterCondition)});
+
     // gespeicherte Einstellungen lesen
-    this.filter = this.localStore.get('memberFilter');
+    this.search = this.localStore.get('memberSearch');
     this.sortDirection = this.localStore.get('memberSortDirection');
     this.sortField = this.localStore.get('memberSortFieldDb'),
 
@@ -102,7 +120,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     this.initTableColumns();
 
     this.loading = true;
-    this.members$ = this.storeService.getPage(this.filter, this.sortField, this.sortDirection, 0, this.localStore.get('memberPageSize'), this.resignList);
+    this.members$ = this.storeService.getPage(this.search,this.filterCondition, this.sortField, this.sortDirection, 0, this.localStore.get('memberPageSize'), this.resignList);
     this.members$.subscribe( result => {
       this.loading = false;
     });
@@ -134,7 +152,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
       // Änderung des Suchtextes
       if (this.searchTextOld != this.searchText) {
           this.searchTextOld = this.searchText;
-          this.filter = this.searchText;
+          this.search = this.searchText;
           change = true;
       }
 
@@ -155,9 +173,19 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
         change = true;
       }
 
+      if (this.filterCondition != this.oldFilterCondition) {
+        this.oldFilterCondition = this.filterCondition;
+        if (this.Additionfilter != undefined) {
+          this.filterService.nextMessage1(this.Additionfilter.Name);
+          this.localStore.set('memberFilterName', this.Additionfilter.Name);
+          this.localStore.set('memberFilterCondition', this.Additionfilter.Condition);
+        }
+        change = true;
+      }
+
       // Seite neu laden
       if (change == true) {
-        console.log("NHDOCHECK");
+        //console.log("NHDOCHECK");
         this.loadMemberPage();
       }
     }
@@ -210,7 +238,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     if (!this.loading) {
       console.log("LOADMEMBERPAGE");
       this.countMemberPage();
-      this.members$ = this.storeService.getPage(this.filter, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize, this.resignList);
+      this.members$ = this.storeService.getPage(this.search, this.filterCondition,this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize, this.resignList);
       this.members$.subscribe(result => {
         // save Settings
         //console.log('memberSortField', this.sortActive);
@@ -222,13 +250,13 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
         this.localStore.set('memberSortFieldDb', this.sortField);
         this.localStore.set('memberSortDirection', this.sortDirection);
         this.localStore.set('memberPageSize', this.page.pageSize);
-        this.localStore.set('memberFilter', this.filter);
+        this.localStore.set('memberSearch', this.search);
       } )
     }
   }
 
   private countMemberPage(): any {
-    this.count$ = this.storeService.getCount(this.filter, this.resignList);
+    this.count$ = this.storeService.getCount(this.search, this.resignList);
     this.count$.subscribe( result => {
       this.page.pageLength = result[0].resCount;
     });

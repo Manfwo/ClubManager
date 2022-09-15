@@ -1,0 +1,23 @@
+<mat-toolbar color="Snow">
+  <span>Filter auswählen</span>
+    <button mat-icon-button class="close-button" (click)="onClose()">
+      <mat-icon>
+      close
+      </mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-list>
+  <mat-list-item>
+  <mat-icon  mat-list-icon class="icon" (click)="onResetFilter()">filter_alt_off</mat-icon>
+  <div mat-line (click)="onResetFilter()">Filter zurücksetzen</div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item *ngFor="let filter of filterList">
+    <mat-icon  mat-list-icon class="icon" (click)="onSelectFilter(filter)">filter_alt</mat-icon>
+    <div mat-line *ngIf="(filter.Id == selectedFilterId)" class="selected-line" (click)="onSelectFilter(filter)">{{filter.Name}}</div>
+    <div mat-line *ngIf="(filter.Id != selectedFilterId)" (click)="onSelectFilter(filter)">{{filter.Name}}</div>
+    <div mat-line *ngIf="(filter.Id == selectedFilterId)" class="selected-line"> {{filter.Description}} </div>
+    <div mat-line *ngIf="(filter.Id != selectedFilterId)"> {{filter.Description}} </div>
+  </mat-list-item>
+</mat-list>
