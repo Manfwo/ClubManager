@@ -1,5 +1,7 @@
 import { Component, OnInit , Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { HeaderService } from 'src/app/app-header.service';
+import { SidebarService } from 'src/app/app-sidebar.service';
 
 @Component({
   selector: 'cl-group-header',
@@ -10,7 +12,11 @@ export class GroupHeaderComponent implements OnInit {
 
   @Output() hideSidebarEvent = new EventEmitter();
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private hs: HeaderService,
+    private sb: SidebarService,
+    ) { }
 
   ngOnInit(): void {
   }
@@ -33,4 +39,11 @@ export class GroupHeaderComponent implements OnInit {
       sidebar: [path]
     }}]);
   }
+
+    // Add Group Button
+    headerNav(path:string) {
+      this.hs.nextMessage(15);
+      this.sb.nextMessage(false);
+      this.router.navigate( [path]);
+    }
 }

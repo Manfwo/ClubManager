@@ -1,3 +1,5 @@
+'use strict';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY } from '@angular/cdk/overlay/overlay-directives';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -15,13 +17,12 @@ export class LocalStorageService {
 
   get(key: string): any {
     if (this.isLocalStorageSupported) {
-      const value = localStorage.getItem(key);
-      if (value !== undefined) {
-         return JSON.parse(value);
+      let value: any = localStorage.getItem(key);
+      console.log("LOCALSTORE",value);
+      if (value != undefined) {
+        console.log("LOCALSTORE!");
+        return JSON.parse(value);
       }
-      if (value == undefined) {
-         return "";
-     }
     }
     return "";
   }

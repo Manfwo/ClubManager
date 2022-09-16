@@ -1,18 +1,29 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { GroupRoutingModule } from './group-routing.module';
-import { GroupListComponent } from './group-list/group-list.component';
 import { MyMaterialModule  } from '../material.module';
+
+import { GroupListComponent } from './group-list/group-list.component';
+import { GroupViewComponent } from './group-view/group-view.component';
+import { GroupTableComponent } from './group-table/group-table.component';
+import { GroupCreateComponent } from './group-create/group-create.component';
+
 
 @NgModule({
   declarations: [
-    GroupListComponent
-
+    GroupListComponent,
+    GroupViewComponent,
+    GroupTableComponent,
+    GroupCreateComponent,
   ],
   imports: [
     CommonModule,
-    GroupRoutingModule,
-    MyMaterialModule
-  ]
+    MyMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [
+    GroupTableComponent,
+   ]
 })
 export class GroupModule { }

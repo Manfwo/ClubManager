@@ -251,6 +251,10 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
         //console.log('memberSortDirection', this.sortDirection);
         //console.log('memberPageSize', this.page.pageSize);
         //console.log('memberFilter', this.filter);
+        if (this.sortActive === null) this.sortActive = '';
+        if (this.sortField === null)  this.sortField = 'me_family_name';
+        if (this.sortDirection === null) this.sortDirection = 'ASC';
+        if (this.search === null) this.search = '';
         this.localStore.set('memberSortField', this.sortActive);
         this.localStore.set('memberSortFieldDb', this.sortField);
         this.localStore.set('memberSortDirection', this.sortDirection);

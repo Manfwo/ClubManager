@@ -36,10 +36,10 @@ export class HistoryListComponent implements OnInit {
     // sichtbare Spalten lesen
     this.fields$ =  this.sf.getTableVisibleFields('history');
     this.fields$.subscribe( result => {
+      console.log('HISTORY_HEADER',result.length);
       result.forEach(( col: Field, index: number) => {
         this.displayedColumnNames[index] = col.Name;
         this.displayedColumns[index] = col;
-
       });
       this.readHistory();
     });
@@ -56,7 +56,7 @@ export class HistoryListComponent implements OnInit {
     this.history$.subscribe( result => {
       if (result != undefined)
           this.loading = false;
-       // console.log('HISTORY_RESULT',result.length);
+       console.log('HISTORY_RESULT',result.length);
     });
   }
 }

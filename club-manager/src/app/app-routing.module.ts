@@ -18,6 +18,9 @@ import { AuthGuard } from './_general/auth/auth.guard';
 import { ActivityViewComponent } from './activity/activity-view/activity-view.component';
 import { ActivityCreateComponent } from './activity/activity-create/activity-create.component';
 import { ActivityColumnsComponent } from './activity/activity_columns/activity-columns.component';
+import { GroupViewComponent } from './groups/group-view/group-view.component';
+import { GroupUpdateComponent } from './groups/group-update/group-update.component';
+import { GroupCreateComponent } from './groups/group-create/group-create.component';
 
 
 const routes: Routes = [
@@ -29,22 +32,26 @@ const routes: Routes = [
 {  path: 'settings',  component: SettingsComponent },
 {  path: 'close',  outlet: 'sidebar', component: SidebarEmptyComponent },
 
-// Member Bereich
+// Mitglied Bereich
 { path: 'members', component: MemberViewComponent, canActivate : [AuthGuard] },
 { path: 'mem-create', component: MemberCreateComponent, canActivate : [AuthGuard] },
 { path: 'mem-update', component: MemberUpdateComponent, canActivate : [AuthGuard] },
 { path: 'mem-columns', outlet: 'sidebar', component: MemberColumnsComponent },
 { path: 'mem-filter', outlet: 'sidebar', component: MemberFilterComponent },
-{
-  path: 'groups',
-  loadChildren: () => import('./groups/group.module').then(g => g.GroupModule)
-},
+
+// Gruppen Bereich
+{ path: 'groups', component: GroupViewComponent, canActivate : [AuthGuard] },
+{ path: 'grp-group', component: GroupCreateComponent, canActivate : [AuthGuard] },
+{ path: 'grp-create', component: GroupCreateComponent, canActivate : [AuthGuard] },
+{ path: 'grp-update', component: GroupUpdateComponent, canActivate : [AuthGuard] },
+
+// Bereich für Aktivitäten
 { path: 'activities', component: ActivityViewComponent, canActivate : [AuthGuard] },
 { path: 'act-create', component: ActivityCreateComponent, canActivate : [AuthGuard] },
 { path: 'act-update', component: ActivityCreateComponent, canActivate : [AuthGuard] },
 { path: 'act-columns', outlet: 'sidebar', component: ActivityColumnsComponent },
-{
-  path: 'works',
+
+{ path: 'works',
   loadChildren: () => import('./works/work.module').then(w => w.WorkModule)
 },
 {

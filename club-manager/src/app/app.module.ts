@@ -23,7 +23,11 @@ import { ReportListComponent } from './reports/report-list/report-list.component
 import { StatisticComponent } from './statistic/statistic/statistic.component';
 import { MemberPartnerChildComponent } from './members/member-partner-child/member-partner-child.component';
 import { MemberParentComponent } from './members/member-parent/member-parent.component';
-
+import { GroupCreateHeaderComponent } from './groups/group-create-header/group-create-header.component';
+import { GroupUpdateHeaderComponent } from './groups/group-update-header/group-update-header.component';
+import { GroupFooterPaginationComponent } from './groups/group-footer-pagination/group-footer-pagination.component';
+import { GroupUpdateComponent } from './groups/group-update/group-update.component';
+import { MemberUpdateComponent } from './members/member-update/member-update.component';
 // Header Componenten
 import { MemberHeaderComponent } from './members/member-header/member-header.component';
 import { MemberCreateHeaderComponent } from './members/member-create-header/member-create-header.component';
@@ -42,10 +46,10 @@ import { SidebarEmptyComponent } from './_general/sidebar-empty/sidebar-empty.co
 // Footer
 import { FooterEmptyComponent } from './_general/footer-empty/footer-empty/footer-empty.component';
 import { MemberFooterPaginationComponent } from './members/member-footer-pagination/member-footer-pagination.component';
-import { MemberUpdateComponent } from './members/member-update/member-update.component';
 import { ActivityFooterPaginationComponent } from './activity/activity-footer-pagination/activity-footer-pagination.component';
-
-
+import { GroupModule } from './groups/group.module';
+import { ActivityUpdateHeaderComponent } from './activity/activity-update-header/activity-update-header.component';
+import { ActivityUpdateComponent } from './activity/activity-update/activity-update.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,6 @@ import { ActivityFooterPaginationComponent } from './activity/activity-footer-pa
     LoginComponent,
     StatisticHeaderComponent,
     DashboardHeaderComponent,
-    GroupHeaderComponent,
     ReportHeaderComponent,
     WorkHeaderComponent,
     SidebarEmptyComponent,
@@ -75,10 +78,19 @@ import { ActivityFooterPaginationComponent } from './activity/activity-footer-pa
     MemberPartnerChildComponent,
     MemberParentComponent,
 
-    ActivityFooterPaginationComponent,
-    ActivityListComponent,
+    GroupHeaderComponent,
+    GroupCreateHeaderComponent,
+    GroupUpdateHeaderComponent,
+    GroupUpdateComponent,
+    GroupFooterPaginationComponent,
+
     ActivityHeaderComponent,
     ActivityCreateHeaderComponent,
+    ActivityUpdateHeaderComponent,
+    ActivityUpdateComponent,
+    ActivityFooterPaginationComponent,
+    ActivityListComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -88,7 +100,8 @@ import { ActivityFooterPaginationComponent } from './activity/activity-footer-pa
     MyMaterialModule,
     ReactiveFormsModule,
     MemberModule,
-    ActivityModule
+    ActivityModule,
+    GroupModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
               { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, AuthGuard ],

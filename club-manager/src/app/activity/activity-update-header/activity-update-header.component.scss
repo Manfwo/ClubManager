@@ -1,0 +1,11 @@
+@import '../../_shared/variables.sass';
+
+// Toolbar
+.toolbar-right {
+  position: fixed;
+  right: 0px;
+}
+
+.mat-toolbar-single-row {
+  height: 50px;
+}

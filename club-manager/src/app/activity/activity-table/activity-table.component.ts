@@ -30,7 +30,7 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   loading = true;           // Kennungn für Spinner
 
   // Suche
-  @Input() filter: string;
+  @Input() search: string;
   filter1: string;
   filter2: string;
   searchText: string;
@@ -49,11 +49,12 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
   bodyElement: HTMLElement = document.body;
 
   // Tabellen Daten
-  displayedColumns: any[] = [];
-  displayedColumnNames: string[] = [];
   activitys$: Observable<ActivityMem[]>;
   count$: Observable<ResultValue>;
 
+  // Tabellenspalten
+  displayedColumns: any[] = [];
+  displayedColumnNames: string[] = [];
   fields$: Observable<Field[]>;
   fieldsSelectedOld: Field[] = [];
   fieldsSelected: Field[] = [];
@@ -97,7 +98,6 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
 
     this.activitys$ = this.storeService.getPage(this.filter1,this.filter2, this.sortField, this.sortDirection, 0, this.localStore.get('activityPageSize'));
     this.activitys$.subscribe( result => {
-      console.log('READ_ONINIT',result.length);
       this.loading = false;
     });
   }
@@ -165,7 +165,6 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
     this.displayedColumns.forEach(item => {
       if (sort.active == item.Name) {
         this.sortField = item.Column;
-        //console.log('SORTDATA', this.sortField);
         this.loadActivityPage();
       }
     });
@@ -173,24 +172,20 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
 
   // *** Spaltenreihenfolge per Drag & Drop ändern
   dragStarted(event: CdkDragStart): void  {
-    //console.log('ActivityTable.DragStarted.event', event );
-    // this.bodyElement.classList.add('inheritCursors');
     this.bodyElement.style.cursor = 'move';
   }
 
   dropListDropped(event: CdkDragDrop<any[]>): void  {
-    //console.log('ActivityTable.DropListDropped', event);
     if (event) {
       moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
       moveItemInArray(this.displayedColumnNames, event.previousIndex, event.currentIndex);
-      // this.bodyElement.classList.remove('inheritCursors');
       this.bodyElement.style.cursor = 'unset';
       this.loadActivityPage();
     }
   }
 
   editActivity($event:ActivityMem) {
-    this.headerService.nextMessage(12);
+    this.headerService.nextMessage(13);
     this.transferService.nextMessage($event);
     this.router.navigate( ['act-update']);
   }
@@ -200,12 +195,11 @@ export class ActivityTableComponent implements OnInit, DoCheck, AfterViewInit{
     this.countActivityPage();
     this.activitys$ = this.storeService.getPage(this.filter1, this.filter2, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
     this.activitys$.subscribe(result => {
-      // save Settings
-      //console.log('activitySortField', this.sortActive);
-      //console.log('activitySortFieldDb', this.sortField);
-      //console.log('activitySortDirection', this.sortDirection);
-      //console.log('activityPageSize', this.page.pageSize);
-      //console.log('activityFilter', this.filter);
+      if (this.sortActive === null) this.sortActive = '';
+      if (this.sortField === null)  this.sortField = 'me_alias, ac_year';
+      if (this.sortDirection === null) this.sortDirection = 'ASC';
+      if (this.filter1 === null) this.filter1 = '';
+      if (this.filter2 === undefined) this.filter2 = '';
       this.localStore.set('activitySortField', this.sortActive);
       this.localStore.set('activitySortFieldDb', this.sortField);
       this.localStore.set('activitySortDirection', this.sortDirection);
