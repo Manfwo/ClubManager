@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Component, OnInit, DoCheck, ViewChild, ViewChildren, QueryList} from '@angular/core';
 import { Inject} from '@angular/core';
 import { DOCUMENT} from '@angular/common';
@@ -22,17 +21,6 @@ export class AppComponent implements OnInit, DoCheck {
   @ViewChild(SplitComponent) splitEl: SplitComponent;
   @ViewChildren(SplitAreaDirective) areasEl: QueryList<SplitAreaDirective>;
 
-  constructor(
-
-    private router: Router,
-    @Inject(DOCUMENT)
-    private document: Document,
-    private localStorageService: LocalStorageService,
-    private tokenStore: TokenStorageService,
-    private hs: HeaderService,
-    private sb: SidebarService) {
-    }
-
   public title = 'Club-Manager';
   public isShowing = true;
   public menuButton = 'minMenuButton';
@@ -43,15 +31,25 @@ export class AppComponent implements OnInit, DoCheck {
   public sidebarIsVisible = false;
   public statusText = "Bereit";
 
+  constructor(
+    private router: Router,
+    @Inject(DOCUMENT)
+    private document: Document,
+    private localStorageService: LocalStorageService,
+    private tokenStore: TokenStorageService,
+    private hs: HeaderService,
+    private sb: SidebarService) {
+    }
 
   ngOnInit(): void {
     // Theme setzen
     const switchTheme = new ThemeSwitchComponent(this.document, this.localStorageService);
-    if (this.localStorageService.get('theme') === 'light') {
-      switchTheme.selectLightTheme();
+    let theme = this.localStorageService.get('theme');
+    if (theme == 'dark') {
+      switchTheme.selectDarkTheme();
     }
     else {
-      switchTheme.selectDarkTheme();
+      switchTheme.selectLightTheme();
     }
     // Icon oder Icon-Text Menü
     this.setMenu(this.localStorageService.get('menuExpand'));
@@ -60,10 +58,7 @@ export class AppComponent implements OnInit, DoCheck {
     // Close-Button Sidebar empfangen
     this.sb.sharedState.subscribe(value => {this.sidebarIsVisible= value});
      // Header ändern
-    //this.hs.sharedheaderId.subscribe(value => {console.log('AREA',value);this.area= value});
     this.hs.sharedheaderId.subscribe(value => {this.area= value});
-
-
   }
 
   ngDoCheck(): void {
@@ -73,45 +68,27 @@ export class AppComponent implements OnInit, DoCheck {
     }
   }
 
-  // Logout
-  public logout(): void  {
-    this.tokenStore.signOut();
-    this.isAuthenticated  = false;
-    CommonValues.isAuthenticated = false;
-  }
-
   // Menü anzeigen
-  public toggleSidenav(): void  {
+  public onToggleSidenav(): void  {
     this.isShowing = !this.isShowing;
     this.localStorageService.set('menuShow', this.isShowing);
   }
 
   // Icon oder Icon Text Menü
-  public toggleMenu(): void {
-    this.isShowing = false;
+  public onToggleMenu(): void {
     this.isExpanded = !this.isExpanded;
     this.localStorageService.set('menuExpand', this.isExpanded);
     this.setMenu(this.isExpanded);
-    this.isShowing = true;
-    window.location.reload()
+    this.isShowing = false;
+    //this.isShowing = true;
+    //window.location.reload()
   }
 
-  // Sidebar aus-/einblenden
-  public hideSidebar($event: boolean) {
-    //console.log('SIDEBAR', $event);
-    this.sidebarIsVisible = $event;
-  }
-
-  setMenu( expand: boolean): void {
-    this.isExpanded = expand;
-    if (expand) {
-      this.menuSize = 'maxMenu';
-      this.menuButton = 'maxMenuButton';
-    }
-    else {
-      this.menuSize = 'minMenu';
-      this.menuButton = 'minMenuButton';
-    }
+  // Logout
+  public onLogout(): void  {
+    this.tokenStore.signOut();
+    this.isAuthenticated  = false;
+    CommonValues.isAuthenticated = false;
   }
 
   onHelp() {
@@ -119,8 +96,8 @@ export class AppComponent implements OnInit, DoCheck {
     win.focus();
   }
 
-  firstNav(path:string) {
-
+  // festlegen der Bereichseinstiegskopfzeile
+  onFirstNav(path:string) {
     // Area für Kopfzeile festlegen'
     switch (path) {
      case "dashboard": {
@@ -153,5 +130,26 @@ export class AppComponent implements OnInit, DoCheck {
       }
     }
     this.router.navigate([path]);
+  }
+
+  // Sidebar aus-/einblenden
+  public hideSidebar($event: boolean) {
+    //console.log('SIDEBAR', $event);
+    this.sidebarIsVisible = $event;
+  }
+
+// ##################
+// Private functions
+// ##################
+  private setMenu( expand: boolean): void {
+    this.isExpanded = expand;
+    if (expand) {
+      this.menuSize = 'maxMenu';
+      this.menuButton = 'maxMenuButton';
+    }
+    else {
+      this.menuSize = 'minMenu';
+      this.menuButton = 'minMenuButton';
+    }
   }
 }

@@ -1,0 +1,26 @@
+@import '../../_shared/variables.sass';
+
+.form-area {
+  margin-left: 16px;
+}
+
+.field-long {
+  width: 300px;
+}
+
+.field-comment {
+  width: 600px;
+  min-height: 200px;
+}
+
+.ok-button {
+  margin-left: 16px;
+}
+
+.icon-button {
+  margin-left: 16px;
+}
+
+.icon-button:hover {
+  color:var(--primary);
+}

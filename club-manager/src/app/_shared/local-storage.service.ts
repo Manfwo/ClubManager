@@ -16,15 +16,25 @@ export class LocalStorageService {
   }
 
   get(key: string): any {
-    if (this.isLocalStorageSupported) {
-      let value: any = localStorage.getItem(key);
-      console.log("LOCALSTORE",value);
-      if (value != undefined) {
-        console.log("LOCALSTORE!");
-        return JSON.parse(value);
+    let returnValue: any;
+    try {
+      if (this.isLocalStorageSupported) {
+        let value: any = localStorage.getItem(key);
+        console.log("LOCALSTORE",value);
+        if (value != undefined) {
+          returnValue = JSON.parse(value);
+        }
       }
     }
-    return "";
+    catch
+    {
+      console.log("LOCALSTORE_ERROR",key);
+      returnValue = "";
+    }
+    finally {
+      console.log("LOCALSTORE!",returnValue);
+      return returnValue;
+    }
   }
 
   set(key: string, value: any): boolean {
@@ -37,7 +47,6 @@ export class LocalStorageService {
       });
       return true;
     }
-
     return false;
   }
 

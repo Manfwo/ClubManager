@@ -1,1 +1,24 @@
-<p>group-create works!</p>
+<form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+  <div class="form-area">
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Gruppenname</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="myForm.get('name').hasError('required')">
+            Gruppenname ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+      <mat-form-field class="field-comment">
+        <mat-label>Beschreibung</mat-label>
+        <textarea matInput rows="1" formControlName="comment"></textarea>
+      </mat-form-field>
+      </p>
+  </div>
+
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSave()" color="primary" class="ok-button">Anlegen</button>
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSaveNew()" color="primary" class="ok-button">Anlegen + Neu</button>
+</form>
+

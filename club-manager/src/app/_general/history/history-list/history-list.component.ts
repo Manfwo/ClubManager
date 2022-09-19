@@ -38,6 +38,7 @@ export class HistoryListComponent implements OnInit {
     this.fields$.subscribe( result => {
       console.log('HISTORY_HEADER',result.length);
       result.forEach(( col: Field, index: number) => {
+        console.log('Spaltenkopf:',col.Name);
         this.displayedColumnNames[index] = col.Name;
         this.displayedColumns[index] = col;
       });

@@ -1,6 +1,6 @@
 <!-- Toolbar -->
 <mat-toolbar class="toolbar" color="primary">
-  <button mat-icon-button (click)="toggleSidenav()">
+  <button mat-icon-button (click)="onToggleSidenav()">
     <mat-icon *ngIf="!isShowing">
         menu
     </mat-icon>
@@ -8,7 +8,7 @@
         close
     </mat-icon>
   </button>
-  <button mat-icon-button (click)="toggleMenu()">
+  <button mat-icon-button (click)="onToggleMenu()">
     <mat-icon *ngIf="isExpanded">
         keyboard_backspace
     </mat-icon>
@@ -26,7 +26,7 @@
       <mat-icon>power_settings_new</mat-icon>
       Login
     </button>
-    <button mat-button *ngIf="isAuthenticated" (click)="logout()">
+    <button mat-button *ngIf="isAuthenticated" (click)="onLogout()">
       <mat-icon>exit_to_app</mat-icon>
       Logout
     </button>
@@ -45,32 +45,32 @@
 <!-- Menu (links) -->
 <mat-sidenav-container>
   <mat-sidenav class="{{menuSize}}" #sidenav="matSidenav" mode="side" [opened]="isShowing" role="navigation">
-    <button mat-button (click)="firstNav('dashboard')" class="{{menuButton}}">
+    <button mat-button (click)="onFirstNav('dashboard')" class="{{menuButton}}">
       <mat-icon>home</mat-icon>
       <span class="menuText" *ngIf="isExpanded">Übersicht</span>
     </button>
-    <button mat-button (click)="firstNav('members')" class="{{menuButton}}">
+    <button mat-button (click)="onFirstNav('members')" class="{{menuButton}}">
         <mat-icon>person</mat-icon>
         <span class="menuText" *ngIf="isExpanded">Mitglieder</span>
     </button>
-    <button mat-button (click)="firstNav('groups')" class="{{menuButton}}">
+    <button mat-button (click)="onFirstNav('groups')" class="{{menuButton}}">
       <mat-icon>people</mat-icon>
       <span class="menuText" *ngIf="isExpanded">Gruppen</span>
     </button>
-    <button mat-button (click)="firstNav('activities')" class="{{menuButton}}">
+    <button mat-button (click)="onFirstNav('activities')" class="{{menuButton}}">
       <mat-icon>mood</mat-icon>
       <span class="menuText" *ngIf="isExpanded">Aktivitäten</span>
     </button>
-    <button mat-button (click)="firstNav('works')" class="{{menuButton}}">
+    <button mat-button (click)="onFirstNav('works')" class="{{menuButton}}">
       <mat-icon>work</mat-icon>
       <span class="menuText" *ngIf="isExpanded">Arbeitsplan</span>
     </button>
     <mat-divider></mat-divider>
-    <button mat-button (click)="firstNav('reports')" class="{{menuButton}}">
+    <button mat-button (click)="onFirstNav('reports')" class="{{menuButton}}">
       <mat-icon>description</mat-icon>
       <span  class="menuText" *ngIf="isExpanded">Reports</span>
     </button>
-    <button mat-button (click)="firstNav('statistic')" class="{{menuButton}}">
+    <button mat-button (click)="onFirstNav('statistic')" class="{{menuButton}}">
         <mat-icon>show_chart</mat-icon>
         <span class="menuText" *ngIf="isExpanded">Statistik</span>
     </button>
