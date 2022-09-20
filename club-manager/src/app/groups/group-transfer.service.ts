@@ -9,7 +9,7 @@ import { Group } from './group';
 export class GroupTransferService {
 
   private group = new BehaviorSubject<Group>(null);
-  sharedMember = this.group.asObservable();
+  sharedGroup = this.group.asObservable();
 
   constructor() { }
 

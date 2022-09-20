@@ -1,6 +1,6 @@
 <form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
 
-  <mat-tab-group>
+ <mat-tab-group>
 
     <mat-tab label="Stammdaten">
       <div class="form-area">
@@ -112,7 +112,8 @@
           <mat-label>Geburtsdatum</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="birthday">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker startView="multi-year" #picker></mat-datepicker>
+          <mat-datepicker #picker></mat-datepicker>
+          <!--<mat-datepicker startView="multi-year" #picker></mat-datepicker> -->
         </mat-form-field>
 
         <mat-form-field class="column2-field-long">
@@ -322,6 +323,7 @@
             </mat-error>
           </mat-form-field>
         </p>
+
       </div>
       </mat-tab>
 

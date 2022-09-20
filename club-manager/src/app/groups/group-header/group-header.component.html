@@ -1,6 +1,6 @@
 <mat-toolbar color="accent">
   <span>Gruppen</span>
-  <mat-icon Id="add-icon" class="material-icons-round" (click)="headerNav('grp-create')">group_add</mat-icon>
+  <mat-icon Id="add-icon" class="material-icons-round" (click)="onCreate('grp-create')">group_add</mat-icon>
   <div class="search">
     <mat-icon class="search-icon">search</mat-icon>Suche:
     <mat-form-field class="search-input">
@@ -12,13 +12,5 @@
     <button mat-button (click)="onHelp()" class="help-button">
       <mat-icon>help</mat-icon>
    </button>
-    <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_horiz</mat-icon>
-    </button>
   </div>
 </mat-toolbar>
-
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="secondaryNav('grp-groups')">Gruppen zuweisen...</button>
-  <button mat-menu-item (click)="secondaryNav('close')">Sidebar schließen</button>
-</mat-menu>

@@ -44,6 +44,7 @@ const routes: Routes = [
 { path: 'grp-group', component: GroupCreateComponent, canActivate : [AuthGuard] },
 { path: 'grp-create', component: GroupCreateComponent, canActivate : [AuthGuard] },
 { path: 'grp-update', component: GroupUpdateComponent, canActivate : [AuthGuard] },
+{ path: 'grp-columns', outlet: 'sidebar', component: MemberColumnsComponent },
 
 // Bereich für Aktivitäten
 { path: 'activities', component: ActivityViewComponent, canActivate : [AuthGuard] },

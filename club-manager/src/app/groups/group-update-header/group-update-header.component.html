@@ -1,3 +1,18 @@
 <mat-toolbar color="accent">
-  <h1>Mitglieder einer Gruppe</h1>
+  <span>Mitglieder einer Gruppe</span>
+
+  <div class="toolbar-right">
+    <button mat-button (click)="onHelp()" class="help-button">
+      <mat-icon>help</mat-icon>
+   </button>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="onSecondaryNav('grp-columns')">Spalten auswählen...</button>
+  <button mat-menu-item (click)="onSecondaryNav('grp-groups')">Gruppen zuweisen...</button>
+  <button mat-menu-item (click)="onSecondaryNav('close')">Sidebar schließen</button>
+</mat-menu>

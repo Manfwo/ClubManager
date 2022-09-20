@@ -172,6 +172,10 @@ export class GroupTableComponent implements OnInit {
     this.router.navigate( ['grp-update']);
   }
 
+// ##################
+// Private functions
+// ##################
+
   // *** Daten ermitteln
   private loadGroupPage(): any {
     if (!this.loading) {

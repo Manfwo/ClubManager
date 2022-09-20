@@ -8,6 +8,9 @@ import { PageParameter } from '../_shared/page-parameter';
 import { Group } from './group';
 import { GroupRaw } from './group-raw';
 import { GroupFactory } from './group-factory';
+import { Member } from '../members/member';
+import { MemberRaw } from '../members/member-raw';
+import { MemberFactory } from '../members/member-factory';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +43,31 @@ export class GroupStoreService {
       .pipe(
         retry(3),
         map(groupRaw => groupRaw.map(m => GroupFactory.fromRaw(m)),
+        ),
+        catchError(this.errorHandler)
+      );
+  }
+
+  getGroupMemCount(groupId: number): Observable<ResultValue> {
+    const parameter: PageParameter = new PageParameter();
+    return this.http.put<ResultValue>(`${this.api}/group/memcount/${groupId}`, parameter)
+      .pipe(
+        retry(3),
+        catchError(this.errorHandler)
+      );
+  }
+
+  getGroupMemPage(groupId: number, sortField: string, sortDirection: string, pageIndex: number, pagesize: number ): Observable<Member[]> {
+    const parameter: PageParameter = new PageParameter();
+    parameter.sort = sortField;
+    parameter.sortDirection =  sortDirection;
+    parameter.pageSize = pagesize;
+    parameter.pageStart = pageIndex * pagesize;
+
+    return this.http.put<MemberRaw[]>(`${this.api}/groupmember/members/${groupId}`, parameter )
+      .pipe(
+        retry(3),
+        map(memRaw => memRaw.map(m => MemberFactory.fromRaw(m)),
         ),
         catchError(this.errorHandler)
       );
@@ -82,6 +110,7 @@ export class GroupStoreService {
       catchError(this.errorHandler)
     );
   }
+
 
 
   private errorHandler(error: HttpErrorResponse): Observable<any> {

@@ -1,0 +1,36 @@
+/* Spaltenbreiten */
+.W25 {
+  width : 25px;
+}
+
+.W50 {
+  width : 50px;
+}
+
+.W75 {
+  width : 75px;
+}
+
+.W100 {
+  width : 100px;
+}
+
+.W150 {
+  width : 150px;
+}
+
+.W200 {
+  width : 200px;
+}
+
+.W250 {
+  width : 250px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.W300 {
+  width : 300px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}

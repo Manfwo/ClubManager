@@ -7,7 +7,7 @@ import { GroupListComponent } from './group-list/group-list.component';
 import { GroupViewComponent } from './group-view/group-view.component';
 import { GroupTableComponent } from './group-table/group-table.component';
 import { GroupCreateComponent } from './group-create/group-create.component';
-
+import { GroupDeleteComponent } from './group-delete/group-delete.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +15,7 @@ import { GroupCreateComponent } from './group-create/group-create.component';
     GroupViewComponent,
     GroupTableComponent,
     GroupCreateComponent,
+    GroupDeleteComponent,
   ],
   imports: [
     CommonModule,

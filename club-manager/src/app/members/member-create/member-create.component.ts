@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -53,6 +53,7 @@ export class MemberCreateComponent implements OnInit {
         flag:new FormControl(false),
 
         active: new FormControl(false),
+        memberyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
         activeyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
         brokenyears: new FormControl(false),
         activepoints: new FormControl('',[Validators.max(99),Validators.pattern('^[0-9,.]*$')]),

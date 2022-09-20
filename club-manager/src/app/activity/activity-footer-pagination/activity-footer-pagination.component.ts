@@ -23,7 +23,7 @@ export class ActivityFooterPaginationComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   length: number;
   pageSize: number;
-  pageSizeOptions = [5, 10, 25, 50, 100]
+  pageSizeOptions = [5, 10, 20, 50, 100, 1000]
 
   count$: Observable<ResultValue>;
   loading = true;           // Kennungn für Spinner

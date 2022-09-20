@@ -1,4 +1,3 @@
-import { SettingTransferService } from 'src/app/_general/settings/setting-transfer.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable} from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
@@ -24,7 +23,7 @@ export class MemberFooterPaginationComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   length: number;
   pageSize: number;
-  pageSizeOptions = [5, 10, 25, 50, 100]
+  pageSizeOptions = [5, 10, 20, 50, 100, 1000]
 
 
   count$: Observable<ResultValue>;

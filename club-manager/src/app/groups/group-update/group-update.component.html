@@ -1,1 +1,51 @@
-<p>group-update works!</p>
+<form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+
+  <button mat-raised-button (click)="onDelete()" color="primary" class="del-button">Löschen</button>
+  <button mat-raised-button type="submit" (click)="onCancel()" color="primary" class="cancel-button">Abbrechen</button>
+  <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onUpdate()" color="primary" class="ok-button">Speichern</button>
+  <mat-divider></mat-divider>
+
+  <div class="form-area">
+      <p>
+        <mat-form-field class="field-long">
+          <mat-label>Gruppenname</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="myForm.get('name').hasError('required')">
+            Gruppenname ist erforderlich!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="column2-field-long">
+          <mat-label>Bemerkung</mat-label>
+          <input matInput formControlName="comment">
+        </mat-form-field>
+      </p>
+  </div>
+
+
+  <div class="table-container">
+    <table mat-table [dataSource]="members$" matSort (matSortChange)="sortData($event)"
+      cdkDropList cdkDropListLockAxis="x" cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropListDropped($event)">
+
+      <!-- Header -->
+      <ng-container [matColumnDef]="col.Name" *ngFor="let col of displayedColumns; let i = index" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef
+            cdkDrag (cdkDragStarted)="dragStarted($event)" [cdkDragData]="{name: col.Name}">
+            {{col.Label}}
+        </th>
+        <td mat-cell [class]="col.Width" *matCellDef="let member">{{member[col.Name]}}
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnNames; sticky:true" class="table-header"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row"></tr>
+      <!--<tr mat-footer-row *matFooterRowDef="displayedColumnNames" class="table-footer"></tr> -->
+    </table>
+  </div>
+
+  <div class="spinner-text" *ngIf="loading async">Daten werden geladen</div>
+  <div class="spinner-container" *ngIf="loading async">
+    <mat-spinner value="100" mode="determinate" diameter="40"></mat-spinner>
+  </div>
+</form>
