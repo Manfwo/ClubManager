@@ -12,8 +12,8 @@ export class HeaderService {
 
   constructor() { }
 
-  nextMessage( areaId: number) {
-    //console.log("Headerid", areaId);
-    this.headerId.next(areaId)
+  nextMessage( hId: number) {
+    //console.log("Headerid", hId);
+    this.headerId.next(hId)
   };
 }

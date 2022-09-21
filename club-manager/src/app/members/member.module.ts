@@ -4,13 +4,12 @@ import { MyMaterialModule  } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MemberViewComponent } from './member-view/member-view.component';
 import { MemberCreateComponent } from './member-create/member-create.component';
-import { MemberUpdateComponent } from './member-update/member-update.component';
 import { MemberTableComponent } from './member-table/member-table.component';
 import { MemberColumnsComponent } from './member-columns/member-columns.component';
 import { MemberDeleteComponent } from './member-delete/member-delete.component';
 import { MemberResignComponent } from './member-resign/member-resign.component';
-import { MemberPartnerChildComponent } from './member-partner-child/member-partner-child.component';
 import { MemberFilterComponent } from './member-filter/member-filter.component';
+import { MemberSelectListComponent } from './member-select-list/member-select-list.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { MemberFilterComponent } from './member-filter/member-filter.component';
     MemberResignComponent,
     MemberDeleteComponent,
     MemberCreateComponent,
-    //MemberPartnerChildComponent,
-    //MemberUpdateComponent,
+    MemberSelectListComponent,
   ],
   imports: [
     CommonModule,

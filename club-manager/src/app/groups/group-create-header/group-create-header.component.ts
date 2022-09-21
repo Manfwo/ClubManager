@@ -12,4 +12,8 @@ export class GroupCreateHeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onHelp() {
+    var win = window.open("http://kgr-database/kgr_club_manual/doku.php?id=manual:gruppen_1", '_blank');
+    win.focus();
+  }
 }

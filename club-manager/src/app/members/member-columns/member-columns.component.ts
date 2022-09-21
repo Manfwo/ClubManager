@@ -24,6 +24,7 @@ export class MemberColumnsComponent implements OnInit{
   private result$: Observable<string>;
   private resignList: string;
   private tablename: string;
+  private sidebarMode = "members";
 
   constructor(
     private localStore: LocalStorageService,
@@ -34,17 +35,24 @@ export class MemberColumnsComponent implements OnInit{
     private sb: SidebarService) {}
 
   ngOnInit(): void {
+    ' Verwendung der Spalten verwenden'
+    this.sidebarMode = this.localStore.get('sidebar_filter');
     // Settings für ehemalige Mitglieder lesen
-    this.resignList = this.localStore.get('member_resign');
-    if ( this.resignList =='y')
-      this.tablename = "members-resign";
+    if (this.sidebarMode != "group") {
+      this.resignList = this.localStore.get('member_resign');
+      if ( this.resignList =='y')
+        this.tablename = "members-resign";
+      else
+        this.tablename = "members";
+    }
     else
-      this.tablename = "members";
+      this.tablename = "groupmem";
 
+      console.log("TABLE",this.tablename);
     // Lese member fields
     this.sf.getTableUserFields(this.tablename)
     .subscribe(fields => this.fieldList = fields);
-    //console.log('fieldList.Length', this.fieldList.length);
+    console.log('fieldList.Length', this.fieldList.length);
     this.sb.nextMessage(true);
     // Erzeuge FormGroup
     this.myForm = this.formb.group({

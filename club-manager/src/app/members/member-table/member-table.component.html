@@ -14,7 +14,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumnNames; sticky:true" class="table-header"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row" (click)="editMember(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnNames" class="table-row" (click)="onEditMember(row)"></tr>
     <!--<tr mat-footer-row *matFooterRowDef="displayedColumnNames" class="table-footer"></tr> -->
   </table>
 </div>

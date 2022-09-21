@@ -21,6 +21,8 @@ export class GroupStoreService {
 
   constructor(private http: HttpClient) {}
 
+  // Ermittelt die Anzahl Gruppen
+  // für Gruppenansicht
   getCount(filter1: string ): Observable<ResultValue> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter1;
@@ -31,6 +33,8 @@ export class GroupStoreService {
       );
   }
 
+  // Liesst die Gruppen unter Berücksichtigung des Filters und Paging
+  // für Gruppenansicht
   getPage(filter: string, sortField: string, sortDirection: string, pageIndex: number, pagesize: number ): Observable<Group[]> {
     const parameter: PageParameter = new PageParameter();
     parameter.filter = filter;
@@ -48,15 +52,19 @@ export class GroupStoreService {
       );
   }
 
+  // Ermittelt die Anzahl Gruppenmitglieder
+  // für Gruppen Bearbeitung (Paging)
   getGroupMemCount(groupId: number): Observable<ResultValue> {
     const parameter: PageParameter = new PageParameter();
-    return this.http.put<ResultValue>(`${this.api}/group/memcount/${groupId}`, parameter)
+    return this.http.get<ResultValue>(`${this.api}/groupmember/count/${groupId}`)
       .pipe(
         retry(3),
         catchError(this.errorHandler)
       );
   }
 
+  // Liesst die Gruppenmitglieder
+  // für Gruppen Bearbeitung
   getGroupMemPage(groupId: number, sortField: string, sortDirection: string, pageIndex: number, pagesize: number ): Observable<Member[]> {
     const parameter: PageParameter = new PageParameter();
     parameter.sort = sortField;
@@ -73,6 +81,7 @@ export class GroupStoreService {
       );
   }
 
+  // Legt eine neue Gruppe an
   create(group: GroupRaw): Observable<any> {;
     return this.http.post(
       `${this.api}/group`,
@@ -83,6 +92,8 @@ export class GroupStoreService {
     );
   }
 
+  // Aktualtisiert die Gruppendaten
+  // für Gruppen Bearbeitung
   update(group: GroupRaw): Observable<any> {
     return this.http.put(
       `${this.api}/group/${group.Id}`,
@@ -93,15 +104,19 @@ export class GroupStoreService {
     );
   }
 
+  // Löscht eine Gruppe
+  // für Gruppen Bearbeitung
   remove(id: number): Observable<any> {
     return this.http.delete(
-      `${this.api}/group/${id}`,
+      `${this.api}/groupmember/${id}`,
       { responseType: 'text' }
     ).pipe(
       catchError(this.errorHandler)
     );
   }
 
+  // Löscht die Mitglieder einer Gruppe
+  // für Gruppen Bearbeitung
   removeMember(id: number): Observable<any> {
     return this.http.delete(
       `${this.api}/group/member/${id}`,
@@ -110,8 +125,6 @@ export class GroupStoreService {
       catchError(this.errorHandler)
     );
   }
-
-
 
   private errorHandler(error: HttpErrorResponse): Observable<any> {
     console.error('Es ist ein Fehler beim HTTP-Request aufgetreten!');

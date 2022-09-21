@@ -21,6 +21,7 @@ import { FieldStoreService } from 'src/app/_general/field/field-store.service';
 import { SidebarService } from 'src/app/app-sidebar.service';
 import { tap } from 'rxjs/operators';
 import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MemberColumnService } from 'src/app/members/member-column.service';
 
 
 @Component({
@@ -72,12 +73,14 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
     private dialog: MatDialog,
     private pageService: PageParameterService,
     private fieldService: FieldStoreService,
+    private columnService: MemberColumnService,
     private sidebarService: SidebarService
   ) {}
 
   ngOnInit(): void {
     // close Sidebar
     this.sidebarService.nextMessage(false);
+    this.localStore.set('sidebar_filter',"group");
 
     // Gruppe übernehmen
     this.gt.sharedGroup.subscribe(value => {
@@ -94,6 +97,9 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
       this.myForm.get('name').patchValue(this.groupIn.Name);
       this.myForm.get('comment').patchValue(this.groupIn.Comment);
     }
+
+    // Spalten von Spaltenauswahl
+    this.columnService.sharedMessage.subscribe(list => this.fieldsSelected = list)
 
     // gespeicherte Einstellungen lesen
     this.sortDirection = this.localStore.get('groupmemSortDirection');
@@ -137,10 +143,10 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
     if (this.loading === false) {
       // Spalten Änderung
       if ((this.fieldsSelected !== null) && (this.fieldsSelected.length > 0) && (this.fieldsSelected !== this.fieldsSelectedOld)) {
-          this.fieldsSelectedOld = this.fieldsSelected;
-          this.displayedColumnNames = [];
-          this.displayedColumns = [];
-          this.fieldsSelected.forEach(( col, index) => {
+        this.fieldsSelectedOld = this.fieldsSelected;
+        this.displayedColumnNames = [];
+        this.displayedColumns = [];
+        this.fieldsSelected.forEach(( col, index) => {
           this.displayedColumnNames[index] = col.Name;
           this.displayedColumns[index] = col;
           this.loadGroupMemberPage();

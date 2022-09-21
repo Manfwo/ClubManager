@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { CommonValues } from './_shared/common';
 import { SidebarService } from './app-sidebar.service';
 import { HeaderService } from './app-header.service';
+import { FooterService } from './app-footer.service';
 
 @Component({
   selector: 'cl-root',
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit, DoCheck {
   public menuSize = 'minMenu';
   public isExpanded = false;
   public isAuthenticated = false;
-  public area = 0;
+  public header = 0;
+  public footer = 0;
   public sidebarIsVisible = false;
   public statusText = "Bereit";
 
@@ -37,7 +39,8 @@ export class AppComponent implements OnInit, DoCheck {
     private document: Document,
     private localStorageService: LocalStorageService,
     private tokenStore: TokenStorageService,
-    private hs: HeaderService,
+    private headerService: HeaderService,
+    private footerService: FooterService,
     private sb: SidebarService) {
     }
 
@@ -58,7 +61,9 @@ export class AppComponent implements OnInit, DoCheck {
     // Close-Button Sidebar empfangen
     this.sb.sharedState.subscribe(value => {this.sidebarIsVisible= value});
      // Header ändern
-    this.hs.sharedheaderId.subscribe(value => {this.area= value});
+    this.headerService.sharedheaderId.subscribe(value => {this.header= value});
+    // Footer ändern
+    this.footerService.sharedfooterId.subscribe(value => {this.footer= value});
   }
 
   ngDoCheck(): void {
@@ -101,31 +106,38 @@ export class AppComponent implements OnInit, DoCheck {
     // Area für Kopfzeile festlegen'
     switch (path) {
      case "dashboard": {
-       this.area = 0;
+       this.header = 0;
+       this.footer = 0;
        break;
       }
       case "members": {
-        this.area = 1;
+        this.header = 1;
+        this.footer = 1;
         break;
       }
       case "groups": {
-        this.area = 2;
+        this.header = 2;
+        this.footer = 2;
         break;
       }
       case "activities": {
-        this.area = 3;
+        this.header = 3;
+        this.footer = 3;
         break;
       }
       case "works": {
-        this.area = 4;
+        this.header = 4;
+        this.footer = 4;
         break;
       }
       case "reports": {
-        this.area = 5;
+        this.header = 5;
+        this.footer = 5;
         break;
       }
       case "statistic": {
-        this.area = 6;
+        this.header = 6;
+        this.footer = 6;
         break;
       }
     }

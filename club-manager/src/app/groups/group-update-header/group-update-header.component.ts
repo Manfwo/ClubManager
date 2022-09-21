@@ -10,7 +10,7 @@ import { SidebarService } from 'src/app/app-sidebar.service';
 })
 export class GroupUpdateHeaderComponent implements OnInit {
 
-  @Output() hideSidebarEvent = new EventEmitter();
+  @Output() hideSidebarEvent = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
@@ -32,6 +32,7 @@ export class GroupUpdateHeaderComponent implements OnInit {
     if (path == "close")
       this.hideSidebarEvent.emit(false);
     else {
+      console.log("OPEN_SIDEBAR");
       this.hideSidebarEvent.emit(true);
     }
       // Menüpunkt verarbeiten

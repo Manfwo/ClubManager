@@ -83,6 +83,7 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
   ngOnInit(): void {
     // close Sidebar
     this.sidebarService.nextMessage(false);
+    this.localStore.set('sidebar_filter',"member");
 
     // Settings für ehemalige Mitglieder lesen
     this.resignList = this.localStore.get('member_resign');
@@ -232,11 +233,15 @@ export class MemberTableComponent implements OnInit, DoCheck, AfterViewInit{
     }
   }
 
-  editMember($event:Member) {
+  onEditMember($event:Member) {
     this.headerService.nextMessage(12);
     this.transferService.nextMessage($event);
     this.router.navigate( ['mem-update']);
   }
+
+// ##################
+// Private functions
+// ##################
 
   // *** Daten ermitteln
   private loadMemberPage(): any {

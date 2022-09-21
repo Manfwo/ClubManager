@@ -18,6 +18,7 @@ export class GroupCreateComponent implements OnInit {
   group: GroupRaw = new GroupRaw;
   myForm: FormGroup;
   newflag: boolean = false;
+  cancelflag: boolean = false;
   result$: Observable<string>;
   currentYear: number;
 
@@ -34,6 +35,11 @@ export class GroupCreateComponent implements OnInit {
         name: new FormControl('',Validators.required),
         comment: new FormControl(''),
       });
+  }
+
+  public onCancel(): void {
+    this.newflag = false;
+    this.cancelflag = true;
   }
 
   public onSave(): void {
@@ -58,8 +64,10 @@ export class GroupCreateComponent implements OnInit {
       this.myForm.controls['comment'].setErrors(null);
     }
     else {
-      this.result$ = this.ms.create(this.group)
-      this.result$.subscribe(message  => console.log(message));
+      if (this.cancelflag == false) {
+        this.result$ = this.ms.create(this.group)
+        this.result$.subscribe(message  => console.log(message));
+      }
       this.myForm.reset();
       this.sh.nextMessage(3);
       this.router.navigate(['../', 'groups'], { relativeTo: this.route });

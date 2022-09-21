@@ -17,6 +17,7 @@ export class MemberCreateComponent implements OnInit {
   member: MemberRaw = new MemberRaw;
   myForm: FormGroup;
   newflag: boolean = false;
+  cancelflag: boolean = false;
   result$: Observable<string>;
   currentYear: number;
 
@@ -45,11 +46,11 @@ export class MemberCreateComponent implements OnInit {
         city: new FormControl('',Validators.required),
         email: new FormControl('',Validators.email),
         phone: new FormControl('',Validators.minLength(4)),
-        birthday: new FormControl('',Validators.required),
+        birthday: new FormControl(''),
         age: new FormControl(''),
         birthname: new FormControl(''),
         entryday: new FormControl('',Validators.required),
-        addressinvalid:new FormControl(false),
+        //addressinvalid:new FormControl(false),
         flag:new FormControl(false),
 
         active: new FormControl(false),
@@ -75,20 +76,25 @@ export class MemberCreateComponent implements OnInit {
 
       });
       // Vorbesetzung
-      this.myForm.get('zipcode').patchValue('76761');
-      this.myForm.get('city').patchValue('Rülzheim');
+      //this.myForm.get('zipcode').patchValue('76761');
+      //this.myForm.get('city').patchValue('Rülzheim');
   }
 
-  public getAlias(): void {
+  getAlias(): void {
     let alias = this.myForm.get('familyname').value.substring(0,2) + this.myForm.get('firstname').value.substring(0,3) +  this.myForm.get('street').value.substring(0,2);
     this.myForm.get('alias').patchValue(alias);
   }
 
-  public onSave(): void {
+  onCancel():  void {
+    this.cancelflag = true;
     this.newflag = false;
   }
 
-  public onSaveNew():  void {
+  onSave(): void {
+    this.newflag = false;
+  }
+
+  onSaveNew():  void {
     this.newflag = true;
   }
 
@@ -158,8 +164,10 @@ export class MemberCreateComponent implements OnInit {
       this.myForm.controls['entryday'].setErrors(null);
     }
     else {
-      this.result$ = this.ms.create(this.member)
-      this.result$.subscribe(message  => console.log(message));
+      if (this.cancelflag == false) {
+        this.result$ = this.ms.create(this.member)
+        this.result$.subscribe(message  => console.log(message));
+      }
       this.myForm.reset();
       this.sh.nextMessage(1);
       this.router.navigate(['../', 'members'], { relativeTo: this.route });

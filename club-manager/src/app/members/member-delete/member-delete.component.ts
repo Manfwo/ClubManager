@@ -36,7 +36,7 @@ export class MemberDeleteComponent implements OnInit {
       });
   }
 
-  submitForm(): void {
+  onSubmitForm(): void {
     // Mitglied löschen
     this.result$ = this.ms.remove(this.member.Id);
     this.result$.subscribe(message  => console.log(message));

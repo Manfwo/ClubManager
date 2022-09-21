@@ -69,7 +69,6 @@ export class GroupTableComponent implements OnInit {
     private sidebarService: SidebarService) {}
 
   ngOnInit(): void {
-    console.log("GROUPCOMPONENT");
     // close Sidebar
     this.sidebarService.nextMessage(false);
 
@@ -125,6 +124,7 @@ export class GroupTableComponent implements OnInit {
       if (this.searchTextOld != this.searchText) {
           this.searchTextOld = this.searchText;
           this.search = this.searchText;
+          console.log("SEARCH",this.searchText);
           change = true;
       }
 

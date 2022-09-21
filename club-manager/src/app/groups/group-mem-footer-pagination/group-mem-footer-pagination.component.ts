@@ -9,20 +9,20 @@ import { ResultValue } from 'src/app/_shared/result-value';
 import { GroupStoreService } from '../group-store.service';
 
 @Component({
-  selector: 'cl-group-footer-pagination',
-  templateUrl: './group-footer-pagination.component.html',
-  styleUrls: ['./group-footer-pagination.component.scss'],
+  selector: 'cl-group-mem-footer-pagination',
+  templateUrl: './group-mem-footer-pagination.component.html',
+  styleUrls: ['./group-mem-footer-pagination.component.scss'],
   providers: [
-    { provide: MatPaginatorIntl, useValue: CustomPaginator('Gruppen pro Seite') }
+    { provide: MatPaginatorIntl, useValue: CustomPaginator('Mitglieder pro Seite') }
   ]
 })
-export class GroupFooterPaginationComponent implements OnInit {
+export class GroupMemberFooterPaginationComponent implements OnInit {
 
   // Pagination
   @ViewChild(MatPaginator) paginator: MatPaginator;
   length: number;
   pageSize: number;
-  pageSizeOptions = [5, 15, 20, 30, 50]
+  pageSizeOptions = [5, 10, 20, 50, 100, 500]
 
   count$: Observable<ResultValue>;
   loading = true;           // Kennungn für Spinner
@@ -37,9 +37,9 @@ export class GroupFooterPaginationComponent implements OnInit {
 
   ngOnInit(): void {
     // Init Paginator
-    this.pageSize = this.localStore.get('groupPageSize');
+    this.pageSize = this.localStore.get('groupmemPageSize');
     this.loading = true;
-    this.count$ = this.storeService.getCount('');
+    this.count$ = this.storeService.getGroupMemCount(this.groupId)
     this.count$.subscribe( result => {
       this.length = result[0].resCount;
       this.loading = false;

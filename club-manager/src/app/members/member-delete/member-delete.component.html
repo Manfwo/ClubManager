@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Mitglied löschen</h1>
 <div mat-dialog-content>
-  <form [formGroup]="delForm" (ngSubmit)="submitForm()" name="dForm">
+  <form [formGroup]="delForm" (ngSubmit)="onSubmitForm()" name="dForm">
     <p class="delete-main">  Wollen Sie <b>{{ Firstname }} {{ Familyname }}</b> endgültigt aus der Mitglieder-Datenbank löschen?</p>
 
     <button mat-raised-button mat-dialog-close color="primary" (click)="onCancel()" class="close-button">Abbrechen</button>

@@ -8,6 +8,11 @@ import {  Component } from '@angular/core';
 export class ActivityCreateHeaderComponent {
 
   constructor( ) {
-   }
+  }
+
+  onHelp() {
+    var win = window.open("http://kgr-database/kgr_club_manual/doku.php?id=manual:aktivitaeten_1", '_blank');
+    win.focus();
+  }
 
 }

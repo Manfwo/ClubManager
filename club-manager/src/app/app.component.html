@@ -77,7 +77,7 @@
   </mat-sidenav>
 
  <!-- Bereich Kopfzeile ausgeben -->
-<ng-container class="header" [ngSwitch]="area">
+<ng-container class="header" [ngSwitch]="header">
     <span *ngSwitchCase="0">
       <div class="header">
         <cl-dashboard-header></cl-dashboard-header>
@@ -170,7 +170,7 @@
         {{statusText}}
     </div>
     <!-- Bereich Fußzeile ausgeben -->
-    <ng-container [ngSwitch]="area">
+    <ng-container [ngSwitch]="footer">
       <span *ngSwitchCase="0">
         <div class="footer-comp">
           <cl-footer-empty></cl-footer-empty>
@@ -183,7 +183,7 @@
       </span>
       <span *ngSwitchCase="2">
         <div class="footer-comp">
-          <cl-footer-empty></cl-footer-empty>
+          <cl-group-footer-pagination></cl-group-footer-pagination>
         </div>
       </span>
       <span *ngSwitchCase="3">

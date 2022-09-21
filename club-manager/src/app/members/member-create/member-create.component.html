@@ -130,11 +130,11 @@
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
       </p>
-
+<!---
       <p>
         <mat-checkbox color="primary" formControlName="addressinvalid">Ungültige Adressdaten</mat-checkbox>
       </p>
-
+-->
       <p>
         <mat-checkbox color="primary" formControlName="flag">Kennung</mat-checkbox>
       </p>
@@ -342,6 +342,7 @@
 
   </mat-tab-group>
 
+  <button mat-raised-button type="submit" (click)="onCancel()" color="primary" class="cancel-button">Abbrechen</button>
   <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSave()" color="primary" class="ok-button">Anlegen</button>
   <button mat-raised-button [disabled]="myForm.invalid" type="submit" (click)="onSaveNew()" color="primary" class="ok-button">Anlegen + Neu</button>
 </form>

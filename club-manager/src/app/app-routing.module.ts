@@ -21,6 +21,7 @@ import { ActivityColumnsComponent } from './activity/activity_columns/activity-c
 import { GroupViewComponent } from './groups/group-view/group-view.component';
 import { GroupUpdateComponent } from './groups/group-update/group-update.component';
 import { GroupCreateComponent } from './groups/group-create/group-create.component';
+import { MemberSelectListComponent } from './members/member-select-list/member-select-list.component';
 
 
 const routes: Routes = [
@@ -41,10 +42,10 @@ const routes: Routes = [
 
 // Gruppen Bereich
 { path: 'groups', component: GroupViewComponent, canActivate : [AuthGuard] },
-{ path: 'grp-group', component: GroupCreateComponent, canActivate : [AuthGuard] },
 { path: 'grp-create', component: GroupCreateComponent, canActivate : [AuthGuard] },
 { path: 'grp-update', component: GroupUpdateComponent, canActivate : [AuthGuard] },
 { path: 'grp-columns', outlet: 'sidebar', component: MemberColumnsComponent },
+{ path: 'grp-mems', outlet: 'sidebar', component: MemberSelectListComponent },
 
 // Bereich für Aktivitäten
 { path: 'activities', component: ActivityViewComponent, canActivate : [AuthGuard] },
