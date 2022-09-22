@@ -3,7 +3,7 @@ import { GroupTransferService } from './../group-transfer.service';
 import { AfterViewInit, Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
-import { merge, Observable } from 'rxjs';
+import { from, merge, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../group';
 import { GroupRaw } from '../group-raw';
@@ -53,9 +53,10 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
   displayedColumns: any[] = [];
   displayedColumnNames: string[] = [];
   members$: Observable<Member[]>;
+  member$: Observable<Member>;
   memberList: Member[] = [];
   count$: Observable<ResultValue>;
-  newMemberList: Member[] = [];
+
   // Tabellenkopf
   fields$: Observable<Field[]>;
   fieldsSelectedOld: Field[] = [];
@@ -96,11 +97,9 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
 
     // Mitglieder übernehmen
     this.memSelectionService.sharedMemberList.subscribe(value => {
-      this.newMemberList = value;
-      if (this.newMemberList != undefined && this.newMemberList.length > 0 ) {
-        console.log("GROUPUPDATE",this.newMemberList[0].Alias + " - " + this.memberList.length);
-        this.memberList.push(this.newMemberList[0]);
-        console.log("GROUPUPDATE",this.memberList.length);
+      this.member$ = from(value);
+      if (this.member$ != undefined ) {
+        console.log("GROUPUPDATE",this.member$[0].Alias + " - " + this.memberList.length);
       }
       else
         console.log("GROUPUPDATE undefinde");

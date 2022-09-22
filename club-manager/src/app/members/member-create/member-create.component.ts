@@ -114,14 +114,17 @@ export class MemberCreateComponent implements OnInit {
     this.member.Birthname = this.myForm.get('birthname').value;
     this.member.Entryday = this.myForm.get('entryday').value;
 
-    if (this.myForm.get('addressinvalid').value == true)
-      this.member.AddressInvalid = 1;
-    else
-      this.member.AddressInvalid =0;
     if (this.myForm.get('flag').value == true)
       this.member.Flag = 1;
     else
       this.member.Flag= 0;
+
+    /*
+    if (this.myForm.get('addressinvalid').value == true)
+      this.member.AddressInvalid = 1;
+    else
+      this.member.AddressInvalid =0;
+
     if (this.myForm.get('active').value == true)
       this.member.Active = 1;
     else
@@ -146,6 +149,7 @@ export class MemberCreateComponent implements OnInit {
     this.member.GoldLionNBrilliant = this.myForm.get('goldlionbrilliant').value;
     this.member.GoldLionNBrilliantNumber = this.myForm.get('goldlionbrilliantnr').value;
     this.member.TributeMember= this.myForm.get('tributmember').value;
+    */
     this.member.Comment = this.myForm.get('comment').value;
 
     if (this.newflag) {
