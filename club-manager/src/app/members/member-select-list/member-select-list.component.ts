@@ -35,15 +35,16 @@ export class MemberSelectListComponent implements OnInit {
     private sidebarService: SidebarService) {}
 
   ngOnInit(): void {
+    setTimeout(() => {
+      // Sidebar einschalten
+      this.sidebarService.nextMessage(true);
+    },500);
 
     // Lese der Mitglieder
     this.storeService.getPage(this.search,"","me_family_name","ASC",0,1000,"0")
     .subscribe(members => {
       this.memberList = members;
       console.log('fieldList.Length', this.memberList.length)
-
-      // Sidebar einschalten
-      this.sidebarService.nextMessage(true);
     });
 
     // Erzeuge FormGroup

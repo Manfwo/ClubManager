@@ -32,9 +32,14 @@ export class MemberColumnsComponent implements OnInit{
     private sf: FieldStoreService,
     private formb: FormBuilder,
     private columService: MemberColumnService,
-    private sb: SidebarService) {}
+    private sidebarService: SidebarService) {}
 
   ngOnInit(): void {
+    setTimeout(() => {
+      // Sidebar einschalten
+      this.sidebarService.nextMessage(true);
+    },1000);
+
     // Verwendung der Spalten
     this.sidebarMode = this.localStore.get('sidebar_filter');
     // Settings für ehemalige Mitglieder lesen
@@ -48,12 +53,10 @@ export class MemberColumnsComponent implements OnInit{
     else
       this.tablename = "groupmem";
 
-      console.log("TABLE",this.tablename);
     // Lese member fields
     this.sf.getTableUserFields(this.tablename)
     .subscribe(fields => this.fieldList = fields);
-    console.log('fieldList.Length', this.fieldList.length);
-    this.sb.nextMessage(true);
+
     // Erzeuge FormGroup
     this.myForm = this.formb.group({
         selectedFields: ''
@@ -87,7 +90,7 @@ export class MemberColumnsComponent implements OnInit{
 
   onClose() {
     // Sidebar schliessen
-    this.sb.nextMessage(false);
+    this.sidebarService.nextMessage(false);
      // Menüpunkt close aufrufen
     this.router.navigate([{ outlets: {sidebar: ['close']}}]);
   }
