@@ -7,7 +7,7 @@ import { Component, OnInit,Output, EventEmitter, AfterViewInit  } from '@angular
 })
 export class ReportHeaderComponent implements OnInit, AfterViewInit  {
 
-  @Output() hideSidebarEvent = new EventEmitter();
+  @Output() hideSidebarEvent = new EventEmitter<boolean>();
 
   constructor() {
    }

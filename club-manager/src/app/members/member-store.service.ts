@@ -30,16 +30,16 @@ export class MemberStoreService {
     );
   }
 
-    // Kinder zu Mitglied lesen
-    getByChildrens(id: number ): Observable<Member[]> {
-      return this.http.get<MemberRaw[]>(`${this.api}/member/children/${id}`)
-        .pipe(
-        retry(3),
-        map(memberRaw => memberRaw.map(m => MemberFactory.fromRaw(m)),
-        ),
-        catchError(this.errorHandler)
-      );
-    }
+  // Kinder zu Mitglied lesen
+  getByChildrens(id: number ): Observable<Member[]> {
+    return this.http.get<MemberRaw[]>(`${this.api}/member/children/${id}`)
+      .pipe(
+      retry(3),
+      map(memberRaw => memberRaw.map(m => MemberFactory.fromRaw(m)),
+      ),
+      catchError(this.errorHandler)
+    );
+  }
 
   getCount(filter: string, resignList: string  ): Observable<ResultValue> {
     const parameter: PageParameter = new PageParameter();

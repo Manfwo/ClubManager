@@ -1,47 +1,27 @@
-<h1>Mitglieder auswählen</h1>
-<!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<mat-toolbar color="Snow">
+  <span>Mitglieder auswählen</span>
+    <button mat-icon-button class="close-button" (click)="onClose()">
+      <mat-icon>
+      close
+      </mat-icon>
+    </button>
+</mat-toolbar>
+<div class="search">
+  <mat-icon class="search-icon">search</mat-icon>
+  <mat-form-field class="search-input">
+    <input  matInput placeholder="nach Vor- und Nachnamen, Kurzname" #input>
+  </mat-form-field>
+</div>
 
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
+<form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+  <button mat-raised-button type="submit" color="primary" class="apply-button">Übernehmen</button>
+  <mat-divider></mat-divider>
 
-      <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                    [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()"
-                    [aria-label]="checkboxLabel()">
-      </mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)"
-                    [aria-label]="checkboxLabel(row)">
-      </mat-checkbox>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef> Weight </th>
-    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-      (click)="selection.toggle(row)">
-  </tr>
-</table>
--->
+  <mat-selection-list color="primary" formControlName="selectedFields" >
+    <mat-list-option checkboxPosition="before" *ngFor="let mem of memberList"
+        [selected]=false
+        [value]="mem">
+         {{mem.Firstname}} {{mem.Familyname}} ({{mem.Alias}})
+      </mat-list-option>
+  </mat-selection-list>
+</form>

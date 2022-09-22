@@ -1,3 +1,4 @@
+import { MemberSelectionService } from './../../members/member-selection.service';
 import { GroupTransferService } from './../group-transfer.service';
 import { AfterViewInit, Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
@@ -19,9 +20,11 @@ import { Field } from 'src/app/_general/field/field';
 import { PageParameterService } from 'src/app/_shared/page-parameter.service';
 import { FieldStoreService } from 'src/app/_general/field/field-store.service';
 import { SidebarService } from 'src/app/app-sidebar.service';
-import { tap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MemberColumnService } from 'src/app/members/member-column.service';
+import { FooterService } from 'src/app/app-footer.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -46,11 +49,13 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
   // Spaltenreihenfolge
   bodyElement: HTMLElement = document.body;
 
-  // Tabellen Daten
+  // Tabellen Daten (Mitglieder der Gruppe)
   displayedColumns: any[] = [];
   displayedColumnNames: string[] = [];
   members$: Observable<Member[]>;
+  memberList: Member[] = [];
   count$: Observable<ResultValue>;
+  newMemberList: Member[] = [];
   // Tabellenkopf
   fields$: Observable<Field[]>;
   fieldsSelectedOld: Field[] = [];
@@ -65,16 +70,18 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
 
   constructor(
     private router: Router,
-    private localStore: LocalStorageService,
     private route: ActivatedRoute,
-    private storeService: GroupStoreService,
-    private headerService: HeaderService,
-    private gt: GroupTransferService,
-    private dialog: MatDialog,
+    private localStore: LocalStorageService,
     private pageService: PageParameterService,
     private fieldService: FieldStoreService,
+    private headerService: HeaderService,
+    private footerService: FooterService,
+    private sidebarService: SidebarService,
     private columnService: MemberColumnService,
-    private sidebarService: SidebarService
+    private memSelectionService: MemberSelectionService,
+    private storeService: GroupStoreService,
+    private goupTransferService: GroupTransferService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -83,15 +90,27 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
     this.localStore.set('sidebar_filter',"group");
 
     // Gruppe übernehmen
-    this.gt.sharedGroup.subscribe(value => {
+    this.goupTransferService.sharedGroup.subscribe(value => {
       this.groupIn = value
     });
 
+    // Mitglieder übernehmen
+    this.memSelectionService.sharedMemberList.subscribe(value => {
+      this.newMemberList = value;
+      if (this.newMemberList != undefined && this.newMemberList.length > 0 ) {
+        console.log("GROUPUPDATE",this.newMemberList[0].Alias + " - " + this.memberList.length);
+        this.memberList.push(this.newMemberList[0]);
+        console.log("GROUPUPDATE",this.memberList.length);
+      }
+      else
+        console.log("GROUPUPDATE undefinde");
+    });
+
+    // Eingabeformular erzeugen
     this.myForm = new FormGroup({
       name: new FormControl('',Validators.required),
       comment: new FormControl(''),
     });
-
     // Set values
     if (this.groupIn != undefined) {
       this.myForm.get('name').patchValue(this.groupIn.Name);
@@ -99,19 +118,20 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
     }
 
     // Spalten von Spaltenauswahl
-    this.columnService.sharedMessage.subscribe(list => this.fieldsSelected = list)
+    this.columnService.sharedMessageGroup.subscribe(list =>
+      this.fieldsSelected = list);
 
     // gespeicherte Einstellungen lesen
     this.sortDirection = this.localStore.get('groupmemSortDirection');
-    this.sortField = this.localStore.get('groupmemSortFieldDb'),
+    this.sortField = this.localStore.get('groupmemSortFieldDb');
+
+    // Init Table
+    this.initTableColumns();
 
     // Paginator
     this.pageService.sharedPageParameter.subscribe(value => {this.page = value;
       this.loadGroupMemberPage();
     });
-
-    // Init Table
-    this.initTableColumns();
 
     this.loading = true;
     this.members$ = this.storeService.getGroupMemPage(this.groupIn.Id, this.sortField, this.sortDirection, 0, this.localStore.get('memberPageSize'));
@@ -212,12 +232,14 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
         console.log(message);
         this.myForm.reset();
         this.headerService.nextMessage(2);
+        this.footerService.nextMessage(2);
         this.router.navigate(['../', 'groups'], { relativeTo: this.route });
       });
     }
     else {
       this.myForm.reset();
       this.headerService.nextMessage(2);
+      this.footerService.nextMessage(2);
       this.router.navigate(['../', 'groups'], { relativeTo: this.route });
     }
   }
@@ -232,6 +254,10 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
       this.countMemberPage(this.groupId);
       this.members$ = this.storeService.getGroupMemPage(this.groupIn.Id, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
       this.members$.subscribe(result => {
+        // in arrays konvertieren
+        result.forEach(( mem: Member, index: number) => {
+          this.memberList[index] = mem;
+        });
         if (this.sortActive === null) this.sortActive = '';
         if (this.sortField === null)  this.sortField = 'me_family_name';
         if (this.sortDirection === null) this.sortDirection = 'ASC';

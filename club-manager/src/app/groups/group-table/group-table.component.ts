@@ -4,6 +4,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { merge, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { FooterService } from 'src/app/app-footer.service';
 import { HeaderService } from 'src/app/app-header.service';
 import { SidebarService } from 'src/app/app-sidebar.service';
 import { Field } from 'src/app/_general/field/field';
@@ -13,7 +14,6 @@ import { PageParameter } from 'src/app/_shared/page-parameter';
 import { PageParameterService } from 'src/app/_shared/page-parameter.service';
 import { ResultValue } from 'src/app/_shared/result-value';
 import { Group } from '../group';
-import { GroupColumnService } from '../group-column.service';
 import { GroupSearchService } from '../group-search.service';
 import { GroupStoreService } from '../group-store.service';
 import { GroupTransferService } from '../group-transfer.service';
@@ -61,8 +61,8 @@ export class GroupTableComponent implements OnInit {
     private localStore: LocalStorageService,
     private storeService: GroupStoreService,
     private searchService: GroupSearchService,
-    private columnService: GroupColumnService,
     private headerService: HeaderService,
+    private footerService: FooterService,
     private transferService: GroupTransferService,
     private pageService: PageParameterService,
     private fieldService: FieldStoreService,
@@ -74,9 +74,6 @@ export class GroupTableComponent implements OnInit {
 
     // Suchtext from Header
     this.searchService.sharedMessage.subscribe(message => this.searchText = message)
-
-    // Spalten von Spaltenauswahl
-    this.columnService.sharedMessage.subscribe(list => this.fieldsSelected = list)
 
     // gespeicherte Einstellungen lesen
     this.search = this.localStore.get('groupSearch');
@@ -168,6 +165,7 @@ export class GroupTableComponent implements OnInit {
 
   editGroup($event:Group) {
     this.headerService.nextMessage(16);
+    this.footerService.nextMessage(16);
     this.transferService.nextMessage($event);
     this.router.navigate( ['grp-update']);
   }

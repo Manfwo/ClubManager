@@ -33,8 +33,12 @@
             cdkDrag (cdkDragStarted)="dragStarted($event)" [cdkDragData]="{name: col.Name}">
             {{col.Label}}
         </th>
-        <td mat-cell [class]="col.Width" *matCellDef="let member">{{member[col.Name]}}
-
+     <td mat-cell [class]="col.Width" *matCellDef="let member">{{member[col.Name]}}
+      <!--      <mat-checkbox (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)">
+        </mat-checkbox> -->
         </td>
       </ng-container>
 

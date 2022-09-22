@@ -9,7 +9,7 @@ import { LocalStorageService } from '../../_shared/local-storage.service';
 })
 export class StatisticHeaderComponent implements AfterContentInit {
 
-  @Output() hideSidebarEvent = new EventEmitter();
+  @Output() hideSidebarEvent = new EventEmitter<boolean>();
 
   constructor( private localStore: LocalStorageService, private router: Router) {
 

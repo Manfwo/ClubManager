@@ -13,7 +13,7 @@ import { LocalStorageService } from 'src/app/_shared/local-storage.service';
 })
 export class MemberFilterComponent implements OnInit {
 
-  @Output() sidebarEventOff = new EventEmitter();
+  @Output() sidebarEventOff = new EventEmitter<boolean>();
 
   public filterList: Filter[]=[];
   public selectedFilterId: number;

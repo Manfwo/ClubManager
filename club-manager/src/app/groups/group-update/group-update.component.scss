@@ -5,22 +5,8 @@
   margin-left: 16px;
 }
 
-.field-short {
-  width: 120px;
-}
-
-.field-short1 {
-  width: 120px;
-  height: 30px !important;
-}
-
 .field-long {
   width: 300px;
-}
-
-.column2-field-short {
-  margin-left: 16px;
-  width: 120px;
 }
 
 .column2-field-long {
@@ -28,26 +14,18 @@
   width: 300px;
 }
 
-
-
-.ok-button {
+.del-button {
+  margin-top: 5px;
   margin-left: 16px;
+  margin-bottom: 10px;
 }
 
 .cancel-button {
   margin-left: 50px;
 }
 
-.del-button {
+.ok-button {
   margin-left: 16px;
-}
-
-.icon-button {
-  margin-left: -20px;
-}
-
-.icon-button:hover {
-  color: var(--primary);
 }
 
 
@@ -80,7 +58,6 @@
   position: sticky;
   background-color: cadetblue;
 }
-
 
 /* Animate items as they're being sorted. */
 .cdk-drop-list-dragging .cdk-drag {

@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class ActivityColumnsComponent {
 
-  @Output() sidebarEventOff = new EventEmitter();
+  @Output() sidebarEventOff = new EventEmitter<boolean>();
 
   public myForm: FormGroup;
   public  fieldList: Field[]=[];

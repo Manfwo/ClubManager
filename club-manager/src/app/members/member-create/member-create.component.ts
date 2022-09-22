@@ -52,7 +52,7 @@ export class MemberCreateComponent implements OnInit {
         entryday: new FormControl('',Validators.required),
         //addressinvalid:new FormControl(false),
         flag:new FormControl(false),
-
+/*
         active: new FormControl(false),
         memberyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
         activeyears: new FormControl('',[Validators.pattern('^(?:[0-9]?[0-9])?$')]),
@@ -71,7 +71,7 @@ export class MemberCreateComponent implements OnInit {
         goldlionbrilliant: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
         goldlionbrilliantnr: new FormControl('',Validators.pattern('^[0-9]*$')),
         tributmember: new FormControl('',[Validators.min(1955),Validators.max(this.currentYear),Validators.pattern('^[0-9]*$')]),
-
+*/
         comment: new FormControl(''),
 
       });

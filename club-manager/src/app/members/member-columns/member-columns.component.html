@@ -6,8 +6,10 @@
       </mat-icon>
     </button>
 </mat-toolbar>
-
 <form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+  <button mat-raised-button type="submit" color="primary" class="apply-button">Übernehmen</button>
+  <mat-divider></mat-divider>
+
   <mat-selection-list color="primary" formControlName="selectedFields" >
     <mat-list-option  *ngFor="let col of fieldList"
         [selected]="col.Visible"
@@ -15,6 +17,4 @@
         {{col.Label}}
       </mat-list-option>
   </mat-selection-list>
-
-  <button mat-raised-button type="submit" color="primary" class="apply-button">Übernehmen</button>
 </form>

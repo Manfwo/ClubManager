@@ -15,7 +15,7 @@ import { LocalStorageService } from 'src/app/_shared/local-storage.service';
 })
 export class MemberColumnsComponent implements OnInit{
 
-  @Output() sidebarEventOff = new EventEmitter();
+  @Output() sidebarEventOff = new EventEmitter<boolean>();
 
   public myForm: FormGroup;
   public fieldList: Field[]=[];
@@ -31,11 +31,11 @@ export class MemberColumnsComponent implements OnInit{
     private router: Router,
     private sf: FieldStoreService,
     private formb: FormBuilder,
-    private mc: MemberColumnService,
+    private columService: MemberColumnService,
     private sb: SidebarService) {}
 
   ngOnInit(): void {
-    ' Verwendung der Spalten verwenden'
+    // Verwendung der Spalten
     this.sidebarMode = this.localStore.get('sidebar_filter');
     // Settings für ehemalige Mitglieder lesen
     if (this.sidebarMode != "group") {
@@ -78,7 +78,10 @@ export class MemberColumnsComponent implements OnInit{
           }
         };
       });
-      this.mc.nextMessage(this.resultList);
+      if (this.sidebarMode != "group")
+        this.columService.nextMessage(this.resultList);
+      else
+        this.columService.nextMessageGroup(this.resultList);
     }
   }
 

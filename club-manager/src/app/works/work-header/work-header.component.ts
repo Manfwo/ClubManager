@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class WorkHeaderComponent implements OnInit {
 
-  @Output() hideSidebarEvent = new EventEmitter();
+  @Output() hideSidebarEvent = new EventEmitter<boolean>();
 
   constructor(private router: Router) { }
 
