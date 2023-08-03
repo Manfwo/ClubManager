@@ -38,7 +38,7 @@ export class MemberColumnsComponent implements OnInit{
     setTimeout(() => {
       // Sidebar einschalten
       this.sidebarService.nextMessage(true);
-    },1000);
+    },350);
 
     // Verwendung der Spalten
     this.sidebarMode = this.localStore.get('sidebar_filter');

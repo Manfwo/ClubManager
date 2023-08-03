@@ -1,107 +1,158 @@
-@import '../node_modules/@angular/material/theming';
-@include mat-core();
+@use '@angular/material' as mat;
+@use 'sass:map';
+@include mat.core();
 
-.light-theme {
-  $primary: (
-    Main:#CC332A,
-    Light:#ff6754,
-    Dark: #930000,
-    contrast: (
-     Main: #f5f5f5,
-     Light: #fff,
-     Dark: #000
-    ));
-  $custom-theme-primary: mat-palette($primary, Main, Light, Dark);
-  $custom-theme-accent: mat-palette($mat-grey, A200, A100, A400);
-  $custom-theme-warn: mat-palette($mat-red);
-
-  $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
-  @include angular-material-theme($custom-theme);
-
-  $primary: mat-color($custom-theme-primary);
-  $accent: mat-color($custom-theme-accent);
-  $warn: mat-color($custom-theme-warn);
-  $fg_palette:map-get( $custom-theme, foreground);
-  $bg_palette:map-get( $custom-theme, background);
-  $fg:map-get($fg_palette, text);
-  $bg:map-get($bg_palette, background);
-
-  --primary: #{$primary};
-  --accent: #{$accent};
-  --warn: #{$primary};
-  --fg: #{$fg};
-  --bg: #{$bg};
-}
-
-.dark-theme {
- $primary: (
-  Main:#CC332A,
-  Light:#ff6754,
-  Dark: #930000,
-  contrast: (
-   Main: #f5f5f5,
-   Light: #000,
-   Dark: #fff
-  ));
- $accent:
- (
- Main: #c48f4a,
- Light: #ffc246,
- Dark: #c56200,
+$user-red-palette: (
+  // 800: #C62828,, KG-Farbe #CD332A
+ 50: #FFEBED,
+ 100: #FFCDD0,
+ 200: #EC9A97,
+ 300: #E1726F,
+ 400: #EA544B,
+ 500: #ED4630,
+ 600: #DF3C3D,
+ 700: #CD332A,
+ 800: #CD2C23,
+ 900: #B12C1C,
+  // The contrast sets the font color over those background colors.
  contrast: (
-   Main: #fff,
-   Light: #fff,
-   Dark: #fff
-  ));
- $warn: $mat-red;
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: white,
+   400: white,
+   500: white,
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
 
- $custom-theme2-primary: mat-palette($primary, Main, Light, Dark);
- $custom-theme2-accent: mat-palette($accent, Main, Light, Dark);
- $custom-theme2-warn: mat-palette($warn, A200, A400, A700);
+// KGR Grau: 'a7a9a9, 100: #F5F5F5
+$user-grey-palette: (
+ 50: #FAFAFA,
+ 100: #F5F5F5,
+ 200: #EAF5F5,
+ 300: #E0E0E0,
+ 400: #BDBDBD,
+ 500: #9E9E9E,
+ 600: #757575,
+ 700: #616161,
+ 800: #424242,
+ 900: #212121,
+  // The contrast sets the font color over those background colors.
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
 
-  $custom-theme2: mat-dark-theme($custom-theme2-primary, $custom-theme2-accent, $custom-theme2-warn);
-  @include angular-material-theme($custom-theme2);
+$test-palette: (
+  50: #974e0f,
+  100: #05fa5a,
+  200: #27a47c,
+  300: #64cf3a,
+  400: #42a8f6,
+  500: #ca6015,
+  600: #160d98,
+  700: #b51796,
+  800: #cee155,
+  900: #99cdd8,
+ // The contrast sets the font color over those background colors.
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: rgba(black, 0.87),
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
 
-  $primary: mat-color($custom-theme2-primary);
-  $accent: mat-color($custom-theme2-accent);
-  $warn: mat-color($custom-theme2-warn);
-  $fg_palette:map-get( $custom-theme2, foreground);
-  $bg_palette:map-get( $custom-theme2, background);
-  $fg:map-get($fg_palette, text);
-  $bg:map-get($bg_palette, background);
+// Define a light theme
+$light-theme: mat.define-light-theme((
+ color: (
+    //optionally specify a default, lighter, and darker
+    // Rote standard Palette verwenden mit $mat.red-palette
+    primary: mat.define-palette($user-red-palette, $default: 700,$lighter: 300,$darker: 900),
+    accent: mat.define-palette($user-grey-palette, $default: 100,$lighter: 50, $darker: 600),
+   // The "warn" palette is optional and defaults to red if not specified.
+    ),
+ density: -1,         // Abstand - (Aktiv: wenn @all-component-themes gesetzt wird)
+));
 
-  --primary: #{$primary};
-  --accent: #{$accent};
-  --warn: #{ $warn};
-  --fg: #{$fg};
-  --bg: #{$bg};
-}
+// Define a dark theme
+$dark-theme: mat.define-dark-theme((
+ color: (
+   primary: mat.define-palette($user-red-palette, 700,300,900),
+   accent: mat.define-palette($user-grey-palette, 800,50, 600),
 
-@mixin angular-material-theme($theme) {
-  @include mat-core-theme($theme);
-  @include mat-autocomplete-theme($theme);
-  @include mat-button-theme($theme);
-  @include mat-button-toggle-theme($theme);
-  @include mat-card-theme($theme);
-  @include mat-checkbox-theme($theme);
-  @include mat-chips-theme($theme);
-  @include mat-datepicker-theme($theme);
-  @include mat-dialog-theme($theme);
-  @include mat-grid-list-theme($theme);
-  @include mat-icon-theme($theme);
-  @include mat-input-theme($theme);
-  @include mat-list-theme($theme);
-  @include mat-menu-theme($theme);
-  @include mat-progress-bar-theme($theme);
-  @include mat-progress-spinner-theme($theme);
-  @include mat-radio-theme($theme);
-  @include mat-select-theme($theme);
-  @include mat-sidenav-theme($theme);
-  @include mat-slide-toggle-theme($theme);
-  @include mat-slider-theme($theme);
-  @include mat-tabs-theme($theme);
-  @include mat-toolbar-theme($theme);
-  @include mat-tooltip-theme($theme);
-  @include mat-button-toggle-theme($theme);
+ ),
+  // Only include `typography` and `density` in the default dark theme.
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+//$color-config: mat.get-color-config($light-theme);
+//$primary-palette: map.get($color-config, 'primary');
+
+
+// Define a light theme
+.light-theme {
+  //  Applying a theme to all components
+  // alternative Aufrufe: all-component-colors, -typographies,-densities,
+  @include mat.all-component-themes($light-theme);
+/*
+  // Emit theme-dependent styles for common features used across multiple components.
+  @include mat.core-theme($light-theme);
+  //@include mat.core-color($light-theme);
+
+  @include mat.button-theme($light-theme);
+  //@include mat.button-color($light-theme);
+  // sowie button-typography  button-density
+  @include mat.toolbar-color($light-theme);
+  @include mat.menu-color($light-theme);
+  @include mat.checkbox-color($light-theme);
+  @include mat.list-color($light-theme);
+  @include mat.tabs-color($light-theme);
+  @include mat.datepicker-color($light-theme);
+  @include mat.input-theme($light-theme);
+
+  // Not used ???
+  @include mat.autocomplete-color($light-theme);
+  @include mat.button-toggle-color($light-theme);
+  @include mat.card-color($light-theme);
+  @include mat.chips-color($light-theme);
+  @include mat.dialog-color($light-theme);
+  @include mat.grid-list-color($light-theme);
+  @include mat.icon-color($light-theme);
+  @include mat.progress-bar-color($light-theme);
+  @include mat.progress-spinner-color($light-theme);
+  @include mat.radio-color($light-theme);
+  @include mat.sidenav-color($light-theme);
+  @include mat.slide-toggle-color($light-theme);
+  @include mat.slider-color($light-theme);
+  @include mat.tooltip-color($light-theme);*/
+
+  --primary: #{#CD332A};
+  --accent: #{#EAF5F5};
+  }
+
+.dark-theme  {
+
+  @include mat.all-component-themes($dark-theme);
+  --primary: #CD332A;
+  --accent: #{#EAF5F5};
 }
 

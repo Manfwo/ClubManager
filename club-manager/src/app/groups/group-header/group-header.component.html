@@ -1,12 +1,14 @@
 <mat-toolbar color="accent">
   <span>Gruppen</span>
   <mat-icon Id="add-icon" class="material-icons-round" (click)="onCreate('grp-create')">group_add</mat-icon>
-  <div class="search">
-    <mat-icon class="search-icon">search</mat-icon>Suche:
-    <mat-form-field class="search-input">
-      <input  matInput placeholder="nach Gruppenname" #input>
-    </mat-form-field>
+
+  <div class="search-icon">
+    <mat-icon>search</mat-icon>
+    <span>Suche:</span>
   </div>
+  <mat-form-field class="search-input">
+    <input class="search-text" matInput placeholder="nach Gruppenname" #input>
+  </mat-form-field>
 
   <div class="toolbar-right">
     <button mat-button (click)="onHelp()" class="help-button">

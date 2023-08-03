@@ -9,13 +9,18 @@ import { PageParameter } from './page-parameter';
 export class PageParameterService {
 
   private param = new BehaviorSubject<PageParameter>(new PageParameter());
-
   public sharedPageParameter = this.param.asObservable();
+
+  private length = new BehaviorSubject<number>(0);
+  public sharedLength = this.length.asObservable();
 
   constructor() { }
 
   public nextMessage( p: PageParameter) {
-    //console.log("PAGE-SERVICE",p);
     this.param.next(p)
+  };
+
+  public nextLength( l: number) {
+    this.length.next(l)
   };
 }

@@ -35,7 +35,6 @@ import { MatTableDataSource } from '@angular/material/table';
 export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
 
   loading = true;           // Kennungn für Spinner
-  groupId = 0;
 
   // Pagination
   page: PageParameter;
@@ -96,6 +95,7 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
     });
 
     // Mitglieder übernehmen
+    /*
     this.memSelectionService.sharedMemberList.subscribe(value => {
       this.member$ = from(value);
       if (this.member$ != undefined ) {
@@ -104,7 +104,7 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
       else
         console.log("GROUPUPDATE undefinde");
     });
-
+*/
     // Eingabeformular erzeugen
     this.myForm = new FormGroup({
       name: new FormControl('',Validators.required),
@@ -250,7 +250,7 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
   // *** Daten ermitteln
   private loadGroupMemberPage(): any {
     if (!this.loading) {
-      this.countMemberPage(this.groupId);
+      this.countMemberPage(this.groupIn.Id);
       this.members$ = this.storeService.getGroupMemPage(this.groupIn.Id, this.sortField, this.sortDirection, this.page.pageIndex, this.page.pageSize);
       this.members$.subscribe(result => {
         // in arrays konvertieren
@@ -271,7 +271,8 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
   private countMemberPage(id: number): any {
     this.count$ = this.storeService.getGroupMemCount(id);
     this.count$.subscribe( result => {
-      this.page.pageLength = result[0].resCount;
+      this.pageService.nextLength(result[0].resCount);
+      console.log("COUNT",result[0].resCount);
     });
   }
 

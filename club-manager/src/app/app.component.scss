@@ -10,7 +10,7 @@
 }
 
 .toolbartext {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 500;
 }
@@ -34,10 +34,10 @@
 
 .maxMenu {
   position: fixed;
-  text-align-last: left;
+  text-align: left;
   top: 60px;
   padding: 0px;
-  width: 133px;
+  width: 145px;   //133
   height:  $base-menu;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .maxMenuButton {
-  width: 130px;
+  width: 140px;
   height: 40px;
 }
 
@@ -55,8 +55,21 @@
   padding-right: 0px;
 }
 
+.mat-mdc-icon-button {
+  --mdc-icon-button-icon-size: 18px;
+}
+
+.mbutton {
+  margin-top: 8px;
+  //background-color: rgb(203, 209, 191);
+}
+
 .menuText {
-  margin-left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 550;
+  text-align: left;
+  margin-left: 8px;
 }
 
 .active {

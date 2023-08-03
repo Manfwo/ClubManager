@@ -8,16 +8,22 @@
 </mat-toolbar>
 
 <mat-list>
-  <mat-list-item>
-  <mat-icon  mat-list-icon class="icon" (click)="onResetFilter()">filter_alt_off</mat-icon>
-  <div mat-line (click)="onResetFilter()">Filter zurücksetzen</div>
+  <mat-list-item class="filter">
+    <mat-icon  mat-list-icon (click)="onResetFilter()">filter_alt_off</mat-icon>
+    <span class="filter-text" mat-line (click)="onResetFilter()">Filter zurücksetzen</span>
   </mat-list-item>
+
   <mat-divider></mat-divider>
-  <mat-list-item *ngFor="let filter of filterList">
-    <mat-icon  mat-list-icon class="icon" (click)="onSelectFilter(filter)">filter_alt</mat-icon>
-    <div mat-line *ngIf="(filter.Id == selectedFilterId)" class="selected-line" (click)="onSelectFilter(filter)">{{filter.Name}}</div>
-    <div mat-line *ngIf="(filter.Id != selectedFilterId)" (click)="onSelectFilter(filter)">{{filter.Name}}</div>
-    <div mat-line *ngIf="(filter.Id == selectedFilterId)" class="selected-line"> {{filter.Description}} </div>
-    <div mat-line *ngIf="(filter.Id != selectedFilterId)"> {{filter.Description}} </div>
+
+  <mat-list-item class="filter" *ngFor="let filter of filterList">
+    <mat-icon class="filter-icon" mat-list-icon (click)="onSelectFilter(filter)">filter_alt</mat-icon>
+
+    <span mat-line *ngIf="(filter.Id == selectedFilterId)" class="filter-text selected-line" (click)="onSelectFilter(filter)">{{filter.Name}}</span>
+    <span  mat-line *ngIf="(filter.Id != selectedFilterId)" class="filter-text" (click)="onSelectFilter(filter)">{{filter.Name}}</span>
+    <div class="filter-desc-distance">
+      <span mat-line *ngIf="(filter.Id == selectedFilterId)" class="filter-desc selected-line"> {{filter.Description}} </span>
+      <span mat-line *ngIf="(filter.Id != selectedFilterId)" class="filter-desc"> {{filter.Description}} </span>
+    </div>
+
   </mat-list-item>
 </mat-list>

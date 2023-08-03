@@ -1,3 +1,4 @@
+import { Filter } from './../../_general/filter/filter';
 import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -121,7 +122,6 @@ export class GroupTableComponent implements OnInit {
       if (this.searchTextOld != this.searchText) {
           this.searchTextOld = this.searchText;
           this.search = this.searchText;
-          console.log("SEARCH",this.searchText);
           change = true;
       }
 
@@ -196,7 +196,7 @@ export class GroupTableComponent implements OnInit {
   private countGroupPage(): any {
     this.count$ = this.storeService.getCount(this.search);
     this.count$.subscribe( result => {
-      this.page.pageLength = result[0].resCount;
+      this.pageService.nextLength(result[0].resCount);
     });
   }
 

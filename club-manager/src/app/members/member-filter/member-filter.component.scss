@@ -13,12 +13,32 @@
   background-color: var(--primary);
 }
 
-::ng-deep .mat-list-item-content {
-  padding: 4 !important;
+.filter {
+  margin-top: 10px;
+  font-size: 1rem;
+  display: flex;
 }
 
-.mat-list-base .mat-list-item.mat-list-item-with-avatar {
-  height: 50px;
+.filter-icon {
+  padding-top: 0px;
+}
+
+.filter-text {
+  font-family:"Arial Narrow", Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.filter-desc-distance {
+  margin-top: -5px;
+}
+
+.filter-desc {
+  font-family:"Arial Narrow", Helvetica, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-left: 35px;
 }
 
 .icon:hover {

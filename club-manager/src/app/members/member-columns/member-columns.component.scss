@@ -3,14 +3,14 @@
 .sidebar-base {
   margin-top:5px;
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
 }
 
-.mat-list-option {
-  height: 30px !important;
-  line-height: 30px !important;
-  }
+.mdc-list-item.mdc-list-item--with-one-line {
+  height: 28px !important;
+  line-height: 28px !important;
+}
 
 .mat-toolbar {
   height: 40px;

@@ -34,7 +34,12 @@ export class GroupDeleteComponent implements OnInit {
   submitForm(): void {
     // Gruppe löschen
     this.result$ = this.StoreService.remove(this.group.Id);
-    this.result$.subscribe(message  => console.log(message));
+    this.result$.subscribe(message  => {
+      // Gruppen-Mitglieder löschen
+      this.result$ = this.StoreService.removeMember(this.group.Id);
+      this.result$.subscribe(message  => {
+          console.log(message)});
+    });
   }
 
   onCancel(): void {

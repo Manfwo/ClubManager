@@ -2,16 +2,16 @@
   <span>Aktivitäten</span>
   <mat-icon id="add-icon" class="material-icons-round">add_circle</mat-icon>
 
-  <div class="search">
-    <mat-icon class="search-icon">search</mat-icon>Suche:
-    <mat-form-field class="search-input1">
-     <input  matInput placeholder="nach Kurzname, Vor- und Nachnamen" #input1>
-    </mat-form-field>
-
-    <mat-form-field class="search-input2">
-      <input  matInput placeholder="nach Jahr" #input2>
-    </mat-form-field>
+  <div class="search-icon">
+    <mat-icon>search</mat-icon>
+    <span>Suche:</span>
   </div>
+  <mat-form-field class="search-input">
+    <input class="search-text" matInput placeholder="Kurzname, Vor- o. Nachnamen" #input>
+  </mat-form-field>
+  <mat-form-field class="search-input2">
+    <input  matInput placeholder="nach Jahr" #input2>
+  </mat-form-field>
 
   <div class="toolbar-right">
     <button mat-button (click)="onHelp()" class="help-button">

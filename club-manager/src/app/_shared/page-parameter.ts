@@ -9,4 +9,5 @@ export class PageParameter {
   pageIndex = 0;
   pageLength = 0;
   resign = 0;
+  id = 0;
 }
