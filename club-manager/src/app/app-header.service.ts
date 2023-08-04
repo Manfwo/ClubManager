@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 
 export class HeaderService {
 
-  private headerId = new BehaviorSubject<number>(0);
+  private headerId = new BehaviorSubject<number>(98);
   sharedheaderId = this.headerId.asObservable();
 
   constructor() { }

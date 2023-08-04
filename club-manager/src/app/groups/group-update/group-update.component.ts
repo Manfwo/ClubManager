@@ -67,6 +67,7 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
   updateflag: boolean = false;
   result$: Observable<string>;
   groupIn: Group;
+  memberlist: Member[];
 
   constructor(
     private router: Router,
@@ -95,15 +96,16 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
     });
 
     // Mitglieder übernehmen
-    /*
     this.memSelectionService.sharedMemberList.subscribe(value => {
-      this.member$ = from(value);
-      if (this.member$ != undefined ) {
-        console.log("GROUPUPDATE",this.member$[0].Alias + " - " + this.memberList.length);
-      }
-      else
-        console.log("GROUPUPDATE undefinde");
+      this.memberlist = value
+      console.log("ADD_TO_GROUP",this.memberlist[0]);
     });
+/*
+    if (this.memberList != undefined ) {
+      console.log("GROUPUPDATE",this.member$[0].Alias + " - " + this.memberList.length);
+    }
+    else
+      console.log("GROUPUPDATE undefinde");
 */
     // Eingabeformular erzeugen
     this.myForm = new FormGroup({
@@ -224,11 +226,11 @@ export class GroupUpdateComponent implements OnInit, DoCheck, AfterViewInit  {
     this.group.Id = this.groupIn.Id;
     this.group.Name = this.myForm.get('name').value;
     this.group.Comment = this.myForm.get('comment').value;
-    console.log("onFormSubmit", this.group.Id);
+    //console.log("onFormSubmit", this.group.Id);
     if (this.updateflag) {
       this.result$ = this.storeService.update(this.group)
       this.result$.subscribe(message  => {
-        console.log(message);
+        //console.log(message);
         this.myForm.reset();
         this.headerService.nextMessage(2);
         this.footerService.nextMessage(2);

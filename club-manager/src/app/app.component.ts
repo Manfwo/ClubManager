@@ -10,6 +10,7 @@ import { CommonValues } from './_shared/common';
 import { SidebarService } from './app-sidebar.service';
 import { HeaderService } from './app-header.service';
 import { FooterService } from './app-footer.service';
+import { FooterStatusService } from './app-footer-status.service';
 
 @Component({
   selector: 'cl-root',
@@ -28,10 +29,11 @@ export class AppComponent implements OnInit, DoCheck {
   public menuSize = 'minMenu';
   public isExpanded = false;
   public isAuthenticated = false;
-  public header = 0;
+  public header = 98;
   public footer = 0;
   public sidebarIsVisible = false;
-  public statusText = "Bereit";
+  public status = "Bereit";
+  public statusText = "";
 
   constructor(
     private router: Router,
@@ -41,6 +43,7 @@ export class AppComponent implements OnInit, DoCheck {
     private tokenStore: TokenStorageService,
     private headerService: HeaderService,
     private footerService: FooterService,
+    private footerStatusService: FooterStatusService,
     private sb: SidebarService) {
     }
 
@@ -60,18 +63,22 @@ export class AppComponent implements OnInit, DoCheck {
     this.isShowing = this.localStorageService.get('menuShow');
     // Close-Button Sidebar empfangen
     this.sb.sharedState.subscribe(value => {this.sidebarIsVisible= value});
-     // Header ändern
+    // Header ändern
     this.headerService.sharedheaderId.subscribe(value => {this.header= value});
     // Footer ändern
     this.footerService.sharedfooterId.subscribe(value => {this.footer= value});
+    // Footer ändern
+    this.footerStatusService.sharedstatus.subscribe(value => {this.status= value});
+    this.footerStatusService.sharedstatusText.subscribe(value => {this.statusText= value});
   }
 
   ngDoCheck(): void {
-    if (this.isAuthenticated === false) {
-      this.isAuthenticated = CommonValues.isAuthenticated;
-      // console.log('AppComponent.DoCheck.isAuthenticated:', this.isAuthenticated);
-    }
+      if (this.isAuthenticated === false) {
+        this.isAuthenticated = CommonValues.isAuthenticated;
+        console.log('AppComponent.DoCheck.isAuthenticated:', this.isAuthenticated);
+      }
   }
+
 
   // Menü anzeigen
   public onToggleSidenav(): void  {
@@ -106,6 +113,7 @@ export class AppComponent implements OnInit, DoCheck {
   // festlegen der Bereichseinstiegskopfzeile
   onFirstNav(path:string) {
     // Area für Kopfzeile festlegen'
+    console.log("PATH",path);
     switch (path) {
      case "dashboard": {
        this.header = 0;

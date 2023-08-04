@@ -27,14 +27,12 @@ export class ThemeSwitchComponent {
     public selectDarkTheme(): void {
         this.document.documentElement.classList.replace(ThemeSwitchComponent.LIGHT_THEME_CLASS, ThemeSwitchComponent.DARK_THEME_CLASS);
         this.theme = ThemeSwitchComponent.THEME_DARK;
-        console.log("SELECT",ThemeSwitchComponent.THEME_DARK);
         this.localStorageService.set('theme', ThemeSwitchComponent.THEME_DARK);
     }
 
     public selectLightTheme(): void {
         this.document.documentElement.classList.replace(ThemeSwitchComponent.DARK_THEME_CLASS, ThemeSwitchComponent.LIGHT_THEME_CLASS);
         this.theme = ThemeSwitchComponent.THEME_LIGHT;
-        console.log("SELECT",ThemeSwitchComponent.THEME_DARK);
         this.localStorageService.set('theme', ThemeSwitchComponent.THEME_LIGHT);
     }
 }

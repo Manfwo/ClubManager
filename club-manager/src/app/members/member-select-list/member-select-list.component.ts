@@ -77,9 +77,7 @@ export class MemberSelectListComponent implements OnInit {
   onFormSubmit() {
     let results: Member[];
     results = this.myForm.get('selectedFields').value;
-    console.log("RESULT",results.length);
-    console.log("RESULT",results[0].Id);
-    console.log("RESULT",results[0].Alias);
+    console.log("UPDATE_RESULT",results.length);
     if (results.length != 0) {
       this.memberSelectionService.nextMessage(results);
     }

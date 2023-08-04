@@ -100,7 +100,7 @@ export class ActivityStoreService {
   }
 
   generateTributeValues( ): Observable<any> {
-    console.log('generateTributeValues');
+    //console.log('generateTributeValues');
     return this.http.put(
       `${this.api}/activity//tribute/:dummy`,
       { responseType: 'text' }

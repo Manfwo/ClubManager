@@ -32,7 +32,7 @@ export class ActivityColumnsComponent {
     // Lese  fields
     this.sf.getTableUserFields('activities-mem')
     .subscribe(fields => this.fieldList = fields);
-    console.log('fieldList.Length', this.fieldList.length);
+    //console.log('fieldList.Length', this.fieldList.length);
     this.sb.nextMessage(true);
     // Erzeuge FormGroup
     this.myForm = fb.group({
@@ -43,7 +43,6 @@ export class ActivityColumnsComponent {
   onFormSubmit() {
     let results: string[];
     results = this.myForm.get('selectedFields').value;
-console.log("SUBMIT",results.length);
     if (results.length != 0) {
       this.resultList = [];
       this.result$  = this.sf.resetVisible('activities-mem');

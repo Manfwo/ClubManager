@@ -20,7 +20,7 @@ export class LocalStorageService {
     try {
       if (this.isLocalStorageSupported) {
         let value: any = localStorage.getItem(key);
-        console.log("LOCALSTORE_GET",value);
+        //console.log("LOCALSTORE_GET",value);
         if (value != undefined) {
           returnValue = JSON.parse(value);
         }
@@ -28,11 +28,11 @@ export class LocalStorageService {
     }
     catch
     {
-      console.log("LOCALSTORE_ERROR",key);
+      //console.log("LOCALSTORE_ERROR",key);
       returnValue = "";
     }
     finally {
-      console.log("LOCALSTORE!",returnValue);
+      //console.log("LOCALSTORE!",returnValue);
       return returnValue;
     }
   }
@@ -45,7 +45,7 @@ export class LocalStorageService {
         key,
         value
       });
-      console.log("LOCALSTORE_SET",value);
+      //console.log("LOCALSTORE_SET",value);
       return true;
     }
     return false;

@@ -36,6 +36,7 @@ import { GroupFooterPaginationComponent } from './groups/group-footer-pagination
 import { GroupUpdateComponent } from './groups/group-update/group-update.component';
 
 // Header Componenten
+import { LoginHeaderComponent } from './_general/login-header/login-header.component';
 import { MemberHeaderComponent } from './members/member-header/member-header.component';
 import { MemberCreateHeaderComponent } from './members/member-create-header/member-create-header.component';
 import { MemberUpdateHeaderComponent } from './members/member-update-header/member-update-header.component';
@@ -76,6 +77,8 @@ import { GroupMemberFooterPaginationComponent } from './groups/group-mem-footer-
     SettingsHeaderComponent,
     FooterEmptyComponent,
 
+    LoginHeaderComponent,
+    DashboardHeaderComponent,
     MemberHeaderComponent,
     MemberCreateHeaderComponent,
     MemberUpdateHeaderComponent,
